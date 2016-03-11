@@ -31,7 +31,7 @@ config.plugins = (config.plugins || []).concat([
   // https://github.com/ampedandwired/html-webpack-plugin
   new HtmlWebpackPlugin({
     filename: 'index.html',
-    template: utils.dir('src/configs/react/index.template.html'),
+    template: utils.dir('src/configs/angular/index.template.html'),
     inject: true
   })
 ]);

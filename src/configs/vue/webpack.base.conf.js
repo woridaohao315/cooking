@@ -63,7 +63,7 @@ module.exports = {
         loader: 'vue-html'
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(gif|png|jpg|svg|ttf|woff2|woff|eot)$/,
         loader: 'url',
         query: {
           limit: 10000,

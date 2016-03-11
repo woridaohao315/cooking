@@ -38,11 +38,11 @@ module.exports = merge(baseConfig, {
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: '../index.html',
-      template: utils.dir('src/configs/react/index.html'),
+      template: utils.dir('src/configs/react/index.template.html'),
       inject: true,
       minify: {
         removeComments: true,
-        collapseWhitespace: true,
+        collapseWhitespace: false,
         removeAttributeQuotes: true
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference

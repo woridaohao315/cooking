@@ -36,7 +36,7 @@ config.plugins = (config.plugins || []).concat([
   // https://github.com/ampedandwired/html-webpack-plugin
   new HtmlWebpackPlugin({
     filename: 'index.html',
-    template: utils.dir('src/configs/vue/index.html'),
+    template: utils.dir('src/configs/vue/index.template.html'),
     inject: true
   })
 ]);

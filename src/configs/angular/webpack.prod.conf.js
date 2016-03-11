@@ -44,7 +44,7 @@ module.exports = merge(baseConfig, {
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: '../index.html',
-      template: utils.dir('src/configs/vue/index.html'),
+      template: utils.dir('src/configs/angular/index.template.html'),
       inject: true,
       minify: {
         removeComments: true,

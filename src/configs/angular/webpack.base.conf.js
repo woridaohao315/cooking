@@ -51,10 +51,15 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        loader: 'ngtemplate?relativeTo=' + path.resolve(__dirname) + '!html'
+        loader: 'ngtemplate?relativeTo=' + path.resolve(__dirname) + '!html',
+        exclude: /index\.template\.html/
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.raw\.html$,/,
+        loader: 'html'
+      },
+      {
+        test: /\.(gif|png|jpg|svg|ttf|woff2|woff|eot)$/,
         loader: 'url',
         query: {
           limit: 10000,

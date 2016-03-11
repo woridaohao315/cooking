@@ -11,26 +11,31 @@ module.exports = {
   'env': {
     'browser': true,
     'node': true,
-    'mocha': true
+    'mocha': true,
+    'es6': true
   },
 
-  'ecmaFeatures': {
-    'arrowFunctions': true,
-    'destructuring': true,
-    'classes': true,
-    'defaultParams': true,
-    'blockBindings': true,
-    'modules': true,
-    'objectLiteralComputedProperties': true,
-    'objectLiteralShorthandMethods': true,
-    'objectLiteralShorthandProperties': true,
-    'restParams': true,
-    'spread': true,
-    'forOf': false,
-    'generators': false,
-    'templateStrings': true,
-    'superInFunctions': true,
-    'experimentalObjectRestSpread': true
+  'parserOptions': {
+    'ecmaVersion': 6,
+    'sourceType': 'module',
+    'ecmaFeatures': {
+      'arrowFunctions': true,
+      'destructuring': true,
+      'classes': true,
+      'defaultParams': true,
+      'blockBindings': true,
+      'modules': true,
+      'objectLiteralComputedProperties': true,
+      'objectLiteralShorthandMethods': true,
+      'objectLiteralShorthandProperties': true,
+      'restParams': true,
+      'spread': true,
+      'forOf': false,
+      'generators': false,
+      'templateStrings': true,
+      'superInFunctions': true,
+      'experimentalObjectRestSpread': true
+    }
   },
 
   'rules': {
