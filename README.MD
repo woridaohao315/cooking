@@ -19,17 +19,21 @@ cooking init & cooking watch
 
 4. Enjoy!
 
-# Mode
+# Command
 - init [name]
+
 init project, defualt use **vue**, it will create `entry file` and `cooking.conf.js`.
 
 - watch
+
 watch mode, support hot reload, linting, css extraction.
 
 - build
+
 build mode, output assets to the `dist` directory.
 
 # cooking.conf.js
+
 Configure your webpack.
 
 # Inspiration
