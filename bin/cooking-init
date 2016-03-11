@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var cwd = require('cwd');
+var program = require('commander')
+var utils = require('./../src/utils');
+var CONTACTS = require('./../src/contacts');
+var use;
+var sourceFiles = [];
+
+module.exports = function(use) {
+  use = use || CONTACTS.USEFUL.VUE;
+
+  if (!CONTACTS.USEFUL[use.toUpperCase()]) {
+    return console.log('\nonly support vue, react and angular.\n');
+  }
+
+  if (use === CONTACTS.USEFUL.VUE) {
+    sourceFiles.push({
+      path: 'src/configs/vue/app.vue',
+      filename: 'app.vue'
+    });
+  } else {
+    sourceFiles.push({
+      path: 'src/configs/' + use + '/app.js',
+      filename: 'app.js'
+    });
+  }
+  sourceFiles.push({
+    path: 'src/configs/' + use + '/cooking.conf.js',
+    filename: 'cooking.conf.js'
+  });
+
+  try {
+    sourceFiles.forEach(function(file) {
+      var readStream = fs.createReadStream(utils.dir(file.path));
+      var writeStream = fs.createWriteStream(cwd(file.filename));
+
+      readStream.pipe(writeStream);
+    });
+    console.log('\nDone, enjoy it!\n');
+  } catch(e) {
+    console.error(e);
+  }
+};

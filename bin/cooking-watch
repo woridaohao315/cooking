@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+var WebpackHotServer = require('webpack-hot-server');
+var webpack = require('webpack');
+var open = require('open');
+var utils = require('./../src/utils');
+var CONTACTS = require('./../src/contacts');
+
+module.exports = function() {
+  var userConfig = utils.loadUserConfig();
+  if (!userConfig) {
+    return;
+  }
+  var config = utils.loadWebpackConfig(CONTACTS.DEV, userConfig.use);
+  var compiler = webpack(utils.webpackMerge(config, userConfig));
+  var port = userConfig.port || 8080;
+
+  WebpackHotServer({
+    config: config,
+    port: port,
+    customIndex: true
+  }).then(function(port) {
+    open('http://localhost:' + port);
+  }).catch(function(err) {
+    console.error(err);
+  });
+};

@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+var webpack = require('webpack');
+var utils = require('./../src/utils');
+var CONTACTS = require('./../src/contacts');
+var ProgressPlugin = require('./../src/libs/ProgressPlugin');
+
+module.exports = function() {
+  var userConfig = utils.loadUserConfig();
+  if (!userConfig) {
+    return;
+  }
+  var config = utils.loadWebpackConfig(CONTACTS.PROD, userConfig.use);
+  var compiler;
+
+  config.plugins.push(new ProgressPlugin());
+  compiler = utils.webpackMerge(config, userConfig);
+
+  webpack(compiler, function(err, stats) {
+    if (err) {
+      return console.log(err);
+    }
+
+    console.log(stats.toString({ colors: true, chunks: false }));
+  });
+};
