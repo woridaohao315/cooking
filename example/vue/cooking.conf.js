@@ -1,4 +1,6 @@
-module.exports = {
-  use: 'vue',
-  port: '8080'
+module.exports = function(webpack) {
+  return {
+    use: 'vue',
+    port: '8080'
+  };
 };
