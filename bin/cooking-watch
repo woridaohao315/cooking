@@ -23,7 +23,9 @@ module.exports = function() {
     port: port,
     customIndex: true
   }).then(function(port) {
-    open('http://localhost:' + port);
+    if (userConfig.openBrowser) {
+      open('http://localhost:' + port);
+    }
   }).catch(function(err) {
     console.error(err);
   });
