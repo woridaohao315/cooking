@@ -41,10 +41,11 @@ build mode, output assets to the `dist` directory.
 // - ExtractTextPlugin
 module.exports = function(provide) {
   var HtmlWebpackPlugin = provide.HtmlWebpackPlugin;
-
+  
+  
   return {
     // Optional vue, react or angular
-    use: '${use}',
+    use: 'vue',
 
     // enable / disable to run node server
     nodeServer: false,
