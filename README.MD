@@ -40,9 +40,10 @@ build mode, output assets to the `dist` directory.
 // - HtmlWebpackPlugin
 // - ExtractTextPlugin
 module.exports = function(provide) {
+  // example
+  // var webpack = provide.webpack;
   var HtmlWebpackPlugin = provide.HtmlWebpackPlugin;
-  
-  
+
   return {
     // Optional vue, react or angular
     use: 'vue',
