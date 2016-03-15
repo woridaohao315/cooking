@@ -1,14 +1,14 @@
 var cwd = require('cwd');
 var path = require('path');
 var utils = require('./../../utils');
-
-module.exports = {
+var fs = require('fs');
+var config = {
   entry: {
     app: 'app.js'
   },
   output: {
     path: cwd('dist/'),
-    publicPath: './',
+    publicPath: 'dist',
     filename: '[name].js'
   },
   resolve: {
@@ -72,26 +72,27 @@ module.exports = {
       },
     ]
   },
-  babel: {
-    presets: [
-      require('babel-preset-es2015'),
-      require('babel-preset-stage-0')
-    ],
-    plugins: [require('babel-plugin-transform-runtime')]
-  },
-  postcss: [
-    require('postcss-opacity'),
-    require('postcss-nested'),
-    require('postcss-cssnext')({
-      browsers: [
-        'ie >= 8',
-        'chrome >= 26',
-        'Firefox ESR'
-      ]
-    })
-  ],
   eslint: {
-    formatter: require('eslint-friendly-formatter'),
-    configFile: utils.dir('src/configs/angular/.eslintrc.js')
+    formatter: require('eslint-friendly-formatter')
   }
 };
+var babelConfig = {
+  presets: [
+    require('babel-preset-es2015'),
+    require('babel-preset-stage-0')
+  ],
+  plugins: [require('babel-plugin-transform-runtime')]
+};
+var configFile = utils.dir('src/configs/angular/.eslintrc.js');
+
+if (!fs.existsSync(cwd('.babelrc'))) {
+  config.babel = babelConfig;
+}
+if (!fs.existsSync(cwd('.eslintrc'))) {
+  config.eslint.configFile = configFile;
+};
+if (!fs.existsSync(cwd('.eslintrc.js'))) {
+  config.eslint.configFile = configFile;
+};
+
+module.exports = config;

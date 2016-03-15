@@ -7,7 +7,7 @@ module.exports = function(provide) {
 
   return {
     // Optional vue, react or angular
-    use: 'vue',
+    use: '${use}',
 
     // enable / disable to run node server
     nodeServer: false,
@@ -23,6 +23,7 @@ module.exports = function(provide) {
     plugins: [
       // generate dist index.html with correct asset hash for caching.
       // you can customize output by editing /index.html
+      // if 'nodeServer' is true, should set 'filename' value to 'index.html'
       // https://github.com/ampedandwired/html-webpack-plugin
       new HtmlWebpackPlugin({
         filename: '../index.html',

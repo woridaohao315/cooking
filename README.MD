@@ -1,5 +1,5 @@
 # cooking
-提供基本 webpack 的配置和运行环境，立刻开始开发 vue, react 或 angular 的项目。
+全局安装 webpack 基本的配置和依赖，让所有用 vue, react 或者 angular 的项目都能共用同一个 webpack 环境。
 
 # Quick Start
 Install cooking
@@ -35,13 +35,39 @@ build mode, output assets to the `dist` directory.
 # cooking.conf.js
 
 ```javacript
-module.exports = function(webpack) {
-  return {
-    use: 'vue',
-    port: '8080',
-    openBrowser: false,
+// 'provide' about
+// - webpack
+// - HtmlWebpackPlugin
+// - ExtractTextPlugin
+module.exports = function(provide) {
+  var HtmlWebpackPlugin = provide.HtmlWebpackPlugin;
 
-    // Configure your webpack.
+  return {
+    // Optional vue, react or angular
+    use: '${use}',
+
+    // enable / disable to run node server
+    nodeServer: false,
+
+    // node server port
+    port: 8080,
+
+    // entry files
+    // http://webpack.github.io/docs/multiple-entry-points.html
+    entry: ['entry.js'],
+
+    // webpack plugins config
+    plugins: [
+      // if 'nodeServer' is true, should set 'filename' value to 'index.html'
+      new HtmlWebpackPlugin({
+        filename: '../index.html',
+        template: 'index.template.html',
+        inject: true
+      })
+    ],
+
+    // webpack other config
+
   };
 };
 ```

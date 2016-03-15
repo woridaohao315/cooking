@@ -16,9 +16,26 @@ module.exports = {
     return path.join(__dirname, '../' + filePath);
   },
 
-  loadUserConfig: function(webpack) {
+  moveFile: function(oldPath, targetPath) {
     try {
-      return require(cwd('cooking.conf.js'))(webpack);
+      var readStream = fs.createReadStream(oldPath);
+      var writeStream = fs.createWriteStream(targetPath);
+
+      readStream.pipe(writeStream);
+    } catch (e) {
+      throw Error(e);
+    }
+  },
+
+  loadUserConfig: function() {
+    var provide = {
+      webpack: require('webpack'),
+      HtmlWebpackPlugin: require('html-webpack-plugin'),
+      ExtractTextPlugin: require('extract-text-webpack-plugin')
+    };
+
+    try {
+      return require(cwd('cooking.conf.js'))(provide);
     } catch(err) {
       throw Error(err);
       return;
