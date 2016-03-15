@@ -9,23 +9,33 @@ var CONTACTS = require('./../src/contacts');
 module.exports = function() {
   var baseConfig, userConfig, compiler, port, config;
 
-  userConfig = utils.loadUserConfig(webpack);
+  userConfig = utils.loadUserConfig();
+  port = userConfig.port || 8080;
   if (!userConfig) {
     return;
   }
-
   baseConfig = utils.loadWebpackConfig(CONTACTS.DEV, userConfig.use);
   config = utils.webpackMerge(baseConfig, userConfig);
-  compiler = webpack(config);
-  port = userConfig.port || 8080;
+
+  if (!userConfig.nodeServer) {
+    compiler = webpack(config);
+    compiler.watch({ // watch options:
+      aggregateTimeout: 300, // wait so long for more changes
+      poll: true // use polling instead of native watchers
+    }, function(err, stats) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log(stats.toString({ colors: true, chunks: false }));
+    });
+    return;
+  }
+
+  // need node server
   WebpackHotServer({
     config: config,
     port: port,
     customIndex: true
-  }).then(function(port) {
-    if (userConfig.openBrowser) {
-      open('http://localhost:' + port);
-    }
   }).catch(function(err) {
     console.error(err);
   });

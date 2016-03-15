@@ -3,8 +3,6 @@ var merge = require('webpack-merge');
 var baseConfig = require('./webpack.base.conf');
 var cssLoaders = require('./../../libs/css-loaders');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var utils = require('./../../utils');
 
 // whether to generate source map for production files.
 // disabling this can speed up the build.
@@ -38,21 +36,6 @@ module.exports = merge(baseConfig, {
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     // extract css into its own file
-    new ExtractTextPlugin('[name].[contenthash:8].css'),
-    // generate dist index.html with correct asset hash for caching.
-    // you can customize output by editing /index.html
-    // see https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: '../index.html',
-      template: utils.dir('src/configs/angular/index.template.html'),
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: false,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      }
-    })
+    new ExtractTextPlugin('[name].[contenthash:8].css')
   ]
 });

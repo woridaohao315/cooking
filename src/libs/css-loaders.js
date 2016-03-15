@@ -26,27 +26,27 @@ module.exports = function(options) {
   return [
     {
       key: 'css',
-      value: generateLoaders(['css', 'postcss'])
+      value: generateLoaders(['css'])
     },
     {
       key: 'less',
-      value: generateLoaders(['css', 'less', 'postcss'])
+      value: generateLoaders(['css', 'less'])
     },
     {
       key: 'sass',
-      value: generateLoaders(['css', 'sass?indentedSyntax', 'postcss'])
+      value: generateLoaders(['css', 'sass?indentedSyntax'])
     },
     {
       key: 'scss',
-      value: generateLoaders(['css', 'sass', 'postcss'])
+      value: generateLoaders(['css', 'sass'])
     },
     {
       key: 'stylus',
-      value: generateLoaders(['css', 'stylus', 'postcss'])
+      value: generateLoaders(['css', 'stylus'])
     },
     {
       key: 'styl',
-      value: generateLoaders(['css', 'stylus', 'postcss'])
+      value: generateLoaders(['css', 'stylus'])
     }
   ];
 };

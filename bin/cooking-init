@@ -2,44 +2,34 @@
 
 var fs = require('fs');
 var cwd = require('cwd');
-var program = require('commander')
 var utils = require('./../src/utils');
 var CONTACTS = require('./../src/contacts');
-var use;
-var sourceFiles = [];
+var writeCookConfig = function(use) {
+  fs.readFile(utils.dir('src/templates/cooking.conf.js'), function(err, context) {
+    var newContext = context.toString().replace(/\${(use)}/g, use);
+    fs.writeFile(cwd('cooking.conf.js'), newContext);
+  });
+};
 
 module.exports = function(use) {
+  var templatePath;
+
   use = use || CONTACTS.USEFUL.VUE;
+  templatePath = 'src/templates/' + use + '/';
 
   if (!CONTACTS.USEFUL[use.toUpperCase()]) {
     return console.log('\nonly support vue, react and angular.\n');
   }
 
-  if (use === CONTACTS.USEFUL.VUE) {
-    sourceFiles.push({
-      path: 'src/configs/vue/app.vue',
-      filename: 'app.vue'
-    });
-  } else {
-    sourceFiles.push({
-      path: 'src/configs/' + use + '/app.js',
-      filename: 'app.js'
-    });
-  }
-  sourceFiles.push({
-    path: 'src/configs/' + use + '/cooking.conf.js',
-    filename: 'cooking.conf.js'
-  });
+  fs.readdir(utils.dir(templatePath), function(err, files) {
+    if (err) {
+      throw Error(err);
+    }
 
-  try {
-    sourceFiles.forEach(function(file) {
-      var readStream = fs.createReadStream(utils.dir(file.path));
-      var writeStream = fs.createWriteStream(cwd(file.filename));
-
-      readStream.pipe(writeStream);
+    files.forEach(function(file) {
+      utils.moveFile(utils.dir(templatePath + '/' + file), cwd(file));
     });
+    writeCookConfig(use);
     console.log('\nDone, enjoy it!\n');
-  } catch(e) {
-    console.error(e);
-  }
+  });
 };
