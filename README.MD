@@ -34,7 +34,7 @@ build mode, output assets to the `dist` directory.
 
 # cooking.conf.js
 
-```javacript
+```javascript
 // 'provide' about
 // - webpack
 // - HtmlWebpackPlugin
