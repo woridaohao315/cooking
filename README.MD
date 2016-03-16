@@ -56,11 +56,12 @@ module.exports = function(provide) {
 
     // entry files
     // http://webpack.github.io/docs/multiple-entry-points.html
-    entry: ['entry.js'],
+    entry: {
+      app: 'entry.js'
+    },
 
     // webpack plugins config
     plugins: [
-      // if 'nodeServer' is true, should set 'filename' value to 'index.html'
       new HtmlWebpackPlugin({
         filename: '../index.html',
         template: 'index.template.html',

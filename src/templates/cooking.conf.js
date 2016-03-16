@@ -17,13 +17,14 @@ module.exports = function(provide) {
 
     // entry files
     // http://webpack.github.io/docs/multiple-entry-points.html
-    entry: ['entry.js'],
+    entry: {
+      app: 'entry.js'
+    },
 
     // webpack plugins config
     plugins: [
       // generate dist index.html with correct asset hash for caching.
       // you can customize output by editing /index.html
-      // if 'nodeServer' is true, should set 'filename' value to 'index.html'
       // https://github.com/ampedandwired/html-webpack-plugin
       new HtmlWebpackPlugin({
         filename: '../index.html',

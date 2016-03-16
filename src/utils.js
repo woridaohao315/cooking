@@ -45,5 +45,4 @@ module.exports = {
   webpackMerge: function(a, b) {
     return merge(a, b);
   }
-
 };

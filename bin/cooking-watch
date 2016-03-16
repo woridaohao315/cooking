@@ -5,6 +5,7 @@ var webpack = require('webpack');
 var open = require('open');
 var utils = require('./../src/utils');
 var CONTACTS = require('./../src/contacts');
+var hotReload = require('./../src/libs/hot-reload');
 
 module.exports = function() {
   var baseConfig, userConfig, compiler, port, config;
@@ -16,6 +17,7 @@ module.exports = function() {
   }
   baseConfig = utils.loadWebpackConfig(CONTACTS.DEV, userConfig.use);
   config = utils.webpackMerge(baseConfig, userConfig);
+  config = hotReload(config);
 
   if (!userConfig.nodeServer) {
     compiler = webpack(config);

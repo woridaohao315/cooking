@@ -17,7 +17,9 @@ module.exports = function(provide) {
 
     // entry files
     // http://webpack.github.io/docs/multiple-entry-points.html
-    entry: ['entry.js'],
+    entry: {
+      app: 'entry.js'
+    },
 
     // webpack plugins config
     plugins: [

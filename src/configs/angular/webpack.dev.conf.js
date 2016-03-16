@@ -10,14 +10,6 @@ config.module.loaders.concat(cssLoaders({
   extract: false
 }));
 
-// add hot-reload related code to entry chunks
-var polyfill = 'eventsource-polyfill';
-var devClient = utils.dir('src/libs/dev-client');
-Object.keys(config.entry).forEach(function(name, i) {
-  var extras = i === 0 ? [polyfill, devClient] : [devClient];
-  config.entry[name] = extras.concat(config.entry[name]);
-});
-
 config.plugins = (config.plugins || []).concat([
   // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
   new webpack.optimize.OccurenceOrderPlugin(),
