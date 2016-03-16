@@ -38,6 +38,8 @@ module.exports = function() {
     config: config,
     port: port,
     customIndex: true
+  }).then(function(stats) {
+    console.log('\nhttp://localhost:' + stats + '\n');
   }).catch(function(err) {
     console.error(err);
   });
