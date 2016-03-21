@@ -2,9 +2,6 @@ var cwd = require('cwd');
 var utils = require('./../../utils');
 var fs = require('fs');
 var config = {
-  entry: {
-    app: 'app.js'
-  },
   output: {
     path: cwd('dist/'),
     publicPath: 'dist',
@@ -26,8 +23,8 @@ var config = {
   resolveLoader: {
     fallback: [cwd('node_modules')],
     root: [
-      cwd('node_modules'),
-      utils.dir('node_modules')
+      utils.dir('node_modules'),
+      cwd('node_modules')
     ]
   },
   module: {

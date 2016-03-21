@@ -2,12 +2,9 @@ var cwd = require('cwd');
 var utils = require('./../../utils');
 var fs = require('fs');
 var config = {
-  entry: {
-    app: utils.dir('src/configs/vue/entry.js')
-  },
   output: {
     path: cwd('dist/'),
-    publicPath: 'dist',
+    publicPath: '/',
     filename: '[name].js'
   },
   resolve: {
@@ -26,9 +23,8 @@ var config = {
   resolveLoader: {
     fallback: [cwd('node_modules')],
     root: [
-      process.cwd(),
-      cwd('node_modules'),
-      utils.dir('node_modules')
+      utils.dir('node_modules'),
+      cwd('node_modules')
     ]
   },
   module: {

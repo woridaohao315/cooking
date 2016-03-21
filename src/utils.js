@@ -16,17 +16,6 @@ module.exports = {
     return path.join(__dirname, '../' + filePath);
   },
 
-  moveFile: function(oldPath, targetPath) {
-    try {
-      var readStream = fs.createReadStream(oldPath);
-      var writeStream = fs.createWriteStream(targetPath);
-
-      readStream.pipe(writeStream);
-    } catch (e) {
-      throw Error(e);
-    }
-  },
-
   loadUserConfig: function() {
     var provide = {
       webpack: require('webpack'),

@@ -18,7 +18,7 @@ module.exports = function(provide) {
     // entry files
     // http://webpack.github.io/docs/multiple-entry-points.html
     entry: {
-      app: 'entry.js'
+      app: 'src/entry.js'
     },
 
     // webpack plugins config
@@ -27,8 +27,8 @@ module.exports = function(provide) {
       // you can customize output by editing /index.html
       // https://github.com/ampedandwired/html-webpack-plugin
       new HtmlWebpackPlugin({
-        filename: '../index.html',
-        template: 'index.template.html',
+        filename: 'index.html',
+        template: 'src/index.template.html',
         inject: true
       })
     ],

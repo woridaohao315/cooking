@@ -2,7 +2,6 @@
 
 var WebpackHotServer = require('webpack-hot-server');
 var webpack = require('webpack');
-var open = require('open');
 var utils = require('./../src/utils');
 var CONTACTS = require('./../src/contacts');
 var hotReload = require('./../src/libs/hot-reload');
