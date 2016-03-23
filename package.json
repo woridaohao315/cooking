@@ -28,9 +28,7 @@
     "url": "https://github.com/ElemeFE/cooking/issues"
   },
   "homepage": "https://github.com/ElemeFE/cooking#readme",
-  "devDependencies": {
-    "fs-extra": "^0.26.7"
-  },
+  "devDependencies": {},
   "dependencies": {
     "angular": "^1.5.0",
     "babel-core": "^6.7.0",
@@ -77,6 +75,7 @@
     "webpack": "^1.12.14",
     "webpack-hot-middleware": "^2.9.1",
     "webpack-hot-server": "^0.2.2",
-    "webpack-merge": "^0.8.3"
+    "webpack-merge": "^0.8.3",
+    "fs-extra": "^0.26.7"
   }
 }
