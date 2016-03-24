@@ -1,6 +1,7 @@
 var cwd = require('cwd');
 var utils = require('./../../utils');
 var fs = require('fs');
+
 var config = {
   output: {
     path: cwd('dist/'),
