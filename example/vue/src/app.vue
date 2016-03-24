@@ -7,3 +7,13 @@
     name: 'app'
   };
 </script>
+
+<style lang="scss">
+  html {
+    color: #ccc;
+
+    body {
+      color: #000;
+    }
+  }
+</style>

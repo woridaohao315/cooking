@@ -8,6 +8,11 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 // disabling this can speed up the build.
 var SOURCE_MAP = true;
 
+baseConfig.module.loaders.concat(cssLoaders({
+  sourceMap: SOURCE_MAP,
+  extract: true
+}));
+
 module.exports = merge(baseConfig, {
   devtool: SOURCE_MAP ? '#source-map' : false,
   output: {
@@ -15,12 +20,6 @@ module.exports = merge(baseConfig, {
     // dist/index.html will be auto-generated with correct URLs.
     filename: '[name].[chunkhash:8].js',
     chunkFilename: '[id].[chunkhash:8].js'
-  },
-  vue: {
-    loaders: cssLoaders({
-      sourceMap: SOURCE_MAP,
-      extract: true
-    })
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/workflow/production.html
