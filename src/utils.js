@@ -2,7 +2,6 @@ var path = require('path');
 var fs = require('fs');
 var cwd = require('cwd');
 var CONTACTS = require('./contacts');
-var merge = require('webpack-merge');
 
 module.exports = {
   loadWebpackConfig: function(type, use) {
@@ -17,21 +16,25 @@ module.exports = {
   },
 
   loadUserConfig: function() {
-    var provide = {
-      webpack: require('webpack'),
-      HtmlWebpackPlugin: require('html-webpack-plugin'),
-      ExtractTextPlugin: require('extract-text-webpack-plugin')
-    };
-
     try {
-      return require(cwd('cooking.conf.js'))(provide);
+      return require(cwd('cooking.conf.js'));
     } catch(err) {
       throw Error(err);
       return;
     }
   },
 
-  webpackMerge: function(a, b) {
-    return merge(a, b);
+  fetchUse: function() {
+    return this.loadUserConfig().use || CONTACTS.USEFUL.VUE;
+  },
+
+  mergeConfig: function(config) {
+    var provide = {
+      webpack: require('webpack'),
+      HtmlWebpackPlugin: require('html-webpack-plugin'),
+      ExtractTextPlugin: require('extract-text-webpack-plugin')
+    };
+
+    return this.loadUserConfig().webpack(provide, config);
   }
 };

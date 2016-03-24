@@ -1,6 +1,6 @@
 {
   "name": "cooking",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "The basic configuration webpack for your project.",
   "bin": {
     "cooking": "bin/cooking"
@@ -53,6 +53,7 @@
     "eventsource-polyfill": "^0.9.6",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
+    "fs-extra": "^0.26.7",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.9.0",
     "install": "^0.5.6",
@@ -75,7 +76,6 @@
     "webpack": "^1.12.14",
     "webpack-hot-middleware": "^2.9.1",
     "webpack-hot-server": "^0.2.2",
-    "webpack-merge": "^0.8.3",
-    "fs-extra": "^0.26.7"
+    "webpack-merge": "^0.8.4"
   }
 }

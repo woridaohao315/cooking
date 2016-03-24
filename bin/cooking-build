@@ -6,17 +6,18 @@ var CONTACTS = require('./../src/contacts');
 var ProgressPlugin = require('./../src/libs/ProgressPlugin');
 
 module.exports = function() {
-  var userConfig = utils.loadUserConfig();
-  if (!userConfig) {
+  var compiler;
+  var use = utils.fetchUse();
+  var baseConfig = utils.loadWebpackConfig(CONTACTS.PROD, use);
+  var config = utils.mergeConfig(baseConfig);
+
+  if (!config) {
     return;
   }
-  var config = utils.loadWebpackConfig(CONTACTS.PROD, userConfig.use);
-  var compiler;
 
   config.plugins.push(new ProgressPlugin());
-  compiler = utils.webpackMerge(config, userConfig);
 
-  webpack(compiler, function(err, stats) {
+  webpack(config, function(err, stats) {
     if (err) {
       return console.log(err);
     }

@@ -7,18 +7,19 @@ var CONTACTS = require('./../src/contacts');
 var hotReload = require('./../src/libs/hot-reload');
 
 module.exports = function() {
-  var baseConfig, userConfig, compiler, port, config;
+  var baseConfig, compiler, port, config, use;
 
-  userConfig = utils.loadUserConfig();
-  port = userConfig.port || 8080;
-  if (!userConfig) {
+  use = utils.fetchUse();
+  baseConfig = utils.loadWebpackConfig(CONTACTS.DEV, use);
+  config = utils.mergeConfig(baseConfig);
+  port = config.port || 8080;
+
+  if (!config) {
     return;
   }
-  baseConfig = utils.loadWebpackConfig(CONTACTS.DEV, userConfig.use);
-  config = utils.webpackMerge(baseConfig, userConfig);
   config = hotReload(config);
 
-  if (!userConfig.nodeServer) {
+  if (!config.nodeServer) {
     compiler = webpack(config);
     compiler.watch({ // watch options:
       aggregateTimeout: 300, // wait so long for more changes
