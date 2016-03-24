@@ -1,6 +1,6 @@
 {
   "name": "cooking",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "The basic configuration webpack for your project.",
   "bin": {
     "cooking": "bin/cooking"

@@ -8,6 +8,11 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 // disabling this can speed up the build.
 var SOURCE_MAP = true;
 
+baseConfig.module.loaders.concat(cssLoaders({
+  sourceMap: SOURCE_MAP,
+  extract: true
+}));
+
 module.exports = merge(baseConfig, {
   devtool: SOURCE_MAP ? '#source-map' : false,
   output: {
