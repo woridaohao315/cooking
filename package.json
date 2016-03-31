@@ -1,6 +1,6 @@
 {
   "name": "cooking",
-  "version": "0.1.12",
+  "version": "0.2.0",
   "description": "The basic configuration webpack for your project.",
   "bin": {
     "cooking": "bin/cooking"
@@ -50,13 +50,11 @@
     "eslint-plugin-angular": "^1.0.0",
     "eslint-plugin-html": "^1.4.0",
     "eslint-plugin-react": "^4.2.1",
-    "eventsource-polyfill": "^0.9.6",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "fs-extra": "^0.26.7",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.9.0",
-    "install": "^0.5.6",
     "jade": "^1.11.0",
     "json-loader": "^0.5.4",
     "ng-annotate-loader": "^0.1.0",
@@ -74,8 +72,7 @@
     "vue-loader": "^8.2.0",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.12.14",
-    "webpack-hot-middleware": "^2.9.1",
-    "webpack-hot-server": "^0.2.2",
+    "webpack-dev-server": "^1.14.1",
     "webpack-merge": "^0.8.4"
   }
 }

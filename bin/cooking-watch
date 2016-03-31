@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var WebpackHotServer = require('webpack-hot-server');
+var WebpackDevServer = require('webpack-dev-server');
 var webpack = require('webpack');
 var utils = require('./../src/utils');
 var CONTACTS = require('./../src/contacts');
@@ -18,7 +18,7 @@ module.exports = function(options) {
   if (!config) {
     return;
   }
-  config = hotReload(config);
+
 
   if (!config.nodeServer) {
     compiler = webpack(config);
@@ -34,14 +34,22 @@ module.exports = function(options) {
     return;
   }
 
+  // hot reload
+  config.plugins = (config.plugins || []).concat([
+    new webpack.HotModuleReplacementPlugin(),
+  ]);
+  config = hotReload(config);
+  compiler = webpack(config);
+
   // need node server
-  WebpackHotServer({
-    config: config,
-    port: port,
-    customIndex: true
-  }).then(function(stats) {
-    console.log('\nhttp://localhost:' + stats + '\n');
-  }).catch(function(err) {
-    console.error(err);
+  new WebpackDevServer(compiler, {
+    hot: true,
+    noInfo: true,
+    historyApiFallback: {
+      index: config.output.publicPath || '/'
+    },
+    stats: { colors: true }
+  }).listen(port, 'localhost', function () {
+    console.log('\nDONE!\nopen http://localhost:' + port);
   });
 };
