@@ -1,5 +1,5 @@
 # cooking
-全局安装 webpack 基本的配置和依赖，让所有用 vue, react 或者 angular 的项目都能共用同一个 webpack 环境。
+全局安装 webpack 基本的配置和依赖，让所有用 vue, react 或者 angular 的项目都能共用同一个 webpack 环境。同时提供一个简易通用的 webpack 配置。
 
 # Quick Start
 Install cooking
@@ -53,6 +53,8 @@ module.exports = {
     var HtmlWebpackPlugin = provide.HtmlWebpackPlugin;
 
     // enable / disable to run node server
+    // http://webpack.github.io/docs/webpack-dev-server.html
+    // 决定是否开启 webpack dev server，支持 hot reload
     config.nodeServer = false;
 
     // node server port
