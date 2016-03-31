@@ -6,5 +6,7 @@ module.exports = {
     'VUE': 'vue',
     'REACT': 'react',
     'ANGULAR': 'angular'
-  }
+  },
+
+  FILE: 'cooking.conf.js'
 };

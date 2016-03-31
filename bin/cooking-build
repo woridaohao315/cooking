@@ -5,11 +5,13 @@ var utils = require('./../src/utils');
 var CONTACTS = require('./../src/contacts');
 var ProgressPlugin = require('./../src/libs/ProgressPlugin');
 
-module.exports = function() {
-  var compiler;
-  var use = utils.fetchUse();
-  var baseConfig = utils.loadWebpackConfig(CONTACTS.PROD, use);
-  var config = utils.mergeConfig(baseConfig);
+module.exports = function(options) {
+  var compiler, use, baseConfig, config;
+
+  CONTACTS.FILE = options.config || CONTACTS.FILE;
+  use = utils.fetchUse();
+  baseConfig = utils.loadWebpackConfig(CONTACTS.PROD, use);
+  config = utils.mergeConfig(baseConfig);
 
   if (!config) {
     return;

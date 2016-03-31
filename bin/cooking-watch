@@ -6,9 +6,10 @@ var utils = require('./../src/utils');
 var CONTACTS = require('./../src/contacts');
 var hotReload = require('./../src/libs/hot-reload');
 
-module.exports = function() {
+module.exports = function(options) {
   var baseConfig, compiler, port, config, use;
 
+  CONTACTS.FILE = options.config || CONTACTS.FILE;
   use = utils.fetchUse();
   baseConfig = utils.loadWebpackConfig(CONTACTS.DEV, use);
   config = utils.mergeConfig(baseConfig);

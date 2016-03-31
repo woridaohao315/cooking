@@ -32,6 +32,12 @@ watch mode, support hot reload, linting, css extraction.
 
 build mode, output assets to the `dist` directory.
 
+# Options
+- -c, --config [file]
+
+Use this if you want to specify something different than cooking.conf.js, which is the default.
+
+
 # cooking.conf.js
 
 ```javascript
@@ -57,6 +63,12 @@ module.exports = {
     config.entry = {
       app: 'src/entry.js'
     };
+
+    // output
+    // be sure to use the absolute path
+    // https://webpack.github.io/docs/configuration.html#configuration-object-content
+    // config.output.path = __dirname + '/dist';
+
 
     // webpack plugins config
     config.plugins = (config.plugins || []).concat([

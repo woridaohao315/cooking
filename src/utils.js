@@ -17,10 +17,9 @@ module.exports = {
 
   loadUserConfig: function() {
     try {
-      return require(cwd('cooking.conf.js'));
+      return require(cwd(CONTACTS.FILE));
     } catch(err) {
       throw Error(err);
-      return;
     }
   },
 
