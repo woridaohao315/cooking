@@ -2,18 +2,27 @@
 
 var program = require('commander');
 
-program.version(require('./../package.json').version)
+program.version(require('./../package.json').version);
 
 program.command('init [name]')
+  .alias('i')
   .description('init project use vue, react or angular. Default vue.')
   .action(require('./cooking-init'));
 
 program.command('watch')
+  .alias('w')
   .description('watch mode')
+  .option('-c, --config [file]', 'Use this if you want to specify something different than cooking.conf.js, which is the default.')
   .action(require('./cooking-watch'));
 
 program.command('build')
+  .alias('b')
   .description('build mode')
+  .option('-c, --config [file]', 'Use this if you want to specify something different than cooking.conf.js, which is the default.')
   .action(require('./cooking-build'));
 
 program.parse(process.argv);
+
+if (!process.argv.slice(2).length) {
+  program.outputHelp();
+}
