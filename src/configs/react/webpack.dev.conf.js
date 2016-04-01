@@ -5,7 +5,7 @@ var utils = require('./../../utils');
 
 // eval-source-map is faster for development
 config.devtool = '#eval-source-map';
-config.module.loaders.concat(cssLoaders());
+config.module.loaders = config.module.loaders.concat(cssLoaders());
 
 config.plugins = (config.plugins || []).concat([
   // https://github.com/glenjamin/webpack-hot-middleware#installation--usage

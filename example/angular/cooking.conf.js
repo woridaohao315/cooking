@@ -21,11 +21,6 @@ module.exports = {
       app: 'src/entry.js'
     };
 
-    // output
-    // be sure to use the absolute path
-    // https://webpack.github.io/docs/configuration.html#configuration-object-content
-    // config.output.path = __dirname + '/dist';
-
     // webpack plugins config
     config.plugins = (config.plugins || []).concat([
       // generate dist index.html with correct asset hash for caching.
