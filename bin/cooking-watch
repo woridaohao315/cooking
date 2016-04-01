@@ -50,6 +50,6 @@ module.exports = function(options) {
     },
     stats: { colors: true }
   }).listen(port, 'localhost', function () {
-    console.log('\nDONE!\nopen http://localhost:' + port);
+    console.log('\n listen to http://localhost:' + port);
   });
 };
