@@ -12,17 +12,29 @@ Create project
 mkdir test-vue & cd test-vue
 ```
 
-Run cooking
+Initinal project
 ```shell
-cooking init & cooking watch
+cooking init
 ```
 
-Enjoy!
+Modify `nodeServer` or `port` option in *cooking.conf.js* if you need **webpack-dev-server**
+```javascript
+...
+  config.nodeServer = true; // default false
+  config.port = 8080; // default 8080
+...
+
+```
+
+Finally, start cooking! (open http://localhost:8080)
+```
+cooking watch
+```
 
 # Command
 - init [name]
 
-init project, defualt use **vue**, it will create `entry file` and `cooking.conf.js`.
+init project, defualt use **vue**, it will create `entry file` and *cooking.conf.js*.
 
 - watch
 
@@ -39,6 +51,7 @@ Use this if you want to specify something different than cooking.conf.js, which 
 
 
 # cooking.conf.js
+If you need to configure webpack...
 
 ```javascript
 module.exports = {
