@@ -1,6 +1,6 @@
 {
   "name": "cooking",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "The basic configuration webpack for your project.",
   "bin": {
     "cooking": "bin/cooking"
@@ -43,6 +43,7 @@
     "commander": "^2.9.0",
     "css-loader": "^0.23.1",
     "cwd": "^0.9.1",
+    "download-git-repo": "^0.1.1",
     "eslint": "^2.3.0",
     "eslint-config-angular": "^0.5.0",
     "eslint-friendly-formatter": "^1.2.2",

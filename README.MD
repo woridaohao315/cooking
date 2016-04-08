@@ -9,10 +9,10 @@ Install cooking
 
 Create project
 ```shell
-mkdir test-vue & cd test-vue
+mkdir test-vue && cd test-vue
 ```
 
-Initinal project
+Initinal project (default vue)
 ```shell
 cooking init
 ```
@@ -32,9 +32,15 @@ cooking watch
 ```
 
 # Command
-- init [name]
+- init [template-name]
 
-init project, defualt use **vue**, it will create `entry file` and *cooking.conf.js*.
+init project, defualt use **vue**, Optional `vue`, `angular`, `react`. it will create `entry file` and *cooking.conf.js*. Or you can use custom template.
+
+```shell
+# Where `username/repo` is the GitHub repo.
+
+cooking init username/repo
+```
 
 - watch
 
