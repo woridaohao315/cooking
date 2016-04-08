@@ -4,6 +4,7 @@ var fs = require('fs-extra');
 var cwd = require('cwd');
 var utils = require('./../src/utils');
 var CONTACTS = require('./../src/contacts');
+var download = require('download-git-repo');
 var writeCookConfig = function(use) {
   fs.readFile(utils.dir('src/templates/cooking.conf.js'), function(err, context) {
     var newContext = context.toString().replace(/\${(use)}/g, use);
@@ -18,17 +19,26 @@ module.exports = function(use) {
   var targetPath = cwd();
 
   use = use || CONTACTS.USEFUL.VUE;
-  templatePath = utils.dir('src/templates/' + use + '/');
 
   if (!CONTACTS.USEFUL[use.toUpperCase()]) {
-    return console.log('\nonly support vue, react and angular.\n');
+    var tmp = '/tmp/cooking-template' + new Date().getTime();
+    console.log('downloading template...');
+    download(use, tmp, { clone: true }, function (err) {
+      if (err) throw Error(err);
+
+      fs.copy(tmp + '/templates', targetPath, function (err) {
+        fs.remove(tmp);
+        if (err) throw Error(err);
+        console.log('\nDone, enjoy it!\n');
+      });
+    });
+
+    return;
   }
 
+  templatePath = utils.dir('src/templates/' + use + '/');
   fs.copy(templatePath, targetPath, function(err) {
-    if (err) {
-      console.error(err);
-      return;
-    }
+    if (err) throw Error(err);
     writeCookConfig(use);
     console.log('\nDone, enjoy it!\n');
   });
