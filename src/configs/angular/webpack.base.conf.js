@@ -75,10 +75,10 @@ var config = {
 };
 var babelConfig = {
   presets: [
-    require('babel-preset-es2015'),
-    require('babel-preset-stage-0')
+    'es2015',
+    'stage-0'
   ],
-  plugins: [require('babel-plugin-transform-runtime')]
+  plugins: ['transform-runtime']
 };
 var configFile = utils.dir('src/configs/angular/.eslintrc.js');
 

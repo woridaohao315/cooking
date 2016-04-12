@@ -74,11 +74,11 @@ var config = {
 };
 var babelConfig = {
   presets: [
-    require('babel-preset-es2015'),
-    require('babel-preset-stage-0'),
-    require('babel-preset-stage-2')
+    'es2015',
+    'stage-0',
+    'stage-2'
   ],
-  plugins: [require('babel-plugin-transform-runtime')]
+  plugins: ['transform-runtime']
 };
 var configFile = utils.dir('src/configs/vue/.eslintrc.js');
 

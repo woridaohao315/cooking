@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
 var program = require('commander');
+var watch = require('./cooking-watch');
+var build = require('./cooking-build');
+var linkModule =require('./../src/utils').linkModule;
 
 program.version(require('./../package.json').version);
 
@@ -13,13 +16,17 @@ program.command('watch')
   .alias('w')
   .description('watch mode')
   .option('-c, --config [file]', 'Use this if you want to specify something different than cooking.conf.js, which is the default.')
-  .action(require('./cooking-watch'));
+  .action(function (options) {
+    linkModule(watch, options);
+  });
 
 program.command('build')
   .alias('b')
   .description('build mode')
   .option('-c, --config [file]', 'Use this if you want to specify something different than cooking.conf.js, which is the default.')
-  .action(require('./cooking-build'));
+  .action(function (options) {
+    linkModule(build, options);
+  });
 
 program.parse(process.argv);
 

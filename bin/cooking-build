@@ -4,9 +4,13 @@ var webpack = require('webpack');
 var utils = require('./../src/utils');
 var CONTACTS = require('./../src/contacts');
 var ProgressPlugin = require('./../src/libs/ProgressPlugin');
+var addReslove = require('./../src/libs/add-resolve');
+var resolveBabel = require('./../src/libs/resolve-babel');
 
 module.exports = function(options) {
   var compiler, use, baseConfig, config;
+
+  console.log('start build \n');
 
   CONTACTS.FILE = options.config || CONTACTS.FILE;
   use = utils.fetchUse();
@@ -16,6 +20,10 @@ module.exports = function(options) {
   if (!config) {
     return;
   }
+
+  // add required config
+  config = addReslove(config);
+  config = resolveBabel(config);
 
   config.plugins.push(new ProgressPlugin());
 

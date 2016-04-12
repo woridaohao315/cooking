@@ -5,9 +5,13 @@ var webpack = require('webpack');
 var utils = require('./../src/utils');
 var CONTACTS = require('./../src/contacts');
 var hotReload = require('./../src/libs/hot-reload');
+var addReslove = require('./../src/libs/add-resolve');
+var resolveBabel = require('./../src/libs/resolve-babel');
 
 module.exports = function(options) {
   var baseConfig, compiler, port, config, use;
+
+  console.log('start watch \n');
 
   CONTACTS.FILE = options.config || CONTACTS.FILE;
   use = utils.fetchUse();
@@ -19,6 +23,9 @@ module.exports = function(options) {
     return;
   }
 
+  // add required config
+  config = addReslove(config);
+  config = resolveBabel(config);
 
   if (!config.nodeServer) {
     compiler = webpack(config);

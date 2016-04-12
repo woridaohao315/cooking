@@ -64,7 +64,7 @@ module.exports = {
   // Required. Optional vue, react or angular.
   use: 'vue',
 
-  // 'provide' about
+  // 'provide' about (0.3.0 不再支持)
   // - webpack
   // - HtmlWebpackPlugin
   // - ExtractTextPlugin
@@ -126,6 +126,16 @@ module.exports = {
     return config;
   }
 };
+```
+
+# Roadmap
+- 0.3.0 将去掉 `provide` 参数，获取内置模块将成
+
+```javascript
+var webpack = require('cooking/lib/webpack');
+var HtmlWebpackPlugin = require('cooking/lib/html-webpack-plugin');
+var ExtractTextPlugin = require('cooking/lib/extract-text-webpack-plugin');
+
 ```
 
 # Inspiration

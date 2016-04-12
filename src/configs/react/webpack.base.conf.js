@@ -62,14 +62,14 @@ var config = {
 };
 var babelConfig = {
   presets: [
-    require('babel-preset-es2015'),
-    require('babel-preset-stage-0'),
-    require('babel-preset-react')
+    'es2015',
+    'stage-0',
+    'react'
   ],
-  plugins: [require('babel-plugin-transform-runtime')],
+  plugins: ['transform-runtime'],
   env: {
     development: {
-      presets: [require('babel-preset-react-hmre')]
+      presets: ['react-hmre']
     }
   }
 };
