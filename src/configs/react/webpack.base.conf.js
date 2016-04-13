@@ -10,23 +10,10 @@ var config = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
-    fallback: [cwd('node_modules')],
-    root: [
-      process.cwd(),
-      cwd('node_modules'),
-      utils.dir('node_modules')
-    ],
     alias: {
       'src': cwd('src'),
       'root': cwd()
     }
-  },
-  resolveLoader: {
-    fallback: [cwd('node_modules')],
-    root: [
-      utils.dir('node_modules'),
-      cwd('node_modules')
-    ]
   },
   module: {
     preLoaders: [
