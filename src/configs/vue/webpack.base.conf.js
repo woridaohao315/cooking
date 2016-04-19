@@ -56,7 +56,8 @@ var config = {
     ]
   },
   eslint: {
-    formatter: require('eslint-friendly-formatter')
+    // formatter: require('eslint-friendly-formatter'),
+    // emitWarning: true
   }
 };
 var babelConfig = {
