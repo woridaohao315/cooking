@@ -1,45 +1,59 @@
 #!/usr/bin/env node
 
-var fs = require('fs-extra');
-var cwd = require('cwd');
-var utils = require('./../src/utils');
-var CONTACTS = require('./../src/contacts');
-var download = require('download-git-repo');
-var writeCookConfig = function(use) {
-  fs.readFile(utils.dir('src/templates/cooking.conf.js'), function(err, context) {
-    var newContext = context.toString().replace(/\${(use)}/g, use);
-    fs.writeFile(cwd('cooking.conf.js'), newContext);
-  });
-};
+var path = require('path')
+var PLUGIN_PATH = require('./../util/path').PLUGIN_PATH
+var exec = require('./../util/exec')
+var logger = require('./../util/logger')
+var program = require('commander')
+var slush = require.resolve('slush/bin/slush')
 
+program.option('-c --china', '切换到 taobao 镜像')
+  .option('-r --registry [registry url]', '指定镜像')
+  .parse(process.argv)
 
+var name = 'cooking-' + (program.args[0] || 'vue')
+var template = 'slush-' + name
 
-module.exports = function(use) {
-  var templatePath;
-  var targetPath = cwd();
+console.log()
+process.on('exit', function () {
+  console.log()
+})
 
-  use = use || CONTACTS.USEFUL.VUE;
+var installTemplate = function (template) {
+  var options = [
+    'install',
+    template,
+    '--prefix',
+    PLUGIN_PATH
+  ]
 
-  if (!CONTACTS.USEFUL[use.toUpperCase()]) {
-    var tmp = '/tmp/cooking-template' + new Date().getTime();
-    console.log('downloading template...');
-    download(use, tmp, { clone: true }, function (err) {
-      if (err) throw Error(err);
-
-      fs.copy(tmp + '/templates', targetPath, function (err) {
-        fs.remove(tmp);
-        if (err) throw Error(err);
-        console.log('\nDone, enjoy it!\n');
-      });
-    });
-
-    return;
+  if (program.china) {
+    options.push('--registry=https://registry.npm.taobao.org')
+  } else if (program.registry) {
+    options.push('--registry=' + program.registry)
   }
 
-  templatePath = utils.dir('src/templates/' + use + '/');
-  fs.copy(templatePath, targetPath, function(err) {
-    if (err) throw Error(err);
-    writeCookConfig(use);
-    console.log('\nDone, enjoy it!\n');
-  });
-};
+  logger.log('downloading \'' + template + '\'')
+  exec('npm', options, {
+    stdio: 'inherit'
+  })
+  logger.success('template install success!')
+}
+
+var generator = function (name) {
+  logger.log('generator project')
+  exec(slush, [
+      name
+    ], {
+    stdio: 'inherit',
+    errorMessage: 'slush runtime error'
+  })
+}
+
+try {
+  require.resolve(path.join(template.split('@')[0], 'package.json'))
+} catch(e) {
+  installTemplate(template)
+}
+
+generator(name.split('@')[0])

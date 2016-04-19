@@ -1,63 +1,87 @@
-#!/usr/bin/env node
+// #!/usr/bin/env node
 
-var WebpackDevServer = require('webpack-dev-server');
-var webpack = require('webpack');
-var utils = require('./../src/utils');
-var CONTACTS = require('./../src/contacts');
-var hotReload = require('./../src/libs/hot-reload');
-var addReslove = require('./../src/libs/add-resolve');
-var resolveBabel = require('./../src/libs/resolve-babel');
+// var path = require('path')
+// <<<<<<< Updated upstream
 
-module.exports = function(options) {
-  var baseConfig, compiler, port, config, use;
+// var libPath = path.join(__dirname, '..')
 
-  console.log('start watch \n');
+// // hack
+// process.env['NODE_PATH'] = libPath;
+// require('module').Module._initPaths();
 
-  CONTACTS.FILE = options.config || CONTACTS.FILE;
-  use = utils.fetchUse();
-  baseConfig = utils.loadWebpackConfig(CONTACTS.DEV, use);
-  config = utils.mergeConfig(baseConfig);
-  port = config.port || 8080;
+// var config = require(path.join(process.cwd(), 'cooking.conf.js'))
 
-  if (!config) {
-    return;
-  }
+// console.log(config)
+// console.log(libPath)
 
-  // add required config
-  config = addReslove(config);
-  config = resolveBabel(config);
-  config.stats = config.stats || {};
-  config.stats.children = false;
+// =======
+// var cookingPath = path.join(process.cwd(), 'cooking.conf.js')
 
-  if (!config.nodeServer) {
-    compiler = webpack(config);
-    compiler.watch({ // watch options:
-      aggregateTimeout: 300, // wait so long for more changes
-      poll: true // use polling instead of native watchers
-    }, function(err, stats) {
-      if (err) {
-        return console.log(err);
-      }
-      console.log(stats.toString({ colors: true, chunks: false }));
-    });
-    return;
-  }
+// global.rootRequire = function (name) {
+//   return require(path.join(__dirname, '..', name))
+// }
 
-  // hot reload
-  config.plugins = (config.plugins || []).concat([
-    new webpack.HotModuleReplacementPlugin(),
-  ]);
-  config = hotReload(config);
-  compiler = webpack(config);
+// require(cookingPath)
+// // console.log(require.main.paths)
+// >>>>>>> Stashed changes
+// // var WebpackDevServer = require('webpack-dev-server')
+// // var webpack = require('webpack')
+// // var utils = require('./../src/utils')
+// // var CONTACTS = require('./../src/contacts')
+// // var hotReload = require('./../src/libs/hot-reload')
+// // var addReslove = require('./../src/libs/add-resolve')
+// // var resolveBabel = require('./../src/libs/resolve-babel')
 
-  // need node server
-  new WebpackDevServer(compiler, {
-    hot: true,
-    historyApiFallback: {
-      index: config.output.publicPath || '/'
-    },
-    stats: 'errors-only'
-  }).listen(port, 'localhost', function () {
-    console.log('\n listen to http://localhost:' + port);
-  });
-};
+// // module.exports = function(options) {
+// //   var baseConfig, compiler, port, config, use
+
+// //   console.log('start watch \n')
+
+// //   CONTACTS.FILE = options.config || CONTACTS.FILE
+// //   use = utils.fetchUse()
+// //   baseConfig = utils.loadWebpackConfig(CONTACTS.DEV, use)
+// //   config = utils.mergeConfig(baseConfig)
+// //   port = config.port || 8080
+
+// //   if (!config) {
+// //     return
+// //   }
+
+// //   // add required config
+// //   config = addReslove(config)
+// //   config = resolveBabel(config)
+// //   config.stats = config.stats || {}
+// //   config.stats.children = false
+
+// //   if (!config.nodeServer) {
+// //     compiler = webpack(config)
+// //     compiler.watch({ // watch options:
+// //       aggregateTimeout: 300, // wait so long for more changes
+// //       poll: true // use polling instead of native watchers
+// //     }, function(err, stats) {
+// //       if (err) {
+// //         return console.log(err)
+// //       }
+// //       console.log(stats.toString({ colors: true, chunks: false }))
+// //     })
+// //     return
+// //   }
+
+// //   // hot reload
+// //   config.plugins = (config.plugins || []).concat([
+// //     new webpack.HotModuleReplacementPlugin(),
+// //   ])
+// //   config = hotReload(config)
+// //   compiler = webpack(config)
+
+// //   // need node server
+// //   new WebpackDevServer(compiler, {
+// //     hot: true,
+// //     historyApiFallback: {
+// //       index: config.output.publicPath || '/'
+// //     },
+// //     stats: 'errors-only'
+// //   }).listen(port, 'localhost', function () {
+// //     console.log('\n listen to http://localhost:' + port)
+// //   })
+// // }

@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+var path = require('path')
+var exec = require('./../util/exec')
+var program = require('commander')
+var logger = require('./../util/logger')
+
+program.option('--china', '切换到 taobao 镜像')
+  .option('--registry [registry url]', '指定镜像')
+  .parse(process.argv)
+
+console.log()
+process.on('exit', function () {
+  console.log()
+})
+
+var name = program.args[0]
+
+if (!name) {
+  logger.fatal('请指定 dependency 名称.')
+}
+
+exec('npm', [
+  'update',
+  name,
+  '--prefix',
+  path.join(__dirname, '..'),
+  '--save'
+  ], {
+  stdio: 'inherit'
+})

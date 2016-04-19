@@ -12,8 +12,10 @@ config.module.loaders = config.module.loaders.concat(cssLoaders());
 
 config.plugins = (config.plugins || []).concat([
   // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
-  new webpack.optimize.OccurenceOrderPlugin(),
-  new webpack.NoErrorsPlugin()
+  new webpack.optimize.OccurenceOrderPlugin()
+
+  // NoErrorsPlugin 会使 eslint-loader 打断 build
+  // new webpack.NoErrorsPlugin()
 ]);
 
 module.exports = config;
