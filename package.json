@@ -1,6 +1,6 @@
 {
   "name": "cooking",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "The basic configuration webpack for your project.",
   "preferGlobal": true,
   "bin": {
