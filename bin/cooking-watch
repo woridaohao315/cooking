@@ -1,87 +1,67 @@
-// #!/usr/bin/env node
+#!/usr/bin/env node
 
-// var path = require('path')
-// <<<<<<< Updated upstream
+// hack
+// https://gist.github.com/branneman/8048520#6-the-hack
+var path = require('path')
+var CWD_PATH = require('../util/path').CWD_PATH
+var program = require('commander')
+var logger = require('../util/logger')
+var webpack = require('webpack')
+var DevServer = require('webpack-dev-server')
 
-// var libPath = path.join(__dirname, '..')
+program
+  .option('-c --config <configfile>', 'Webpack config file')
+  .parse(process.argv)
 
-// // hack
-// process.env['NODE_PATH'] = libPath;
-// require('module').Module._initPaths();
+console.log()
+process.on('exit', function () {
+  console.log()
+})
 
-// var config = require(path.join(process.cwd(), 'cooking.conf.js'))
+var config
+var configPath = path.join(CWD_PATH, program.config || 'cooking.conf.js')
 
-// console.log(config)
-// console.log(libPath)
+// load config
+try {
+  config = require(configPath)
+} catch (e) {
+  logger.error('Failed to read the config')
+  logger.fatal(e.stack)
+}
 
-// =======
-// var cookingPath = path.join(process.cwd(), 'cooking.conf.js')
+// load extends
+config = require('../util/load-extend')(config)
 
-// global.rootRequire = function (name) {
-//   return require(path.join(__dirname, '..', name))
-// }
+// load hot loader
+config.entry = require('../util/hot-reload')(config.entry)
 
-// require(cookingPath)
-// // console.log(require.main.paths)
-// >>>>>>> Stashed changes
-// // var WebpackDevServer = require('webpack-dev-server')
-// // var webpack = require('webpack')
-// // var utils = require('./../src/utils')
-// // var CONTACTS = require('./../src/contacts')
-// // var hotReload = require('./../src/libs/hot-reload')
-// // var addReslove = require('./../src/libs/add-resolve')
-// // var resolveBabel = require('./../src/libs/resolve-babel')
+// run webpack
+var compiler = webpack(config)
 
-// // module.exports = function(options) {
-// //   var baseConfig, compiler, port, config, use
+if (!config.devServer || !config.devServer.enable) {
+  compiler.watch({}, function (err, stats) {
+    if (err) {
+      logger.error(err)
+      return
+    }
 
-// //   console.log('start watch \n')
+    logger.log('webpack info \n' + stats.toString({
+      colors: true,
+      chunks: false
+    }))
+  })
 
-// //   CONTACTS.FILE = options.config || CONTACTS.FILE
-// //   use = utils.fetchUse()
-// //   baseConfig = utils.loadWebpackConfig(CONTACTS.DEV, use)
-// //   config = utils.mergeConfig(baseConfig)
-// //   port = config.port || 8080
+  return
+}
 
-// //   if (!config) {
-// //     return
-// //   }
+// webpack dev server
+var port = (config.devServer && config.devServer.port) || 8080
+var hostname = (config.devServer && config.devServer.hostname) || 'http://localhost'
+var host = hostname + ':' + port
 
-// //   // add required config
-// //   config = addReslove(config)
-// //   config = resolveBabel(config)
-// //   config.stats = config.stats || {}
-// //   config.stats.children = false
+config.devServer.stats = (config.devServer && config.devServer.stats) || 'errors-only'
 
-// //   if (!config.nodeServer) {
-// //     compiler = webpack(config)
-// //     compiler.watch({ // watch options:
-// //       aggregateTimeout: 300, // wait so long for more changes
-// //       poll: true // use polling instead of native watchers
-// //     }, function(err, stats) {
-// //       if (err) {
-// //         return console.log(err)
-// //       }
-// //       console.log(stats.toString({ colors: true, chunks: false }))
-// //     })
-// //     return
-// //   }
-
-// //   // hot reload
-// //   config.plugins = (config.plugins || []).concat([
-// //     new webpack.HotModuleReplacementPlugin(),
-// //   ])
-// //   config = hotReload(config)
-// //   compiler = webpack(config)
-
-// //   // need node server
-// //   new WebpackDevServer(compiler, {
-// //     hot: true,
-// //     historyApiFallback: {
-// //       index: config.output.publicPath || '/'
-// //     },
-// //     stats: 'errors-only'
-// //   }).listen(port, 'localhost', function () {
-// //     console.log('\n listen to http://localhost:' + port)
-// //   })
-// // }
+new DevServer(compiler, config.devServer)
+  .listen(port, function () {
+    logger.success('Listening to ' + host)
+  })

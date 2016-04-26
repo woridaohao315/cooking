@@ -1,6 +1,7 @@
 var path = require('path')
-var rootPath = path.join(__dirname, '..')
+var ROOT_PATH = path.join(__dirname, '..')
 
-exports.ROOT_PATH = rootPath
-exports.PLUGIN_PATH = path.join(rootPath, '.cooking')
-exports.LIB_PATH = path.join(rootPath, '.lib')
+exports.CWD_PATH = process.cwd()
+exports.ROOT_PATH = ROOT_PATH
+exports.PLUGIN_PATH = path.join(ROOT_PATH, '.cooking')
+exports.LIB_PATH = path.join(ROOT_PATH, 'lib')

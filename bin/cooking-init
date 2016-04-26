@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
 var path = require('path')
-var PLUGIN_PATH = require('./../util/path').PLUGIN_PATH
-var exec = require('./../util/exec')
-var logger = require('./../util/logger')
+var PLUGIN_PATH = require('../util/path').PLUGIN_PATH
+var exec = require('../util/exec')
+var logger = require('../util/logger')
 var program = require('commander')
 var slush = require.resolve('slush/bin/slush')
+var isInstalled = require('../util/is-installed')
 
-program.option('-c --china', '切换到 taobao 镜像')
-  .option('-r --registry [registry url]', '指定镜像')
+program
+  .option('-r --registry [registry-url]', '指定镜像, 默认选用 taobao 镜像')
   .parse(process.argv)
 
 var name = 'cooking-' + (program.args[0] || 'vue')
@@ -19,7 +20,12 @@ process.on('exit', function () {
   console.log()
 })
 
+/**
+ * download template
+ * @param  {string} template template name
+ */
 var installTemplate = function (template) {
+  var registry = program.registry
   var options = [
     'install',
     template,
@@ -27,10 +33,11 @@ var installTemplate = function (template) {
     PLUGIN_PATH
   ]
 
-  if (program.china) {
-    options.push('--registry=https://registry.npm.taobao.org')
-  } else if (program.registry) {
-    options.push('--registry=' + program.registry)
+  if (registry) {
+    var isURL = /(https?|ftp):\/\//.test(registry)
+
+    registry = isURL ? registry : 'https://registry.npm.taobao.org'
+    options.push('--registry=' + registry)
   }
 
   logger.log('downloading \'' + template + '\'')
@@ -40,6 +47,10 @@ var installTemplate = function (template) {
   logger.success('template install success!')
 }
 
+/**
+ * run slush
+ * @param  {string} name slush template name
+ */
 var generator = function (name) {
   logger.log('generator project')
   exec(slush, [
@@ -50,9 +61,9 @@ var generator = function (name) {
   })
 }
 
-try {
-  require.resolve(path.join(template.split('@')[0], 'package.json'))
-} catch(e) {
+var packageFile = path.join(template.split('@')[0], 'package.json')
+
+if (!isInstalled(packageFile)) {
   installTemplate(template)
 }
 

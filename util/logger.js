@@ -23,10 +23,19 @@ exports.log = function () {
  * @param {String} message
  */
 exports.fatal = function (message) {
+  exports.error(message)
+  process.exit(1)
+}
+
+/**
+ * Log an error `message` to the console and no exit.
+ *
+ * @param {String} message
+ */
+exports.error = function (message) {
   if (message instanceof Error) message = message.message.trim()
   var msg = format.apply(format, arguments)
   console.error(chalk.red(prefix), sep, msg)
-  process.exit(1)
 }
 
 /**
