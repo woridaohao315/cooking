@@ -1,12 +1,10 @@
 #!/usr/bin/env node
-
 var program = require('commander')
 var logger = require('../util/logger')
 var npm = require('../util/npm')
 
 program
-  .option('-r --registry [registry-url]', '指定镜像, 默认选用 taobao 镜像')
-  .option('-t --template [template-name]', '更新模板')
+  .option('-t --template [template-name]', '卸载模板')
   .parse(process.argv)
 
 console.log()
@@ -21,12 +19,12 @@ if (!name) {
 }
 
 if (program.template) {
-  logger.log('更新模板: ' + name)
+  logger.log('卸载模板: ' + name)
   name = 'slush-cooking-' + name
 } else {
-  logger.log('更新插件: ' + name)
+  logger.log('卸载插件: ' + name)
   name = 'cooking-' + name
 }
 
-npm.update(name, program.registry)
-logger.success('更新完成')
+npm.uninstall(name, program.registry)
+logger.success('卸载完成')

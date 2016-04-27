@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+var shelljs = require('shelljs')
+var program = require('commander').parse(process.argv)
+var logger = require('../util/logger')
+var exec = require('../util/exec')
+
+var projectName = program.args[0]
+var template = program.args[1] || ''
+
+console.log()
+process.on('exit', function () {
+  console.log()
+})
+
+if (!projectName) {
+  logger.fatal('project-name is required.')
+}
+
+shelljs.mkdir(projectName)
+shelljs.cd(projectName)
+exec('cooking', ['init', template], {
+  stdio: 'inherit',
+})

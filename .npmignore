@@ -1,0 +1,8 @@
+test/
+.cooking/
+node_modules/
+npm-debug.log
+.DS_Store
+etc
+.idea
+doc/

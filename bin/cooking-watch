@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-// hack
-// https://gist.github.com/branneman/8048520#6-the-hack
 var path = require('path')
 var CWD_PATH = require('../util/path').CWD_PATH
 var program = require('commander')
@@ -12,6 +10,9 @@ var DevServer = require('webpack-dev-server')
 program
   .option('-c --config <configfile>', 'Webpack config file')
   .parse(process.argv)
+
+// set env
+process.env.NODE_ENV = 'development'
 
 console.log()
 process.on('exit', function () {
@@ -25,43 +26,43 @@ var configPath = path.join(CWD_PATH, program.config || 'cooking.conf.js')
 try {
   config = require(configPath)
 } catch (e) {
-  logger.error('Failed to read the config')
+  logger.error('Failed to read the config.')
   logger.fatal(e.stack)
 }
 
-// load extends
-config = require('../util/load-extend')(config)
+var port = 8080
+var hostname = 'http://localhost'
+var host = hostname + ':' + port
+var defaultStats = 'errors-only'
 
 // load hot loader
-config.entry = require('../util/hot-reload')(config.entry)
+config.entry = require('../util/hot-reload')(config.entry, host)
 
-// run webpack
-var compiler = webpack(config)
-
+// run watch
 if (!config.devServer || !config.devServer.enable) {
+  var compiler = webpack(config)
+
+  logger.log('启动中...')
   compiler.watch({}, function (err, stats) {
     if (err) {
       logger.error(err)
       return
     }
 
-    logger.log('webpack info \n' + stats.toString({
-      colors: true,
-      chunks: false
-    }))
+    logger.log('webpack info \n' + stats.toString(defaultStats))
   })
+} else {
+  // webpack dev server
+  logger.log('server 启动中...')
 
-  return
+  port = config.devServer.port || port
+  hostname = config.devServer.hostname || hostname
+  host = hostname + ':' + port
+  config.devServer.stats = config.devServer.stats || defaultStats
+  config.output.publicPath = config.devServer.publicPath || config.output.publicPath
+
+  new DevServer(webpack(config), config.devServer)
+    .listen(port, 'localhost', function () {
+      logger.success('Listening at ' + host)
+    })
 }
-
-// webpack dev server
-var port = (config.devServer && config.devServer.port) || 8080
-var hostname = (config.devServer && config.devServer.hostname) || 'http://localhost'
-var host = hostname + ':' + port
-
-config.devServer.stats = (config.devServer && config.devServer.stats) || 'errors-only'
-
-new DevServer(compiler, config.devServer)
-  .listen(port, function () {
-    logger.success('Listening to ' + host)
-  })

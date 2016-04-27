@@ -1,30 +1,29 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var CWD_PATH = require('./path').CWD_PATH
-var logger = require('.logger')
+var logger = require('./logger')
 var path = require('path')
+var is = require('./is')
 
 module.exports = function (template) {
-  var config = []
+  var templates = {}
 
   if (template === true) {
-    config.push(new HtmlWebpackPlugin())
+    templates['index.html'] = new HtmlWebpackPlugin()
 
-  } else if ({}.toString.call(template) === '[object String]') {
-    config.push(new HtmlWebpackPlugin({
+  } else if (is.string(template)) {
+    templates['index.html'] = new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(CWD_PATH, template)
-    }))
+    })
 
-  } else if ({}.toString.call(template) === '[object Object]') {
+  } else if (is.object(template)) {
     for (var name in template) {
-      config.push(new HtmlWebpackPlugin({
+      templates[name] = new HtmlWebpackPlugin({
         filename: name,
         template: path.resolve(CWD_PATH, template[name])
-      }))
+      })
     }
-  } else {
-    logger.fatal('template 选项只接受 String 或 Object.')
   }
 
-  return config
+  return templates
 }

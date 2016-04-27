@@ -38,6 +38,11 @@ exports.error = function (message) {
   console.error(chalk.red(prefix), sep, msg)
 }
 
+exports.warn = function (message) {
+  var msg = format.apply(format, arguments)
+  console.log(chalk.yellow(prefix), sep, msg)
+}
+
 /**
  * Log a success `message` to the console and exit.
  *

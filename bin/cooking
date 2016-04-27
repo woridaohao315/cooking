@@ -3,31 +3,43 @@
 var path = require('path')
 var program = require('commander')
 var PATH = require('../util/path')
+var check = require('../util/check')
+var config = require('../util/config')
+var loadCommand = require('../util/load-command')
+
+check.initPluginPackage()
+config.init()
+
+if (config.get('updateCheck')) {
+  check.checkVersion()
+}
 
 // hack
 // https://gist.github.com/branneman/8048520#6-the-hack
 process.env['NODE_PATH'] = [
-  PATH.LIB_PATH,
-  path.join(PATH.PLUGIN_PATH, 'node_modules')
+    PATH.LIB_PATH,
+    path.join(PATH.ROOT_PATH, 'node_modules'),
+    path.join(PATH.PLUGIN_PATH, 'node_modules')
   ].join(path.delimiter)
 
 require('module').Module._initPaths()
 
-// 读取动态指令
-// TODO
-
 program
   .usage('<command> [options]')
-  .version(require('./../package.json').version)
+  .version(require('../package.json').version)
   .command('config <option>', '配置')
   .command('create <project-name> <template>', '创建一个项目文件夹并初始化')
   .command('init <template>', '初始化一个空项目')
-  .command('import <plugin>', '安装 cooking 插件')
-  .command('update <plugin>', '更新 cooking 插件')
-  .command('remove <plugin>', '卸载 cooking 插件')
-  .command('watch', '开发模式')
-  .command('build', '构建模式')
-  .parse(process.argv)
+  .command('import <plugin>', '安装插件')
+  .command('update <plugin>', '更新插件/模板')
+  .command('remove <plugin>', '卸载插件/模板')
+  .command('list', '查看已安装的插件/模板')
+  .command('watch', '开发模式 development')
+  .command('build', '生产模式 production')
+
+// TODO: 读取动态指令
+// loadCommand(program)
+program.parse(process.argv)
 
 if (!process.argv.slice(2).length) {
   program.outputHelp()

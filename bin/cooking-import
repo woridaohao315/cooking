@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+var program = require('commander')
+var logger = require('../util/logger')
+var isInstalled = require('../util/is-installed')
+var npm = require('../util/npm')
+
+program
+  .option('-r --registry [registry-url]', '指定镜像, 默认选用 taobao 镜像')
+  .parse(process.argv)
+
+console.log()
+process.on('exit', function () {
+  console.log()
+})
+
+var option = program.args[0]
+
+if (!option) {
+  logger.fatal('请指定插件名称')
+}
+
+if (option.indexOf('/') > -1) {
+  name = option
+} else {
+  name = 'cooking-' + option
+}
+
+logger.log('安装插件: ' + option)
+npm.install(name, program.registry)
+logger.success('安装成功')
