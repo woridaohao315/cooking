@@ -15,3 +15,7 @@ exports.array = function isArray (obj) {
 exports.object = function isObject (obj) {
   return type(obj) === '[object Object]'
 }
+
+exports.boolean = function isBoolean (obj) {
+  return type(obj) === '[object Boolean]'
+}

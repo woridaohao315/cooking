@@ -32,8 +32,10 @@ try {
   logger.fatal(e.stack)
 }
 
+// install resolve path
+require('../util/load-resolve-path')(config)
+
 if (config.__COOKING_CLEAN__) {
-  delete config.__COOKING_CLEAN__
   shelljs.rm('-rf', config.output.path)
 }
 

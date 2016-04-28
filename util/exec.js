@@ -6,7 +6,6 @@ module.exports = function exec(cmd, args, opts) {
 
   var errMessage = opts.errorMessage
   var command = spawnSync(cmd, args || [], opts)
-  delete opts.errorMessage
 
   if (command.status === 1) {
     if (command.stderr) {

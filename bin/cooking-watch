@@ -30,39 +30,38 @@ try {
   logger.fatal(e.stack)
 }
 
-var port = 8080
-var hostname = 'http://localhost'
-var host = hostname + ':' + port
-var defaultStats = 'errors-only'
+// install resolve path
+require('../util/load-resolve-path')(config)
+
+// install dev server
+config.devServer = require('../util/load-server')(config.devServer)
+
+var port = config.devServer.port || 8080
+var hostname = config.devServer.hostname || 'localhost'
+var host = (config.devServer.protocol || 'http:') + '//' + hostname + ':' + port
 
 // load hot loader
 config.entry = require('../util/hot-reload')(config.entry, host)
 
 // run watch
-if (!config.devServer || !config.devServer.enable) {
+if (!config.devServer.enable) {
   var compiler = webpack(config)
 
   logger.log('启动中...')
   compiler.watch({}, function (err, stats) {
     if (err) {
-      logger.error(err)
-      return
+      return logger.error(err)
     }
 
-    logger.log('webpack info \n' + stats.toString(defaultStats))
+    logger.log('webpack info \n' + stats.toString(config.devServer.stats))
   })
 } else {
   // webpack dev server
   logger.log('server 启动中...')
 
-  port = config.devServer.port || port
-  hostname = config.devServer.hostname || hostname
-  host = hostname + ':' + port
-  config.devServer.stats = config.devServer.stats || defaultStats
   config.output.publicPath = config.devServer.publicPath || config.output.publicPath
-
   new DevServer(webpack(config), config.devServer)
-    .listen(port, 'localhost', function () {
+    .listen(port, hostname, function () {
       logger.success('Listening at ' + host)
     })
 }

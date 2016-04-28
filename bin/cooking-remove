@@ -4,7 +4,7 @@ var logger = require('../util/logger')
 var npm = require('../util/npm')
 
 program
-  .option('-t --template [template-name]', '卸载模板')
+  .option('-t --template [template-name]', '卸载脚手架')
   .parse(process.argv)
 
 console.log()
@@ -15,11 +15,11 @@ process.on('exit', function () {
 var name = program.args[0]
 
 if (!name) {
-  logger.fatal('请指定插件/模板名称')
+  logger.fatal('请指定插件/脚手架名称')
 }
 
 if (program.template) {
-  logger.log('卸载模板: ' + name)
+  logger.log('卸载脚手架: ' + name)
   name = 'slush-cooking-' + name
 } else {
   logger.log('卸载插件: ' + name)

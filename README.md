@@ -29,7 +29,7 @@ Step 2. 开始开发
 
 
 ## cooking.conf.js
-cooking 的将 webpack 的配置重新包装过，提供的基础配置能满足大部分项目的需求。同时提供的 `add`, `remove` 方法能方便去增加（覆盖）和删除已有配置。以下为提供的完整配置，除了 entry 和具体说明的外其他都是默认配置。
+cooking 将 webpack 的配置重新包装过，提供的基础配置能满足大部分项目的需求。同时提供的 `add`, `remove` 方法能方便去增加（覆盖）和删除已有配置。以下为提供的完整配置，除了 entry 和具体说明的外其他都是默认配置。
 
 ```javascript
 var cooking = require('cooking')
@@ -47,13 +47,14 @@ cooking.set({
     'index.html': './src/index.template.html'
   },
 
-  // development
+  // Development
   // 内置 webpack dev server，配置与其一致。
   // 填 true 会启动 devServer 并采用默认配置，false 将不启用
+  // 填 Object 会与下面默认配置进行 merge
   devServer: {
     // 与 webpack 文档不同的是，这里的 publicPath 会覆盖 output.publicPath
     publicPath: '/',
-    // 填 true 会启动 devServer 并采用默认配置，false 将不启用
+    // 是否启用 dev server
     enable: false,
     // 端口
     port: 8080,
@@ -63,23 +64,31 @@ cooking.set({
     historyApiFallback: true,
     noInfo: true,
     quiet: false,
-    lazy: false
+    lazy: false,
+    stats: 'errors-only',
+    protocol: 'http:',
+    hostname: 'localhost'
   },
 
-  // production
+  // Production
   // build 时候清理 dist 目录
   clean: true,
   // 构建的文件带 hash
   hash: true,
+  // 访问路径
+  publicPath: '/dist',
+  // 静态资源路径，相对于 publicPath
+  assetsPath: '/static',
   // 带 source map
   sourceMap: true,
+  // 多大以内的资源内嵌到 JS/CSS 中（单位 Byte)
+  urlLoaderLimit: 10000,
   // 接受 amd cjs umd var，其中 cjs 会被翻译成  webpack 的 commonjs2
   format: 'var',
   // 如果format 为 'umd'，需要设置该值
   umdName: '',
 
   // 会加载 CommonsChunkPlugin，接受 String|Object
-  // 默认 vendor 会将 entry 中名字为 vendor 的分离出来
   // 如果有多个可以配制成 Object, {'name': 'filename'}
   chunk: 'vendor',
 
@@ -88,7 +97,7 @@ cooking.set({
   // 填 string 是自定义文件名
   extractCSS: '[name].[contenthash:7].css',
 
-  // 加载额外的配置，接受 Array|Object
+  // 加载额外的配置，默认为空，接受 Array|Object，其中 Object 可以为插件传参数
   extends: ['vue']
 })
 
@@ -102,14 +111,14 @@ module.exports = cooking.resolve()
 自定义配置
 
 ### add(path: string, options: Object)
-原有的 webpack 中 loader 和 plugin 配置都是传入的数组，想去修改预配置就变得不方便。提供的 add 方法能直接在配置中插入或覆盖原有 loader 或者 plugin，支持修改 loader, preLoader, postLoader 以及 plugin。
+原有的 webpack 中 loader 和 plugin 配置都是传入的数组，想去修改预配置就变得不方便。提供的 add 方法能直接在配置中插入或覆盖原有 loader 或者 plugin，支持修改 loader, preLoader, postLoader 以及 plugin。（当然其他的路径也是支持的，如果你知道 webpack 配置的路径的话）
 
 ```javascript
 var webpack = require('webpack')
 
 cooking.add('loader.vue', {
   test: /\.vue$/,
-  loader: ['vue']
+  loader: ['vue-loader']
 })
 
 cooking.add('plugin.NoErrors', new webpack.NoErrorsPlugin())
@@ -236,7 +245,7 @@ config.resolve.extensions.push('.json')
 
 更新脚手架
 ```shell
-> cooking remove <template-name> -t
+> cooking update <template-name> -t
 ```
 
 ### list
@@ -270,21 +279,6 @@ module.exports = function (cooking, options) {
 > cooking init plugin
 ```
 
-#### 注意事项
-如果需要增加新 loader, 请使用完整名字而不是简写。如果用户本地安装了 vue 依赖, 查找路径的顺序问题会把用户的 vue 模块当作 vue-loader 使用了。http://stackoverflow.com/questions/29883534/webpack-node-modules-css-index-js-didnt-return-a-function
-```javascript
-cooking.add('loader.vue', {
-  test: /\.vue$/,
-  loaders: ['vue-loader']
-})
-
-// 而不是
-cooking.add('loader.vue', {
-  test: /\.vue$/,
-  loaders: ['vue']
-})
-```
-
 
 ## 脚手架列表
 - [vue](https://github.com/cookingjs/slush-cooking-vue) 基础的 vue 的脚手架
@@ -307,6 +301,25 @@ eslint 默认是触发 error，这将会打断 webpack 的 build，解决方法�
 eslint: {
   emitWarning: true
 }
+```
+
+- loader 不要使用简写
+
+如果需要增加新 loader, 或者使用自己的 webpack 配置, 请将 loader 改成完整名字而不是简写。如果用户本地安装了 vue 依赖, 查找路径的顺序问题会把用户的 vue 模块当作 vue-loader 使用导致报错。[link](http://stackoverflow.com/questions/29883534/webpack-node-modules-css-index-js-didnt-return-a-function)
+
+```javascript
+cooking.add('loader.vue', {
+  test: /\.vue$/,
+  loaders: ['vue-loader']
+})
+
+// 而不是
+cooking.add('loader.vue', {
+  test: /\.vue$/,
+  loaders: ['vue']
+})
+```
+
 
 - babel 配置
 

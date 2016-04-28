@@ -30,18 +30,11 @@ module.exports = function (userConfig, baseConfig) {
   // development
   if (process.env.NODE_ENV === 'development') {
     config.devtool = '#eval-source-map'
+    config.devServer = userConfig.devServer
 
     // plugin
-    // FIXME: 貌似和 eslint 有冲突, 再研究下
     config.plugins['NoErrors'] = new webpack.NoErrorsPlugin()
     config.plugins['HotModuleReplacement'] = new webpack.HotModuleReplacementPlugin()
-
-    // devServer
-    if (userConfig.devServer === false) {
-      delete config.devServer
-    } else if (userConfig.devServer !== true) {
-      config.devServer = userConfig.devServer
-    }
 
   } else if (process.env.NODE_ENV === 'production') {
     config.devtool = userConfig.sourceMap ? '#source-map' : false
@@ -72,12 +65,8 @@ module.exports = function (userConfig, baseConfig) {
       }
     })
     config.plugins['UglifyJs'] = new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      output: {
-        comments: false
-      }
+      compress: { warnings: false },
+      output: { comments: false }
     })
 
     var extractcss = userConfig.extractCSS
@@ -99,7 +88,11 @@ module.exports = function (userConfig, baseConfig) {
   }
 
   // clean
-  config.__COOKING_CLEAN__ = true
+  if (is.boolean(userConfig.clean)) {
+    config.__COOKING_CLEAN__ = userConfig.clean
+  } else {
+    config.__COOKING_CLEAN__ = true
+  }
 
   // extends
   config.__COOKING_EXTENDS__ = userConfig.extends

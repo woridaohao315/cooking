@@ -31,9 +31,9 @@ program
   .command('create <project-name> <template>', '创建一个项目文件夹并初始化')
   .command('init <template>', '初始化一个空项目')
   .command('import <plugin>', '安装插件')
-  .command('update <plugin>', '更新插件/模板')
-  .command('remove <plugin>', '卸载插件/模板')
-  .command('list', '查看已安装的插件/模板')
+  .command('update <plugin>', '更新插件/脚手架')
+  .command('remove <plugin>', '卸载插件/脚手架')
+  .command('list', '查看已安装的插件/脚手架')
   .command('watch', '开发模式 development')
   .command('build', '生产模式 production')
 

@@ -17,35 +17,11 @@ module.exports = function (userConfig) {
       'occurenceorder': new webpack.optimize.OccurenceOrderPlugin()
     },
 
-    devServer: {
-      publicPath: '/',
-      enable: true,
-      port: 8080,
-      hot: true,
-      historyApiFallback: true,
-      lazy: false
-    },
-
     resolve: {
-      extensions: ['', '.js'],
-      root: [
-        path.join(PATH.CWD_PATH, 'node_modules'),
-        path.join(PATH.PLUGIN_PATH, 'node_modules')
-      ],
-      fallback: [
-        path.join(PATH.ROOT_PATH, 'node_modules')
-      ]
+      extensions: ['', '.js']
     },
 
-    resolveLoader: {
-      root: [
-        path.join(PATH.CWD_PATH, 'node_modules'),
-        path.join(PATH.PLUGIN_PATH, 'node_modules')
-      ],
-      fallback: [
-        path.join(PATH.ROOT_PATH, 'node_modules')
-      ]
-    },
+    resolveLoader: {},
 
     module: {
       loaders: {
@@ -67,7 +43,7 @@ module.exports = function (userConfig) {
           test: /\.html$/,
           loaders: ['html-loader?minimize=false']
         },
-        font: {
+        assets: {
           test: /\.(gif|png|jpe?g|svg|otf|ttf|woff2?|eot)(\?\S*)?$/,
           loader: 'url-loader',
           query: {
