@@ -19,7 +19,7 @@ module.exports = function (userConfig, baseConfig) {
   config.entry = userConfig.entry
 
   // dist
-  config.output.path = path.resolve(CWD_PATH, userConfig.dist)
+  config.output.path = path.resolve(CWD_PATH, userConfig.dist || baseConfig.output.path)
 
   // publicPath
   config.output.publicPath = userConfig.publicPath

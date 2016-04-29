@@ -52,7 +52,7 @@ cooking.set({
   // 填 true 会启动 devServer 并采用默认配置，false 将不启用
   // 填 Object 会与下面默认配置进行 merge
   devServer: {
-    // 与 webpack 文档不同的是，这里的 publicPath 会覆盖 output.publicPath
+    // 与 webpack 文档不同的是，这里的 publicPath 会覆盖 output.publicPath (启动 server 时)
     publicPath: '/',
     // 是否启用 dev server
     enable: false,

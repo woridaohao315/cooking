@@ -1,14 +1,19 @@
 var isString = require('./is').string
+var logger = require('./logger')
 
 module.exports = function(entry, host, enable) {
   var result = {}
   // add hot-reload related code to entry chunks
   var hotDevServer = 'webpack/hot/dev-server'
 
+  if (!entry) {
+    logger.fatal('请配置 entry')
+  }
+
   if (isString(entry)) {
     result['app'] = [hotDevServer].concat(entry)
   } else {
-    Object.keys(entry).forEach(function(name, i) {
+    Object.keys(entry || {}).forEach(function(name, i) {
       result[name] = [hotDevServer].concat(entry[name])
     })
   }
