@@ -41,8 +41,8 @@ module.exports = function (userConfig, baseConfig) {
 
     // hash
     if (userConfig.hash) {
-      config.output.filename = '[name].[chunkhash:7].js';
-      config.output.chunkFilename = '[id].[chunkhash:7].js';
+      config.output.filename = '[name].[chunkhash:7].js'
+      config.output.chunkFilename = '[id].[chunkhash:7].js'
     }
 
     // format

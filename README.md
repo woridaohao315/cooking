@@ -74,13 +74,13 @@ cooking.set({
   // build 时候清理 dist 目录
   clean: true,
   // 构建的文件带 hash
-  hash: true,
+  hash: false,
   // 访问路径
   publicPath: '/dist',
-  // 静态资源路径，相对于 publicPath
+  // 静态资源路径，相对于 publicPath, 如果 publicPath 配置成 '/' 记得这里的 path 改成 'static' (否则 webpack 拼接起来就是 '//static')
   assetsPath: '/static',
   // 带 source map
-  sourceMap: true,
+  sourceMap: false,
   // 多大以内的资源内嵌到 JS/CSS 中（单位 Byte)
   urlLoaderLimit: 10000,
   // 接受 amd cjs umd var，其中 cjs 会被翻译成  webpack 的 commonjs2
