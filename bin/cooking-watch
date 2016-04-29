@@ -41,7 +41,10 @@ var hostname = config.devServer.hostname || 'localhost'
 var host = (config.devServer.protocol || 'http:') + '//' + hostname + ':' + port
 
 // load hot loader
-config.entry = require('../util/hot-reload')(config.entry, host)
+config.entry = require('../util/hot-reload')(config.entry, host, config.devServer.enable)
+
+// update path
+config.output.publicPath = config.devServer.publicPath || config.output.publicPath
 
 // run watch
 if (!config.devServer.enable) {
@@ -58,8 +61,6 @@ if (!config.devServer.enable) {
 } else {
   // webpack dev server
   logger.log('server 启动中...')
-
-  config.output.publicPath = config.devServer.publicPath || config.output.publicPath
   new DevServer(webpack(config), config.devServer)
     .listen(port, hostname, function () {
       logger.success('Listening at ' + host)

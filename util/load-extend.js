@@ -25,7 +25,7 @@ module.exports = function (_extends, cooking) {
 
   Object.keys(_extends || {}).forEach(function (key) {
     var extend = isObj ? key : _extends[key]
-    var options = isObj ? _extends[key] : null
+    var options = isObj ? _extends[key] : {}
 
     if (!pluginExists('cooking-' + extend)) {
       installExtend(extend)

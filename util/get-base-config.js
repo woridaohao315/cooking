@@ -1,8 +1,16 @@
 var path = require('path')
 var PATH = require('./path')
+var isObject = require('./is').object
 var webpack = require('webpack')
 
 module.exports = function (userConfig) {
+  // hack assetsPath
+  if (userConfig.devServer === true || isObject(userConfig.devServer)) {
+    userConfig.assetsPath = userConfig.assetsPath || 'static'
+  } else {
+    userConfig.assetsPath = userConfig.assetsPath || '/static'
+  }
+
   return {
     output: {
       path: path.resolve(PATH.CWD_PATH, 'dist'),
@@ -48,7 +56,7 @@ module.exports = function (userConfig) {
           loader: 'url-loader',
           query: {
             limit: userConfig.urlLoaderLimit || 10000,
-            name: path.join(userConfig.assetsPath || 'static', '[name].[hash:7].[ext]')
+            name: path.join(userConfig.assetsPath, '[name].[hash:7].[ext]')
           }
         }
       }

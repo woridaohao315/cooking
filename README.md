@@ -78,7 +78,7 @@ cooking.set({
   // 访问路径
   publicPath: '/dist',
   // 静态资源路径，相对于 publicPath
-  assetsPath: 'static',
+  assetsPath: '/static',
   // 带 source map
   sourceMap: true,
   // 多大以内的资源内嵌到 JS/CSS 中（单位 Byte)
@@ -261,6 +261,7 @@ config.resolve.extensions.push('.json')
 ## 插件列表
 - [vue](https://github.com/cookingjs/cooking-vue) 提供 vue、vuex 和 vue 相关配置
 - [sass](https://github.com/cookingjs/cooking-sass) sass 配置
+- [postcss](https://github.com/cookingjs/cooking-postcss) postcss-loader, 内置 cssnext
 - [lint](https://github.com/cookingjs/cooking-lint) lint 在 JS 文件 babel 之前
 - [lint-cli](https://github.com/cookingjs/cooking-lint-cli) 增加 lint 的命令 （开发中）
 
