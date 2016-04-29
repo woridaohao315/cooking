@@ -50,7 +50,7 @@ var generator = function (name) {
 }
 
 if (!isInstalled('generator-package-cooking')) {
-  logger.info('下载脚手架相关依赖')
+  logger.log('下载脚手架相关依赖')
   npm.install('generator-package-cooking', program.registry)
 }
 if (!isInstalled(path.join(template.split('@')[0], 'package.json'))) {

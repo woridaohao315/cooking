@@ -6,7 +6,7 @@ module.exports = function (userConfig) {
   return {
     output: {
       path: path.resolve(PATH.CWD_PATH, 'dist'),
-      publicPath: '/',
+      publicPath: '/dist',
       filename: '[name].js',
       chunkFilename: '[id].js'
     },
@@ -48,7 +48,7 @@ module.exports = function (userConfig) {
           loader: 'url-loader',
           query: {
             limit: userConfig.urlLoaderLimit || 10000,
-            name: path.join(userConfig.assetsPath || '', '[name].[hash:7].[ext]')
+            name: path.join(userConfig.assetsPath || 'static', '[name].[hash:7].[ext]')
           }
         }
       }

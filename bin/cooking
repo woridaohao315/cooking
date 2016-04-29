@@ -5,7 +5,8 @@ var program = require('commander')
 var PATH = require('../util/path')
 var check = require('../util/check')
 var config = require('../util/config')
-var loadCommand = require('../util/load-command')
+// TODO
+// var loadCommand = require('../util/load-command')
 
 check.initPluginPackage()
 config.init()

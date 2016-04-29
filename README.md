@@ -78,7 +78,7 @@ cooking.set({
   // 访问路径
   publicPath: '/dist',
   // 静态资源路径，相对于 publicPath
-  assetsPath: '/static',
+  assetsPath: 'static',
   // 带 source map
   sourceMap: true,
   // 多大以内的资源内嵌到 JS/CSS 中（单位 Byte)
@@ -122,6 +122,9 @@ cooking.add('loader.vue', {
 })
 
 cooking.add('plugin.NoErrors', new webpack.NoErrorsPlugin())
+
+// 其实这种也是支持的
+cooking.add('output.filename', '[name].bundle.js')
 ```
 将会被翻译成
 ```javascript

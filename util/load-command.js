@@ -4,7 +4,6 @@ var info = require(path.join(PLUGIN_PATH, 'package.json'))
 var dependencies = info.dependencies
 var cliPkg = []
 
-// TODO
 module.exports = function (program) {
   for (var name in dependencies) {
     if (/^cooking-(\S+)-cli$/.test(name)) {
