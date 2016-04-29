@@ -1,35 +1,46 @@
 #!/usr/bin/env node
 
-var program = require('commander');
-var watch = require('./cooking-watch');
-var build = require('./cooking-build');
-var linkModule =require('./../src/utils').linkModule;
+var path = require('path')
+var program = require('commander')
+var PATH = require('../util/path')
+var check = require('../util/check')
+var config = require('../util/config')
+var loadCommand = require('../util/load-command')
 
-program.version(require('./../package.json').version);
+check.initPluginPackage()
+config.init()
 
-program.command('init [name]')
-  .alias('i')
-  .description('init project use vue, react or angular. Default vue.')
-  .action(require('./cooking-init'));
+if (config.get('updateCheck')) {
+  check.checkVersion()
+}
 
-program.command('watch')
-  .alias('w')
-  .description('watch mode')
-  .option('-c, --config [file]', 'Use this if you want to specify something different than cooking.conf.js, which is the default.')
-  .action(function (options) {
-    linkModule(watch, options);
-  });
+// hack
+// https://gist.github.com/branneman/8048520#6-the-hack
+process.env['NODE_PATH'] = [
+    PATH.LIB_PATH,
+    path.join(PATH.ROOT_PATH, 'node_modules'),
+    path.join(PATH.PLUGIN_PATH, 'node_modules')
+  ].join(path.delimiter)
 
-program.command('build')
-  .alias('b')
-  .description('build mode')
-  .option('-c, --config [file]', 'Use this if you want to specify something different than cooking.conf.js, which is the default.')
-  .action(function (options) {
-    linkModule(build, options);
-  });
+require('module').Module._initPaths()
 
-program.parse(process.argv);
+program
+  .usage('<command> [options]')
+  .version(require('../package.json').version)
+  .command('config <option>', '配置')
+  .command('create <project-name> <template>', '创建一个项目文件夹并初始化')
+  .command('init <template>', '初始化一个空项目')
+  .command('import <plugin>', '安装插件')
+  .command('update <plugin>', '更新插件/脚手架')
+  .command('remove <plugin>', '卸载插件/脚手架')
+  .command('list', '查看已安装的插件/脚手架')
+  .command('watch', '开发模式 development')
+  .command('build', '生产模式 production')
+
+// TODO: 读取动态指令
+// loadCommand(program)
+program.parse(process.argv)
 
 if (!process.argv.slice(2).length) {
-  program.outputHelp();
+  program.outputHelp()
 }

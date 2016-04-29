@@ -1,37 +1,59 @@
 #!/usr/bin/env node
 
-var webpack = require('webpack');
-var utils = require('./../src/utils');
-var CONTACTS = require('./../src/contacts');
-var ProgressPlugin = require('./../src/libs/ProgressPlugin');
-var addReslove = require('./../src/libs/add-resolve');
-var resolveBabel = require('./../src/libs/resolve-babel');
+var path = require('path')
+var CWD_PATH = require('../util/path').CWD_PATH
+var program = require('commander')
+var logger = require('../util/logger')
+var webpack = require('webpack')
+var shelljs = require('shelljs')
+var ProgressBarPlugin = require('progress-bar-webpack-plugin')
+var chalk = require('chalk')
 
-module.exports = function(options) {
-  var compiler, use, baseConfig, config;
+program
+  .option('-c --config <configfile>', 'Webpack config file')
+  .parse(process.argv)
 
-  console.log('start build \n');
+// set env
+process.env.NODE_ENV = 'production'
 
-  CONTACTS.FILE = options.config || CONTACTS.FILE;
-  use = utils.fetchUse();
-  baseConfig = utils.loadWebpackConfig(CONTACTS.PROD, use);
-  config = utils.mergeConfig(baseConfig);
+console.log()
+process.on('exit', function () {
+  console.log()
+})
 
-  if (!config) {
-    return;
+var config
+var configPath = path.join(CWD_PATH, program.config || 'cooking.conf.js')
+
+// load config
+try {
+  config = require(configPath)
+} catch (e) {
+  logger.error('Failed to read the config.')
+  logger.fatal(e.stack)
+}
+
+// install resolve path
+require('../util/load-resolve-path')(config)
+
+if (config.__COOKING_CLEAN__) {
+  shelljs.rm('-rf', config.output.path)
+}
+
+// register progressbar
+config.plugins.push(new ProgressBarPlugin({
+  format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
+  clear: false
+}))
+
+// production
+webpack(config).run(function (err, stats) {
+  if (err) {
+    logger.err(err)
+    return
   }
-
-  // add required config
-  config = addReslove(config);
-  config = resolveBabel(config);
-
-  config.plugins.push(new ProgressPlugin());
-
-  webpack(config, function(err, stats) {
-    if (err) {
-      return console.log(err);
-    }
-
-    console.log(stats.toString({ colors: true, chunks: false }));
-  });
-};
+  logger.success('info\n' + stats.toString({
+    colors: true,
+    chunks: false,
+    children: false
+  }))
+})

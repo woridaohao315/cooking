@@ -1,45 +1,60 @@
 #!/usr/bin/env node
 
-var fs = require('fs-extra');
-var cwd = require('cwd');
-var utils = require('./../src/utils');
-var CONTACTS = require('./../src/contacts');
-var download = require('download-git-repo');
-var writeCookConfig = function(use) {
-  fs.readFile(utils.dir('src/templates/cooking.conf.js'), function(err, context) {
-    var newContext = context.toString().replace(/\${(use)}/g, use);
-    fs.writeFile(cwd('cooking.conf.js'), newContext);
-  });
-};
+var path = require('path')
+var program = require('commander')
+var slush = require.resolve('slush/bin/slush')
+var exec = require('../util/exec')
+var logger = require('../util/logger')
+var isInstalled = require('../util/is-installed')
+var npm = require('../util/npm')
+var config = require('../util/config')
 
+program
+  .option('-r --registry <registry-url>', '指定镜像')
+  .parse(process.argv)
 
+var option = program.args[0] || config.get('template')
 
-module.exports = function(use) {
-  var templatePath;
-  var targetPath = cwd();
+if (!option) {
+  logger.fatal('请指定脚手架')
+}
 
-  use = use || CONTACTS.USEFUL.VUE;
+var name = 'cooking-' + option
+var template = 'slush-' + name
 
-  if (!CONTACTS.USEFUL[use.toUpperCase()]) {
-    var tmp = '/tmp/cooking-template' + new Date().getTime();
-    console.log('downloading template...');
-    download(use, tmp, { clone: true }, function (err) {
-      if (err) throw Error(err);
+console.log()
+process.on('exit', function () {
+  console.log()
+})
 
-      fs.copy(tmp + '/templates', targetPath, function (err) {
-        fs.remove(tmp);
-        if (err) throw Error(err);
-        console.log('\nDone, enjoy it!\n');
-      });
-    });
+/**
+ * download template
+ * @param  {string} template template name
+ */
+var installTemplate = function (template) {
+  logger.log('downloading \'' + template + '\'')
+  npm.install(template, program.registry)
+  logger.success('脚手架安装成功\n')
+}
 
-    return;
-  }
+/**
+ * run slush
+ * @param  {string} name slush template name
+ */
+var generator = function (name) {
+  logger.log('generator project')
+  exec(slush, [ name ], {
+    stdio: 'inherit',
+    errorMessage: 'slush runtime error'
+  })
+}
 
-  templatePath = utils.dir('src/templates/' + use + '/');
-  fs.copy(templatePath, targetPath, function(err) {
-    if (err) throw Error(err);
-    writeCookConfig(use);
-    console.log('\nDone, enjoy it!\n');
-  });
-};
+if (!isInstalled('generator-package-cooking')) {
+  logger.info('下载脚手架相关依赖')
+  npm.install('generator-package-cooking', program.registry)
+}
+if (!isInstalled(path.join(template.split('@')[0], 'package.json'))) {
+  installTemplate(template)
+}
+
+generator(name.split('@')[0])

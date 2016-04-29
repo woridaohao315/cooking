@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+
+var exec = require('../util/exec')
+var logger = require('../util/logger')
+var program = require('commander').parse(process.argv)
+var config = require('../util/config')
+var json = require('format-json')
+
+console.log()
+process.on('exit', function () {
+  console.log()
+})
+
+program
+  .option('-l --list', '查看配置信息')
+
+var option = program.args[0]
+var value = program.args[1] || ''
+
+if (!option) {
+  logger.log('--------------')
+  logger.log('配置信息')
+  logger.log('--------------')
+
+  console.log(json.plain(config.get()))
+  process.exit()
+}
+
+if (config.set(option, value)) {
+  config.get(option)
+  logger.success(option + ' = ' + config.get(option))
+} else {
+  logger.fatal('不存在配置项')
+}
+

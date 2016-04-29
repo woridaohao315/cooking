@@ -1,7 +1,8 @@
-node_modules
+test/
+.cooking/
+node_modules/
 npm-debug.log
-dist
 .DS_Store
 etc
 .idea
-.cooking
+doc/
