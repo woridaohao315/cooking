@@ -1,5 +1,9 @@
-# cooking
+# cooking [![Build Status](https://travis-ci.org/ElemeFE/cooking.svg?branch=master)](https://travis-ci.org/ElemeFE/cooking) [![Coverage Status](https://coveralls.io/repos/github/ElemeFE/cooking/badge.svg?branch=unitest)](https://coveralls.io/github/ElemeFE/cooking?branch=unitest) [![npm](https://img.shields.io/npm/dm/localeval.svg?maxAge=2592000)]()
+
 > 基于 webpack 的模块化构建工具
+
+## 文档
+http://cookingjs.github.io
 
 在项目开发中每次创建一个新项目都要去安装一堆的如 babel、webpack、eslint 等依赖，其实多数情况下每个项目的依赖和版本都是相同的；如果用 webpack 做构建工具的话，配置又较为繁琐。所以 cooking 将为你做这些事
 
