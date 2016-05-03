@@ -89,8 +89,8 @@ cooking.set({
   urlLoaderLimit: 10000,
   // 接受 amd cjs umd var，其中 cjs 会被翻译成  webpack 的 commonjs2
   format: 'var',
-  // 如果format 为 'umd'，需要设置该值
-  umdName: '',
+  // 如果format 为 'umd' 或 'amd'，需要设置该值
+  moduleName: '',
 
   // 会加载 CommonsChunkPlugin，接受 String|Object
   // 如果有多个可以配制成 Object, {'name': 'filename'}
