@@ -52,11 +52,15 @@ module.exports = function (userConfig, baseConfig) {
       config.output.libraryTarget = userConfig.format
     }
 
-    // umdName
-    if (userConfig.format === 'umd' && !userConfig.umdName) {
-      logger.fatal('请配置 umdName')
+    // moduleName
+    if (userConfig.format === 'umd' || userConfig.format === 'amd') {
+      if (userConfig.moduleName) {
+        config.output.library = userConfig.moduleName
+        config.output.umdNamedDefine = true
+      } else {
+        logger.fatal('请配置 moduleName')
+      }
     }
-    config.output.library = userConfig.umdName
 
     // plugin
     config.plugins.Define = new webpack.DefinePlugin({
