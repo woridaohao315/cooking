@@ -6,3 +6,6 @@ npm-debug.log
 etc
 .idea
 doc/
+coverage
+.nyc_output
+.coveralls.yml

@@ -1,5 +1,5 @@
-var logger = require('./logger')
 var spawnSync = require('child_process').spawnSync
+var logger = require('./logger')
 
 module.exports = function exec(cmd, args, opts) {
   opts = opts || {}

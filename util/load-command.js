@@ -2,7 +2,6 @@ var path = require('path')
 var PLUGIN_PATH = require('../util/path').PLUGIN_PATH
 var info = require(path.join(PLUGIN_PATH, 'package.json'))
 var dependencies = info.dependencies
-var cliPkg = []
 
 module.exports = function (program) {
   for (var name in dependencies) {

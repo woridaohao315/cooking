@@ -1,5 +1,5 @@
-var chalk = require('chalk')
 var format = require('util').format
+var chalk = require('chalk')
 
 /**
  * Prefix.
@@ -33,12 +33,16 @@ exports.fatal = function (message) {
  * @param {String} message
  */
 exports.error = function (message) {
-  if (message instanceof Error) message = message.message.trim()
+  if (message instanceof Error) {
+    message = message.message.trim()
+  }
+
   var msg = format.apply(format, arguments)
+
   console.error(chalk.red(prefix), sep, msg)
 }
 
-exports.warn = function (message) {
+exports.warn = function () {
   var msg = format.apply(format, arguments)
   console.log(chalk.yellow(prefix), sep, msg)
 }

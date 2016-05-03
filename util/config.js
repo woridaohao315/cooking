@@ -1,6 +1,6 @@
-var PLUGIN_PATH = require('./path').PLUGIN_PATH
-var fs = require('fs')
 var path = require('path')
+var fs = require('fs')
+var PLUGIN_PATH = require('./path').PLUGIN_PATH
 
 var filename = 'config.json'
 var filePath = path.join(PLUGIN_PATH, filename)

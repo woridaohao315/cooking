@@ -11,6 +11,7 @@ var chalk = require('chalk')
 
 program
   .option('-c --config <configfile>', 'Webpack config file')
+  .option('-p --progress', 'Display progress')
   .parse(process.argv)
 
 // set env
@@ -40,10 +41,12 @@ if (config.__COOKING_CLEAN__) {
 }
 
 // register progressbar
-config.plugins.push(new ProgressBarPlugin({
-  format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
-  clear: false
-}))
+if (program.progress) {
+  config.plugins.push(new ProgressBarPlugin({
+    format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
+    clear: false
+  }))
+}
 
 // production
 webpack(config).run(function (err, stats) {
