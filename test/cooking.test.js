@@ -74,7 +74,7 @@ test('cooking set format', t => {
 
   cooking.set({
     format: 'umd',
-    umdName: 'ABC'
+    moduleName: 'ABC'
   })
 
   t.is(cooking.config.output.library, 'ABC')
