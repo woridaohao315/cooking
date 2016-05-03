@@ -1,4 +1,4 @@
-# cooking [![Build Status](https://travis-ci.org/ElemeFE/cooking.svg?branch=master)](https://travis-ci.org/ElemeFE/cooking) [![Coverage Status](https://coveralls.io/repos/github/ElemeFE/cooking/badge.svg?branch=unitest)](https://coveralls.io/github/ElemeFE/cooking?branch=unitest) [![npm](https://img.shields.io/npm/dm/localeval.svg?maxAge=2592000)]()
+# cooking [![Build Status](https://travis-ci.org/ElemeFE/cooking.svg?branch=master)](https://travis-ci.org/ElemeFE/cooking) [![Coverage Status](https://coveralls.io/repos/github/ElemeFE/cooking/badge.svg?branch=master)](https://coveralls.io/github/ElemeFE/cooking?branch=master) [![npm](https://img.shields.io/npm/dm/localeval.svg?maxAge=2592000)]()
 
 > 基于 webpack 的模块化构建工具
 
