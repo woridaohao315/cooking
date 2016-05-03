@@ -7,7 +7,27 @@
     "cooking": "bin/cooking"
   },
   "main": "lib/cooking.js",
-  "scripts": {},
+  "scripts": {
+    "test": "xo && nyc ava",
+    "watch:test": "ava -wv",
+    "report": "nyc report --reporter=html",
+    "prepublish": "npm test"
+  },
+  "xo": {
+    "semicolon": false,
+    "space": 2
+  },
+  "ava": {
+    "files": [
+      "test/*.js"
+    ],
+    "babel": {
+      "presets": [
+        "es2015",
+        "stage-0"
+      ]
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ElemeFE/cooking.git"
@@ -25,7 +45,12 @@
     "url": "https://github.com/ElemeFE/cooking/issues"
   },
   "homepage": "https://github.com/ElemeFE/cooking#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "ava": "^0.14.0",
+    "coveralls": "^2.11.9",
+    "nyc": "^6.4.2",
+    "xo": "^0.14.0"
+  },
   "dependencies": {
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",

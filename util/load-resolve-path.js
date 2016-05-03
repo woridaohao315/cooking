@@ -1,5 +1,5 @@
-var PATH = require('./path')
 var path = require('path')
+var PATH = require('./path')
 
 var rootPath = [
   path.join(PATH.CWD_PATH, 'node_modules'),

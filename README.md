@@ -76,9 +76,9 @@ cooking.set({
   // 构建的文件带 hash
   hash: false,
   // 访问路径
-  publicPath: '/dist',
-  // 静态资源路径，相对于 publicPath, 如果 publicPath 配置成 '/' 记得这里的 path 改成 'static' (否则 webpack 拼接起来就是 '//static')
-  assetsPath: '/static',
+  publicPath: '/dist/',
+  // 静态资源路径，相对于 publicPath
+  assetsPath: 'static',
   // 带 source map
   sourceMap: false,
   // 多大以内的资源内嵌到 JS/CSS 中（单位 Byte)

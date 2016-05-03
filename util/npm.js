@@ -1,6 +1,6 @@
 var exec = require('./exec')
 var PLUGIN_PATH = require('./path').PLUGIN_PATH
-var checkRegistry =require('./check').registry
+var checkRegistry = require('./check').registry
 var config = require('./config')
 
 var npm = function (options, registry) {
@@ -11,7 +11,7 @@ var npm = function (options, registry) {
   }
 
   options = options.concat(['--prefix', PLUGIN_PATH, '--save', '--silent'])
-  exec('npm', options, { stdio: 'inherit'})
+  exec('npm', options, {stdio: 'inherit'})
 }
 
 exports.install = function (name, registry) {

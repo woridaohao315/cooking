@@ -1,10 +1,10 @@
 var path = require('path')
+var webpack = require('webpack')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var is = require('./is')
 var loadTemplate = require('./load-template')
 var CWD_PATH = require('./path').CWD_PATH
 var logger = require('./logger')
-var webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 /**
  * merge
@@ -22,10 +22,12 @@ module.exports = function (userConfig, baseConfig) {
   config.output.path = path.resolve(CWD_PATH, userConfig.dist || baseConfig.output.path)
 
   // publicPath
-  config.output.publicPath = userConfig.publicPath
+  config.output.publicPath = userConfig.publicPath || config.output.publicPath
 
   // template
-  Object.assign(config.plugins, loadTemplate(userConfig.template || config.template))
+  if (userConfig.template !== false) {
+    Object.assign(config.plugins, loadTemplate(userConfig.template || config.template))
+  }
 
   // development
   if (process.env.NODE_ENV === 'development') {
@@ -33,9 +35,7 @@ module.exports = function (userConfig, baseConfig) {
     config.devServer = userConfig.devServer
 
     // plugin
-    config.plugins['NoErrors'] = new webpack.NoErrorsPlugin()
-    config.plugins['HotModuleReplacement'] = new webpack.HotModuleReplacementPlugin()
-
+    config.plugins.NoErrors = new webpack.NoErrorsPlugin()
   } else if (process.env.NODE_ENV === 'production') {
     config.devtool = userConfig.sourceMap ? '#source-map' : false
 
@@ -59,20 +59,20 @@ module.exports = function (userConfig, baseConfig) {
     config.output.library = userConfig.umdName
 
     // plugin
-    config.plugins['Define'] = new webpack.DefinePlugin({
+    config.plugins.Define = new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
       }
     })
-    config.plugins['UglifyJs'] = new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false },
-      output: { comments: false }
+    config.plugins.UglifyJs = new webpack.optimize.UglifyJsPlugin({
+      compress: {warnings: false},
+      output: {comments: false}
     })
 
     var extractcss = userConfig.extractCSS
     if (extractcss) {
       // import plugin
-      config.plugins['ExtractText'] = new ExtractTextPlugin(
+      config.plugins.ExtractText = new ExtractTextPlugin(
         extractcss === true ?
         '[name].[contenthash:7].css' :
         extractcss
@@ -83,7 +83,6 @@ module.exports = function (userConfig, baseConfig) {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
       }
-
     }
   }
 
@@ -99,10 +98,15 @@ module.exports = function (userConfig, baseConfig) {
 
   // chunk
   if (is.string(userConfig.chunk)) {
-    config.plugins['commons-chunk'] = new webpack.optimize.CommonsChunkPlugin(userConfig.chunk, 'vendor.[chunkhash:7].js')
+    var hashContent = userConfig.hash === true && process.env.NODE_ENV === 'production' ? '.[hash:7]' : ''
+    var vendorName = 'vendor' + hashContent + '.js'
+
+    config.plugins['commons-chunk'] = new webpack.optimize.CommonsChunkPlugin(userConfig.chunk, vendorName)
   } else {
     for (var name in userConfig.chunk) {
-      config.plugins[name + '-chunk'] = new webpack.optimize.CommonsChunkPlugin(name, userConfig.chunk[name])
+      if ({}.hasOwnProperty.call(userConfig.chunk, name)) {
+        config.plugins[name + '-chunk'] = new webpack.optimize.CommonsChunkPlugin(userConfig.chunk[name])
+      }
     }
   }
 

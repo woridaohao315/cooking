@@ -1,8 +1,8 @@
 var path = require('path')
-var PLUGIN_PATH = require('./path').PLUGIN_PATH
 var fs = require('fs')
-var package = require('../package.json')
 var updateNotifier = require('update-notifier')
+var pkg = require('../package.json')
+var PLUGIN_PATH = require('./path').PLUGIN_PATH
 
 exports.registry = function (registry) {
   if (!registry) {
@@ -17,15 +17,15 @@ exports.initPluginPackage = function () {
     fs.mkdirSync(PLUGIN_PATH)
   }
 
-  var pkg = path.join(PLUGIN_PATH, 'package.json')
+  var pluginPkg = path.join(PLUGIN_PATH, 'package.json')
 
-  if (!fs.existsSync(pkg)) {
-    fs.writeFileSync(pkg, '{}')
+  if (!fs.existsSync(pluginPkg)) {
+    fs.writeFileSync(pluginPkg, '{}')
   }
 }
 
 exports.checkVersion = function () {
-  var notifier = updateNotifier({pkg: package})
+  var notifier = updateNotifier({pkg: pkg})
 
   notifier.notify()
   if (notifier.update) {
@@ -34,5 +34,5 @@ exports.checkVersion = function () {
 }
 
 exports.pluginExists = function (name) {
-  return fs.existsSync(path.join(PLUGIN_PATH,'node_modules', name))
+  return fs.existsSync(path.join(PLUGIN_PATH, 'node_modules', name))
 }

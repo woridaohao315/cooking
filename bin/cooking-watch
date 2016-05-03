@@ -6,6 +6,8 @@ var program = require('commander')
 var logger = require('../util/logger')
 var webpack = require('webpack')
 var DevServer = require('webpack-dev-server')
+var ProgressBarPlugin = require('progress-bar-webpack-plugin')
+var chalk = require('chalk')
 
 program
   .option('-c --config <configfile>', 'Webpack config file')
@@ -41,10 +43,10 @@ var hostname = config.devServer.hostname || 'localhost'
 var host = (config.devServer.protocol || 'http:') + '//' + hostname + ':' + port
 
 // load hot loader
-config.entry = require('../util/hot-reload')(config.entry, host, config.devServer.enable)
+config.entry = require('../util/hot-reload')(config.entry, host, !!config.devServer)
 
 // run watch
-if (!config.devServer.enable) {
+if (!config.devServer) {
   var compiler = webpack(config)
 
   logger.log('启动中...')
@@ -59,6 +61,7 @@ if (!config.devServer.enable) {
   // webpack dev server
   logger.log('server 启动中...')
 
+  config.plugins.push(new webpack.HotModuleReplacementPlugin())
   // update path
   config.output.publicPath = config.devServer.publicPath || config.output.publicPath
 

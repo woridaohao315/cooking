@@ -5,3 +5,6 @@ dist
 etc
 .idea
 .cooking
+coverage
+.nyc_output
+.coveralls.yml
