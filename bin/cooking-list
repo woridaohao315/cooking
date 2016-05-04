@@ -17,15 +17,25 @@ var info = require(pkg)
 var dependencies = info.dependencies
 var generatorPkg = {}
 var pluginPkg = {}
+var commandPkg = {}
+var dependencyPkg = {}
 
 for (var name in dependencies) {
   if (/^slush-cooking-/.test(name)) {
     generatorPkg[name.replace(/^slush-cooking-/, '')] = dependencies[name]
+  } else if (/^cooking-(\S+)-cli$/.test(name)) {
+    commandPkg[name.replace(/^cooking-(\S+)-cli$/, '$1')] = dependencies[name]
+  } else if (/^cooking-package-/.test(name)) {
+    dependencyPkg[name.replace(/^cooking-package-/, '')] = dependencies[name]
   } else if (/^cooking-/.test(name)) {
     pluginPkg[name.replace(/^cooking-/, '')] = dependencies[name]
   }
 }
 
+logger.log('--------------')
+logger.log('已安装依赖包')
+logger.log('--------------')
+console.log(json.plain(dependencyPkg))
 logger.log('--------------')
 logger.log('已安装脚手架')
 logger.log('--------------')
@@ -35,3 +45,8 @@ logger.log('--------------')
 logger.log('已安装插件')
 logger.log('--------------')
 console.log(json.plain(pluginPkg))
+console.log()
+logger.log('--------------')
+logger.log('已安装指令')
+logger.log('--------------')
+console.log(json.plain(commandPkg))
