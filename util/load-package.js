@@ -25,7 +25,7 @@ module.exports = function (pkg) {
   }
 
   pkg.forEach(function (name) {
-    if (!pluginExists('cooking-pkg-' + name)) {
+    if (!pluginExists('cooking-package-' + name)) {
       installExtend(name)
     }
   })
