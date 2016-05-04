@@ -1,6 +1,6 @@
 {
   "name": "cooking",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A modular build tool based on webpack.",
   "preferGlobal": true,
   "bin": {
@@ -76,7 +76,7 @@
     "style-loader": "^0.13.1",
     "update-notifier": "^0.6.3",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "~1.12.14",
+    "webpack-dev-server": "~1.14.1"
   }
 }

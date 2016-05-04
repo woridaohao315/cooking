@@ -2,11 +2,12 @@
 
 var program = require('commander')
 var logger = require('../util/logger')
-var isInstalled = require('../util/is-installed')
 var npm = require('../util/npm')
 
 program
   .option('-r --registry [registry-url]', '指定镜像, 默认选用 taobao 镜像')
+  .option('-t --template', '安装脚手架')
+  .option('-p --package', '安装依赖包')
   .parse(process.argv)
 
 console.log()
@@ -14,18 +15,22 @@ process.on('exit', function () {
   console.log()
 })
 
-var option = program.args[0]
+var name = program.args[0]
 
-if (!option) {
+if (!name) {
   logger.fatal('请指定插件名称')
 }
 
-if (option.indexOf('/') > -1) {
-  name = option
+if (program.template) {
+  logger.log('安装脚手架: ' + name)
+  name = 'slush-cooking-' + name
+} else if (program.package) {
+  logger.log('安装依赖包: ' + name)
+  name = 'cooking-package-' + name
 } else {
-  name = 'cooking-' + option
+  logger.log('安装插件: ' + name)
+  name = 'cooking-' + name
 }
 
-logger.log('安装插件: ' + option)
 npm.install(name, program.registry)
 logger.success('安装成功')
