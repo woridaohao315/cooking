@@ -97,9 +97,6 @@ module.exports = function (userConfig, baseConfig) {
     config.__COOKING_CLEAN__ = true
   }
 
-  // extends
-  config.__COOKING_EXTENDS__ = userConfig.extends
-
   // chunk
   if (is.string(userConfig.chunk)) {
     var hashContent = userConfig.hash === true && process.env.NODE_ENV === 'production' ? '.[hash:7]' : ''

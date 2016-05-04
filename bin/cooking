@@ -5,8 +5,6 @@ var program = require('commander')
 var PATH = require('../util/path')
 var check = require('../util/check')
 var config = require('../util/config')
-// TODO
-// var loadCommand = require('../util/load-command')
 
 check.initPluginPackage()
 config.init()
@@ -17,7 +15,8 @@ if (config.get('updateCheck')) {
 
 // hack
 // https://gist.github.com/branneman/8048520#6-the-hack
-process.env['NODE_PATH'] = [
+process.env['NODE_PATH'] += [
+    '',
     path.join(PATH.CWD_PATH, 'node_modules'),
     PATH.LIB_PATH,
     path.join(PATH.ROOT_PATH, 'node_modules'),
@@ -39,8 +38,8 @@ program
   .command('watch', '开发模式 development')
   .command('build', '生产模式 production')
 
-// TODO: 读取动态指令
-// loadCommand(program)
+// 加载动态指令
+require('../util/load-command')(program)
 program.parse(process.argv)
 
 if (!process.argv.slice(2).length) {

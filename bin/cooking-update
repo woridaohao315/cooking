@@ -6,7 +6,8 @@ var npm = require('../util/npm')
 
 program
   .option('-r --registry [registry-url]', '指定镜像, 默认选用 taobao 镜像')
-  .option('-t --template [template-name]', '更新脚手架')
+  .option('-t --template', '更新脚手架')
+  .option('-p --package', '更新依赖包')
   .parse(process.argv)
 
 console.log()
@@ -23,6 +24,9 @@ if (!name) {
 if (program.template) {
   logger.log('更新脚手架: ' + name)
   name = 'slush-cooking-' + name
+} else if (program.package) {
+  logger.log('更新依赖包: ' + name)
+  name = 'cooking-package-' + name
 } else {
   logger.log('更新插件: ' + name)
   name = 'cooking-' + name

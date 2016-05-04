@@ -12,6 +12,7 @@ var chalk = require('chalk')
 program
   .option('-c --config <configfile>', 'Webpack config file')
   .option('-p --progress', 'Display progress')
+  .option('--no-color', 'Disable colors to display the statistics')
   .parse(process.argv)
 
 // set env
@@ -55,7 +56,7 @@ webpack(config).run(function (err, stats) {
     return
   }
   logger.success('info\n' + stats.toString({
-    colors: true,
+    colors: program.color,
     chunks: false,
     children: false
   }))

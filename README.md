@@ -15,6 +15,8 @@ http://cookingjs.github.io
 
 
 ## 安装
+**只能使用 NPM 3 及其以上版本安装**
+
 ```shell
 npm i cooking -g
 ```
@@ -39,6 +41,8 @@ cooking 将 webpack 的配置重新包装过，提供的基础配置能满足大
 var cooking = require('cooking')
 
 cooking.set({
+  // 当前项目需要引入的依赖包
+  use: '',
   // 入口文件。同 webpack 的 entry，接受 String|Array|Object，使用相对路径
   entry: './src/entry.js',
   // 项目输出路径。同 output.path，使用相对路径
@@ -231,6 +235,11 @@ config.resolve.extensions.push('.json')
 > cooking import <plugin-name>
 ```
 
+安装依赖包
+```shell
+> cooking import <package-name> -p
+```
+
 
 ### remove
 卸载插件
@@ -241,6 +250,11 @@ config.resolve.extensions.push('.json')
 卸载脚手架
 ```shell
 > cooking remove <template-name> -t
+```
+
+卸载依赖包
+```shell
+> cooking remove <package-name> -p
 ```
 
 
@@ -255,15 +269,22 @@ config.resolve.extensions.push('.json')
 > cooking update <template-name> -t
 ```
 
+更新依赖包
+```shell
+> cooking update <package-name> -p
+```
+
 ### list
 查看安装的插件和脚手架
 ```shell
 > cooking list
 ```
 
+## 依赖包列表
+- [vue](https://github.com/cookingjs/cooking-package-vue) 提供 vue、vuex、vue-router 和 vue-resource
 
 ## 插件列表
-- [vue](https://github.com/cookingjs/cooking-vue) 提供 vue、vuex 和 vue 相关配置
+- [vue](https://github.com/cookingjs/cooking-vue) vue 相关配置
 - [sass](https://github.com/cookingjs/cooking-sass) sass 配置
 - [postcss](https://github.com/cookingjs/cooking-postcss) postcss-loader, 内置 cssnext
 - [lint](https://github.com/cookingjs/cooking-lint) lint 在 JS 文件 babel 之前
