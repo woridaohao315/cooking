@@ -3,6 +3,7 @@ var defaultServer = {
   publicPath: '/',
   port: 8080,
   hot: true,
+  enable: true,
   historyApiFallback: true,
   lazy: false,
   stats: 'errors-only',

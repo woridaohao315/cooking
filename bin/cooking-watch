@@ -43,7 +43,7 @@ var hostname = config.devServer.hostname || 'localhost'
 var host = (config.devServer.protocol || 'http:') + '//' + hostname + ':' + port
 
 // load hot loader
-config.entry = require('../util/hot-reload')(config.entry, host, !!config.devServer)
+config.entry = require('../util/hot-reload')(config.entry, host, config.devServer.enable)
 
 // run watch
 if (!config.devServer.enable) {
