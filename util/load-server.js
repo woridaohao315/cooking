@@ -13,7 +13,10 @@ var defaultServer = {
 module.exports = function (server) {
   // null, undefined, false
   if (!server || server === false) {
-    return {}
+    return {
+      enable: false,
+      stats: 'errors-only'
+    }
   }
 
   // object

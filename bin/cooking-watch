@@ -46,7 +46,7 @@ var host = (config.devServer.protocol || 'http:') + '//' + hostname + ':' + port
 config.entry = require('../util/hot-reload')(config.entry, host, !!config.devServer)
 
 // run watch
-if (!config.devServer) {
+if (!config.devServer.enable) {
   var compiler = webpack(config)
 
   logger.log('启动中...')
