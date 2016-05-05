@@ -20,9 +20,13 @@ test('default config', t => {
 test('disabled server', t => {
   const server = devServer(false)
   const serverA = devServer()
+  const result = {
+    enable: false,
+    stats: 'errors-only'
+  }
 
-  t.deepEqual(server, {})
-  t.deepEqual(serverA, {})
+  t.deepEqual(server, result)
+  t.deepEqual(serverA, result)
 })
 
 test('config', t => {
