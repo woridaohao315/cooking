@@ -75,6 +75,8 @@ module.exports = function (userConfig, baseConfig) {
 
     var extractcss = userConfig.extractCSS
     if (extractcss) {
+      config.extractCSS = true
+
       // import plugin
       config.plugins.ExtractText = new ExtractTextPlugin(
         extractcss === true ?
