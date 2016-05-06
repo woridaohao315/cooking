@@ -47,3 +47,11 @@ test('disabled hotreload', t => {
     app: ['entry.js']
   })
 })
+
+test('no entry', t => {
+  process.env.NODE_ENV = 'testing'
+
+  t.throws(function () {
+    hotReload('', 'http://localhost:8080', false)
+  }, 'exit')
+})

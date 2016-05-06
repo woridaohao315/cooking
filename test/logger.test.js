@@ -23,4 +23,16 @@ test('logger error', t => {
   t.notThrows(function () {
     logger.error('ok')
   })
+
+  t.notThrows(function () {
+    logger.error(new Error('ok'))
+  })
+})
+
+test('logger fatal', t => {
+  process.env.NODE_ENV = 'testing'
+
+  t.throws(function () {
+    logger.fatal('ok')
+  }, 'exit')
 })

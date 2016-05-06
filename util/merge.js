@@ -36,7 +36,7 @@ module.exports = function (userConfig, baseConfig) {
 
     // plugin
     config.plugins.NoErrors = new webpack.NoErrorsPlugin()
-  } else if (process.env.NODE_ENV === 'production') {
+  } else {
     config.devtool = userConfig.sourceMap ? '#source-map' : false
 
     // hash

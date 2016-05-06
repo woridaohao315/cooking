@@ -80,6 +80,16 @@ test('cooking set format', t => {
   t.is(cooking.config.output.library, 'ABC')
 })
 
+test('cooking set format no moduleName', t => {
+  process.env.NODE_ENV = 'testing'
+
+  t.throws(function () {
+    cooking.set({
+      format: 'umd'
+    })
+  }, 'exit')
+})
+
 test('cooking set chunk', t => {
   cooking.set({
     chunk: 'vendor'
