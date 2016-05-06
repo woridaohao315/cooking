@@ -24,7 +24,12 @@ exports.log = function () {
  */
 exports.fatal = function (message) {
   exports.error(message)
-  process.exit(1)
+
+  if (process.env.NODE_ENV === 'testing') {
+    throw new Error('exit')
+  } else {
+    process.exit(1)
+  }
 }
 
 /**
