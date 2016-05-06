@@ -16,7 +16,7 @@ module.exports = function (pkg) {
     return
   }
 
-  if (!isString || !isArray) {
+  if (!isString(pkg) && !isArray(pkg)) {
     logger.fatal('use 字段只接受数组和字符串类型')
   }
 
