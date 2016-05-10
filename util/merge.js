@@ -100,14 +100,17 @@ module.exports = function (userConfig, baseConfig) {
   }
 
   // chunk
+  var hashContent = userConfig.hash === true && process.env.NODE_ENV === 'production' ? '.[hash:7]' : ''
   if (is.string(userConfig.chunk)) {
-    var hashContent = userConfig.hash === true && process.env.NODE_ENV === 'production' ? '.[hash:7]' : ''
-    var vendorName = 'vendor' + hashContent + '.js'
+    var vendorName = userConfig.chunk + hashContent + '.js'
 
     config.plugins['commons-chunk'] = new webpack.optimize.CommonsChunkPlugin(userConfig.chunk, vendorName)
   } else {
     for (var name in userConfig.chunk) {
       if ({}.hasOwnProperty.call(userConfig.chunk, name)) {
+        userConfig.chunk[name].name = userConfig.chunk[name].name || name
+        userConfig.chunk[name].filename = userConfig.chunk[name].filename || (name + hashContent + '.js')
+
         config.plugins[name + '-chunk'] = new webpack.optimize.CommonsChunkPlugin(userConfig.chunk[name])
       }
     }
