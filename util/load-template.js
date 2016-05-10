@@ -22,6 +22,7 @@ module.exports = function (template) {
             template: template[name]
           })
         } else {
+          template[name].filename = template[name].filename || name
           templates[name] = new HtmlWebpackPlugin(template[name])
         }
       }
