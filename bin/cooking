@@ -6,6 +6,9 @@ var PATH = require('../util/path')
 var check = require('../util/check')
 var config = require('../util/config')
 
+// prevent sudo
+check.preventSudo()
+
 check.initPluginPackage()
 config.init()
 

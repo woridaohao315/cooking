@@ -16,7 +16,14 @@ module.exports = function (template) {
   } else if (is.object(template)) {
     for (var name in template) {
       if ({}.hasOwnProperty.call(template, name)) {
-        templates[name] = new HtmlWebpackPlugin(template[name])
+        if (is.string(template[name])) {
+          templates[name] = new HtmlWebpackPlugin({
+            filename: name,
+            template: template[name]
+          })
+        } else {
+          templates[name] = new HtmlWebpackPlugin(template[name])
+        }
       }
     }
   }

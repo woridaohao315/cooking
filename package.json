@@ -1,6 +1,6 @@
 {
   "name": "cooking",
-  "version": "0.3.11",
+  "version": "0.3.1",
   "description": "A modular build tool based on webpack.",
   "preferGlobal": true,
   "bin": {
@@ -66,6 +66,7 @@
     "format-json": "^1.0.3",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.9.0",
+    "is-root": "^1.0.0",
     "json-loader": "^0.5.4",
     "lodash.set": "^4.1.0",
     "lodash.toarray": "^4.2.4",

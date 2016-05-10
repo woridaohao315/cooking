@@ -1,7 +1,9 @@
 var path = require('path')
 var fs = require('fs')
+var isRoot = require('is-root')
 var updateNotifier = require('update-notifier')
 var pkg = require('../package.json')
+var logger = require('../util/logger')
 var PLUGIN_PATH = require('./path').PLUGIN_PATH
 
 exports.registry = function (registry) {
@@ -35,4 +37,11 @@ exports.checkVersion = function () {
 
 exports.pluginExists = function (name) {
   return fs.existsSync(path.join(PLUGIN_PATH, 'node_modules', name))
+}
+
+exports.preventSudo = function () {
+  if (isRoot()) {
+    console.log()
+    logger.fatal('禁止使用 sudo 执行\n')
+  }
 }
