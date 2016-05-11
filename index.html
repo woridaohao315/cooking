@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="description" content="基于 webpack 的构建工具，简单的配置、项目零依赖、快速开始开发">
+  <title>cooking - 可能是最简洁高效的前端构建工具</title>
+<link rel="shortcut icon" href="/cooking/favicon.ico"><link href="/cooking/app.044cb82.css" rel="stylesheet"></head>
+<body>
+  <app><header class="header">
+  <nav class="nav">
+    <a href="https://github.com/ElemeFE/" class="brand">
+      <img class="logo" src="/cooking/static/elemefe.678f0f7.png" alt="elemefe logo">
+    </a>
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a class="nav-link" href="http://cookingjs.github.io/">Docs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://cookingjs.github.io/list-of-plugins.html">Plugins</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://github.com/ElemeFE/cooking">Github</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="main-wrap">
+    <h1 class="headline">
+      <img class="logo" src="/cooking/static/logo.f12a567.svg" alt="logo">
+      cooking
+    </h1>
+    <p class="desc">可能是最简洁高效的前端构建工具<small>基于 webpack</small></p>
+    <div class="buttongroup">
+      <a href="#" @click.prevent="showDemo = true" class="button">视频演示</a>
+      <a href="http://cookingjs.github.io/quickstart.html" class="button">快速开始</a>
+    </div>
+  </div>
+</header>
+<main class="info">
+  <div class="feature">
+    <h1 class="feature-title">简易配置</h1>
+    <p class="feature-text">提供 webpack 的基础预配置，并将常用配置项包装成更直观的参数。少量配置即可获得支持热替换、ES6 预处理、CSS 或字体等基础 loader 的开发环境。</p>
+  </div>
+  <div class="feature">
+    <h1 class="feature-title">项目零依赖</h1>
+    <p class="feature-text">省去项目内安装一堆开发依赖的过程，从创建项目到启动开发环境花费时间不到十秒。</p>
+  </div>
+  <div class="feature">
+    <h1 class="feature-title">兼容已有配置</h1>
+    <p class="feature-text">少量甚至不需要修改即可让 cooking 使用已有的 webapck 配置文件。</p>
+  </div>
+  <div class="feature">
+    <h1 class="feature-title">脚手架</h1>
+    <p class="feature-text">内置脚手架功能，通过安装脚手架能快速创建使用 cooking 的空项目。</p>
+  </div>
+</main>
+
+<footer class="footer">
+  <a href="https://github.com/ElemeFE/" target="_blank" class="copyright">&copy; ElemeFE</a>
+</footer>
+
+<v-dialog :visible.sync="showDemo">
+  <iframe style="position: absolute; height: 100%; width: 100%;" src="http://player.youku.com/embed/XMTU1NDI1OTgwOA==" frameborder=0 allowfullscreen></iframe>
+</v-dialog>
+</app>
+<script src="/cooking/vendor.6ed0552.js"></script><script src="/cooking/app.2a8c271.js"></script></body>
+</html>
