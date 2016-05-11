@@ -1,6 +1,6 @@
 {
   "name": "cooking",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "description": "A modular build tool based on webpack.",
   "preferGlobal": true,
   "bin": {
@@ -16,7 +16,9 @@
   "xo": {
     "semicolon": false,
     "space": 2,
-    "ignores": ["example/**"]
+    "ignores": [
+      "example/**"
+    ]
   },
   "ava": {
     "files": [
