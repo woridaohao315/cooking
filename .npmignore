@@ -9,3 +9,4 @@ doc/
 coverage
 .nyc_output
 .coveralls.yml
+example
