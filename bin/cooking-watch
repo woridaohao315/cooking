@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+// set env
+process.env.NODE_ENV = 'development'
+
 var path = require('path')
 var CWD_PATH = require('../util/path').CWD_PATH
 var program = require('commander')
@@ -8,49 +11,77 @@ var webpack = require('webpack')
 var DevServer = require('webpack-dev-server')
 var ProgressBarPlugin = require('progress-bar-webpack-plugin')
 var chalk = require('chalk')
+var shelljs = require('shelljs')
+
+/**
+ * 装配配置文件
+ * @param  {string} filename   文件名
+ * @return {object}            配置内容
+ */
+var loadConfig = function (filename) {
+  var configPath = path.join(CWD_PATH, filename)
+  var config
+
+  // load config
+  try {
+    config = require(configPath)
+  } catch (e) {
+    logger.error('Failed to read the config.')
+    logger.fatal(e.stack)
+  }
+
+  config.name = filename
+
+  // clean
+  if (config.__COOKING_CLEAN__) {
+    shelljs.rm('-rf', config.output.path)
+  }
+
+  // install resolve path
+  require('../util/load-resolve-path')(config)
+
+  // install dev server
+  config.devServer = require('../util/load-server')(config.devServer)
+
+  if (config.devServer.enable) {
+    config.devServer.host = config.devServer.protocol + '//' + config.devServer.hostname + ':' + config.devServer.port
+  }
+
+  // load hot loader
+  config.entry = require('../util/hot-reload')(config.entry, config.devServer.host, config.devServer.enable)
+
+  // update path
+  config.output.publicPath = config.devServer.publicPath || config.output.publicPath
+
+  return config
+}
 
 program
-  .option('-c --config <configfile>', 'Webpack config file')
+  .option('-c --config [configfile]', 'config file', function (val) {
+    return val.split(',')
+  })
   .parse(process.argv)
-
-// set env
-process.env.NODE_ENV = 'development'
 
 console.log()
 process.on('exit', function () {
   console.log()
 })
 
-var config
-var configPath = path.join(CWD_PATH, program.config || 'cooking.conf.js')
+program.config = program.config || ['cooking.conf.js']
 
-// load config
-try {
-  config = require(configPath)
-} catch (e) {
-  logger.error('Failed to read the config.')
-  logger.fatal(e.stack)
+var configs = []
+
+// 加载配置
+for (var i = 0; i < program.config.length; i++) {
+  var config = loadConfig(program.config[i])
+
+  configs.push(config)
+  configs.devServer = config.devServer
 }
 
-// install resolve path
-require('../util/load-resolve-path')(config)
-
-// install dev server
-config.devServer = require('../util/load-server')(config.devServer)
-
-var port = config.devServer.port || 8080
-var hostname = config.devServer.hostname || 'localhost'
-var host = (config.devServer.protocol || 'http:') + '//' + hostname + ':' + port
-
-// load hot loader
-config.entry = require('../util/hot-reload')(config.entry, host, config.devServer.enable)
-
-// update path
-config.output.publicPath = config.devServer.publicPath || config.output.publicPath
-
 // run watch
-if (!config.devServer.enable) {
-  var compiler = webpack(config)
+if (!configs.devServer.enable) {
+  var compiler = webpack(configs)
 
   logger.log('启动中...')
   compiler.watch({}, function (err, stats) {
@@ -64,10 +95,14 @@ if (!config.devServer.enable) {
   // webpack dev server
   logger.log('server 启动中...')
 
-  config.plugins.push(new webpack.HotModuleReplacementPlugin())
+  for (var i = 0; i < configs.length; i++) {
+    configs[i].plugins.push(new webpack.HotModuleReplacementPlugin())
+  }
 
-  new DevServer(webpack(config), config.devServer)
-    .listen(port, hostname, function () {
-      logger.success('Listening at ' + host)
+  var devServer = configs.devServer
+
+  new DevServer(webpack(configs), devServer)
+    .listen(devServer.port, devServer.hostname, function () {
+      logger.success('Listening at ' + devServer.host)
     })
 }

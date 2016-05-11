@@ -6,6 +6,27 @@ var loadTemplate = require('./load-template')
 var CWD_PATH = require('./path').CWD_PATH
 var logger = require('./logger')
 
+var extractCSS = function (extractcss, config) {
+  if (!extractcss) {
+    return
+  }
+
+  config.extractCSS = true
+
+  // import plugin
+  config.plugins.ExtractText = new ExtractTextPlugin(
+    extractcss === true ?
+    '[name].[contenthash:7].css' :
+    extractcss
+  )
+
+  // update css loader
+  config.module.loaders.css = {
+    test: /\.css$/,
+    loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+  }
+}
+
 /**
  * merge
  * @param  {object} userConfig
@@ -36,6 +57,16 @@ module.exports = function (userConfig, baseConfig) {
 
     // plugin
     config.plugins.NoErrors = new webpack.NoErrorsPlugin()
+
+    // extractCSS
+    if (userConfig.devServer) {
+      extractCSS(userConfig.devServer.extractCSS, config)
+    }
+
+    // devtool
+    if (!userConfig.devServer || !userConfig.devServer.enable) {
+      config.devtool = userConfig.sourceMap ? '#source-map' : false
+    }
   } else {
     config.devtool = userConfig.sourceMap ? '#source-map' : false
 
@@ -73,23 +104,7 @@ module.exports = function (userConfig, baseConfig) {
       output: {comments: false}
     })
 
-    var extractcss = userConfig.extractCSS
-    if (extractcss) {
-      config.extractCSS = true
-
-      // import plugin
-      config.plugins.ExtractText = new ExtractTextPlugin(
-        extractcss === true ?
-        '[name].[contenthash:7].css' :
-        extractcss
-      )
-
-      // update css loader
-      config.module.loaders.css = {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
-      }
-    }
+    extractCSS(userConfig.extractCSS, config)
   }
 
   // clean

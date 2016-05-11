@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+// set env
+process.env.NODE_ENV = 'production'
+
 var path = require('path')
 var CWD_PATH = require('../util/path').CWD_PATH
 var program = require('commander')
@@ -9,55 +12,84 @@ var shelljs = require('shelljs')
 var ProgressBarPlugin = require('progress-bar-webpack-plugin')
 var chalk = require('chalk')
 
+var loadConfig = function (filename) {
+  var configPath = path.join(CWD_PATH, filename)
+  var config
+
+  // load config
+  try {
+    config = require(configPath)
+  } catch (e) {
+    logger.error('Failed to read the config.')
+    logger.fatal(e.stack)
+  }
+
+  config.name = filename
+
+  // install resolve path
+  require('../util/load-resolve-path')(config)
+
+  if (config.__COOKING_CLEAN__) {
+    shelljs.rm('-rf', config.output.path)
+  }
+
+  // register progressbar
+  if (program.progress) {
+    config.plugins.push(new ProgressBarPlugin({
+      format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
+      clear: false
+    }))
+  }
+
+  return config
+}
+
 program
-  .option('-c --config <configfile>', 'Webpack config file')
+  .option('-c --config <configfile>', 'config file', function (val) {
+    return val.split(',')
+  })
   .option('-p --progress', 'Display progress')
   .option('--no-color', 'Disable colors to display the statistics')
   .parse(process.argv)
-
-// set env
-process.env.NODE_ENV = 'production'
 
 console.log()
 process.on('exit', function () {
   console.log()
 })
 
-var config
-var configPath = path.join(CWD_PATH, program.config || 'cooking.conf.js')
+program.config = program.config || ['cooking.conf.js']
 
-// load config
-try {
-  config = require(configPath)
-} catch (e) {
-  logger.error('Failed to read the config.')
-  logger.fatal(e.stack)
-}
+var configs = []
 
-// install resolve path
-require('../util/load-resolve-path')(config)
+// 加载配置
+for (var i = 0; i < program.config.length; i++) {
+  var config = loadConfig(program.config[i])
 
-if (config.__COOKING_CLEAN__) {
-  shelljs.rm('-rf', config.output.path)
-}
-
-// register progressbar
-if (program.progress) {
-  config.plugins.push(new ProgressBarPlugin({
-    format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
-    clear: false
-  }))
+  configs.push(config)
 }
 
 // production
-webpack(config).run(function (err, stats) {
+var compiler = webpack(configs)
+
+// Hack: remove extract-text-webpack-plugin log
+compiler.plugin('done', function(stats) {
+  stats.stats.forEach(function(stat) {
+    stat.compilation.children = stat.compilation.children.filter(function(child) {
+      return !/extract-text-webpack-plugin|html-webpack-plugin/.test(child.name)
+    })
+  })
+})
+
+compiler.run(function (err, stats) {
   if (err) {
     logger.err(err)
     return
   }
+
   logger.success('info\n' + stats.toString({
     colors: program.color,
     chunks: false,
-    children: false
+    hash: false,
+    version: false
   }))
 })

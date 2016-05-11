@@ -13,7 +13,7 @@ cooking.set({
     }
   },
   chunk: 'vendor',
-  urlLoaderLimit: 1,
+  urlLoaderLimit: false,
   devServer: {
     port: 8802,
     publicPath: '/'
@@ -21,7 +21,7 @@ cooking.set({
   hash: true,
   publicPath: '/cooking/',
   extractCSS: true,
-  extends: ['vue', 'lint']
+  extends: ['vue', 'lint', 'saladcss']
 });
 
 module.exports = cooking.resolve();

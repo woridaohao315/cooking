@@ -1,174 +1,231 @@
 <script>
-  import VDialog from './components/dialog.vue';
-
   export default {
     name: 'app',
 
-    components: {
-      VDialog
-    },
-
     template: require('./app.html'),
 
-    data() {
-      return {
-        showDemo: false
-      };
+    methods: {
+      handleCopyCmd($event) {
+        $event.target.select();
+      }
     }
   };
 </script>
 
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+<style lang="css">
+  /* variables */
+  $color-white: #fff;
+  $color-blue: #008de1;
+  $color-blue-dark: #186fa2;
+
+  /* reset */
+  @custom-media --small-viewport (max-width: 30em);
+  @reset-global pc;
+
+  @media (--small-viewport) {
+    @reset-global mobile;
   }
 
+  /* grid */
+  .grid {
+    @neat-outer-container;
+    max-width: 960px;
+
+    .grid-col {
+      @neat-span-columns 4;
+
+      &:nth-child(3n) {
+        @neat-omega;
+      }
+    }
+  }
+
+  /* page */
   a {
-    text-decoration: none;
     color: inherit;
     transition: .3s all;
+
+    &.link {
+      padding-bottom: 1px;
+      border-bottom: 1px dashed #ccc;
+    }
+
+    &:hover {
+      opacity: .6;
+    }
   }
 
   .header {
-    color: #fff;
-    height: 100vh;
-    background-color: #008de1;
+    color: $color-white;
+    background-color: $color-blue;
     text-align: center;
   }
 
-  .nav .brand {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-
-  .nav .brand .logo {
-    width: 50px;
-    height: 50px;
-  }
-
-  .nav .nav-list {
-    list-style: none;
-    font-weight: lighter;
-    padding-top: 30px;
-  }
-
-  .nav .nav-item {
-    display: inline-block;
-  }
-
-  .nav .nav-link {
-    font-weight: lighter;
-    font-family: sans-serif;
-    padding: 5px 10px;
-  }
-
-  .nav .nav-link:hover {
-    opacity: .6;
-  }
-
-  .header .main-wrap {
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform-style: preserve-3d;
+  .install {
+    background-color: $color-blue-dark;
     text-align: center;
-    transform: translate(-50%, -50%);
+    margin: 20px;
+    padding: 10px;
+    outline: 0;
+    border: 0;
   }
 
-  .header .headline {
-    font-size: 40px;
-    font-family: cursive;
-    margin-bottom: 20px;
+  .nav {
+    .nav-list {
+      font-weight: lighter;
+      padding-top: 30px;
+    }
+
+    .nav-item {
+      display: inline-block;
+    }
+
+    .nav-link {
+      font-weight: inherit;
+      font-family: sans-serif;
+      padding: 5px 10px;
+    }
   }
 
-  .header .logo {
-    width: 150px;
-    margin: auto;
-    display: block;
+  .intro {
+    margin: 20px 0 40px;
+    text-align: center;
+
+    .headline {
+      font-size: 30px;
+      color: #333;
+    }
+
+    .text {
+      color: #6d6d6d;
+      line-height: 1.6em;
+      font-size: 16px;
+      max-width: 700px;
+      padding: 0 10px;
+      margin: 20px auto 40px;
+    }
+
+    .video {
+      border-radius: 4px;
+      display: block;
+      margin: auto;
+      rect: 600px auto $color-white;
+      box-shadow: 1px 1px 10px #999;
+
+      @media (--small-viewport) {
+        width: 100%;
+        border-radius: 0;
+      }
+    }
   }
 
-  .header .desc {
-    font-size: 24px;
-    min-width: 200px;
+  .main-wrap {
+    padding: 30px 0;
+
+    .headline {
+      font-size: 40px;
+      font-family: cursive;
+      margin-bottom: 20px;
+    }
+
+    .buttongroup {
+      .button {
+        margin-right: 10px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .logo {
+      width: 150px;
+      margin: auto;
+      display: block;
+    }
+
+    .desc {
+      font-size: 24px;
+      min-width: 300px;
+    }
   }
 
-  .header .desc > small {
-    display: block;
-    font-size: .6em;
-    margin-top: 10px;
-  }
-
-  .header .buttongroup {
-    margin: 20px 0;
-  }
-
-  .header .button {
-    background-color: #fff;
-    border-radius: 4px;
-    color: #000;
-    display: inline-block;
-    padding: 10px 20px;
-    margin-right: 10px;
-  }
-
-  .header .button:hover {
-    background-color: #f0f0f0;
-  }
-
-  .header .button:last-child {
-    margin-right: 0;
-  }
-
-  .info {
+  .warp {
+    background-color: #f9f9f9;
+    margin: 40px 0;
     padding: 40px 20px;
   }
 
-  .info::after {
-    clear: both;
-    content: " ";
-    display: table;
-  }
+  .info {
+    margin: 30px auto 40px;
 
-  .info .feature {
-    box-sizing: border-box;
-    color: #333;
-    float: left;
-    font-size: 14px;
-    padding: 50px;
-    width: 50%;
-    height: 180px;
-  }
+    .feature {
+      color: #333;
+      font-size: 14px;
+      padding: 30px 20px;
 
-  @media (max-width: 480px) {
-    .header .button {
-      padding: 10px 12px;
+      @media (--small-viewport) {
+        @neat-span-columns 12;
+        @neat-omega;
+        padding: 20px;
+      }
     }
 
-    .info .feature {
-      width: 100%;
-      float: none;
-      height: auto;
+    .feature-title {
+      font-size: 20px;
+      font-weight: normal;
+      margin-bottom: 6px;
+    }
+
+    .feature-text {
+      line-height: 1.6em;
+      color: #6d6d6d;
+    }
+  }
+
+  .quickstart {
+    margin: 40px 0 50px;
+    text-align: center;
+
+    .headline {
+      font-size: 30px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .more {
+      font-size: 16px;
+      margin-top: 20px;
+      color: #6d6d6d;
+    }
+
+    .shell {
+      display: block;
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: left;
+      background-color: #0b354e;
+      color: $color-white;
       padding: 20px;
+      border-radius: 4px;
+      box-shadow: 1px 1px 10px #999;
+
+      @media (--small-viewport) {
+        border-radius: 0;
+      }
+
+      .comment {
+        color: #719fad;
+      }
+
+      .command {
+        color: #a8dbf9;
+      }
     }
-  }
-
-  .info .feature-title {
-    font-size: 20px;
-    font-weight: lighter;
-    margin-bottom: 10px;
-  }
-
-  .info .feature-text {
-    line-height: 1.6em;
-    color: #6d6d6d;
   }
 
   .footer {
-    background-color: #008de1;
-    color: #fff;
+    color: #ccc;
     text-align: center;
     padding: 20px;
   }

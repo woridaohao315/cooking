@@ -3,6 +3,11 @@ var webpack = require('webpack')
 var PATH = require('./path')
 
 module.exports = function (userConfig) {
+  var limit = 1
+  if (userConfig.urlLoaderLimit !== false) {
+    limit = userConfig.urlLoaderLimit || 10000
+  }
+
   return {
     output: {
       path: path.resolve(PATH.CWD_PATH, 'dist'),
@@ -47,7 +52,7 @@ module.exports = function (userConfig) {
           test: /\.(gif|png|jpe?g|svg|otf|ttf|woff2?|eot)(\?\S*)?$/,
           loader: 'url-loader',
           query: {
-            limit: userConfig.urlLoaderLimit || 10000,
+            limit: limit,
             name: path.join(userConfig.assetsPath || 'static', '[name].[hash:7].[ext]')
           }
         }
