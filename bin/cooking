@@ -7,7 +7,9 @@ var check = require('../util/check')
 var config = require('../util/config')
 
 // prevent sudo
-check.preventSudo()
+if (process.argv.indexOf('--allow-root') < 0) {
+  check.preventSudo()
+}
 
 check.initPluginPackage()
 config.init()
@@ -31,6 +33,7 @@ require('module').Module._initPaths()
 program
   .usage('<command> [options]')
   .version(require('../package.json').version)
+  .option('--allow-root', 'Allow root.')
   .command('config <option>', '配置')
   .command('create <project-name> <template>', '创建一个项目文件夹并初始化')
   .command('init <template>', '初始化一个空项目')
