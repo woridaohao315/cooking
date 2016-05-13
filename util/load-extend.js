@@ -26,12 +26,13 @@ module.exports = function (_extends, cooking) {
   Object.keys(_extends || {}).forEach(function (key) {
     var extend = isObj ? key : _extends[key]
     var options = isObj ? _extends[key] : {}
+    var extendName = extend.split('@')[0]
 
-    if (!pluginExists('cooking-' + extend)) {
+    if (!pluginExists('cooking-' + extendName)) {
       installExtend(extend)
     }
 
-    importExtend(extend, cooking, options)
+    importExtend(extendName, cooking, options)
   })
   console.log()
 }
