@@ -1,4 +1,6 @@
-# cooking [![Build Status](https://travis-ci.org/ElemeFE/cooking.svg?branch=master)](https://travis-ci.org/ElemeFE/cooking) [![Coverage Status](https://coveralls.io/repos/github/ElemeFE/cooking/badge.svg?branch=master)](https://coveralls.io/github/ElemeFE/cooking?branch=master) [![npm](https://img.shields.io/npm/dm/cooking.svg?maxAge=2592000)](https://www.npmjs.com/package/cooking) [![npm](https://img.shields.io/npm/v/cooking.svg?maxAge=3600)](https://www.npmjs.com/package/cooking)[![Dependency Status](https://david-dm.org/elemefe/cooking.svg)](https://david-dm.org/elemefe/cooking)[![devDependency Status](https://david-dm.org/elemefe/cooking/dev-status.svg)](https://david-dm.org/elemefe/cooking#info=devDependencies)
+# cooking
+
+[![Build Status](https://travis-ci.org/ElemeFE/cooking.svg?branch=master)](https://travis-ci.org/ElemeFE/cooking) [![Coverage Status](https://coveralls.io/repos/github/ElemeFE/cooking/badge.svg?branch=master)](https://coveralls.io/github/ElemeFE/cooking?branch=master) [![npm](https://img.shields.io/npm/dm/cooking.svg?maxAge=2592000)](https://www.npmjs.com/package/cooking) [![npm](https://img.shields.io/npm/v/cooking.svg?maxAge=3600)](https://www.npmjs.com/package/cooking) [![Dependency Status](https://david-dm.org/elemefe/cooking.svg)](https://david-dm.org/elemefe/cooking) [![devDependency Status](https://david-dm.org/elemefe/cooking/dev-status.svg)](https://david-dm.org/elemefe/cooking#info=devDependencies)
 
 > 更易上手的前端构建工具
 
@@ -36,11 +38,11 @@ Step 2. 开始开发
 
 ## 常见问题
 
-### Cannot find module 'xxx' #34
+### Cannot find module 'xxx'
 
 确保使用 NPM 3.0 及其以上版本
 
-### permission denied #33
+### permission denied
 
 不推荐使用 root 权限安装及执行 cooking，如果强制使用请在每次执行是带上 `--allow-root` 参数，或者推荐做法是将 node_modules 目录的权限改成当前用户。
 
