@@ -1,7 +1,7 @@
 var isString = require('./is').string
 var logger = require('./logger')
 
-module.exports = function (entry, host, enable) {
+module.exports = function (entry, devServer) {
   var result = {}
 
   if (!entry) {
@@ -16,13 +16,18 @@ module.exports = function (entry, host, enable) {
     })
   }
 
-  if (enable) {
-  // add hot-reload related code to entry chunks
-    var webpackDevServer = 'webpack-dev-server/client?' + host + '/'
-    var hotDevServer = 'webpack/hot/dev-server'
+  if (devServer.enable) {
+    var data = [
+      'webpack-dev-server/client?' + devServer.host + '/',
+      'webpack/hot/dev-server'
+    ]
+
+    if (devServer.log) {
+      data.push('webpack-hud')
+    }
 
     Object.keys(result).forEach(function (name) {
-      result[name] = [hotDevServer, webpackDevServer].concat(result[name])
+      result[name] = data.concat(result[name])
     })
   }
 

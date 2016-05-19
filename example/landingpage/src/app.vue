@@ -88,7 +88,7 @@
   }
 
   .intro {
-    margin: 20px 0 40px;
+    margin: 40px 0;
     text-align: center;
 
     .headline {
@@ -152,8 +152,7 @@
 
   .warp {
     background-color: #f9f9f9;
-    margin: 40px 0;
-    padding: 40px 20px;
+    padding: 20px;
   }
 
   .info {

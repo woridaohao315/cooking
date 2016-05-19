@@ -7,6 +7,7 @@ module.exports = function (userConfig) {
   if (userConfig.urlLoaderLimit !== false) {
     limit = userConfig.urlLoaderLimit || 10000
   }
+  var assetsPath = userConfig.assetsPath || 'static'
 
   return {
     output: {
@@ -48,12 +49,28 @@ module.exports = function (userConfig) {
           test: /\.html$/,
           loaders: ['html-loader?minimize=false']
         },
-        assets: {
-          test: /\.(gif|png|jpe?g|svg|otf|ttf|woff2?|eot)(\?\S*)?$/,
+        font: {
+          test: /\.otf|ttf|woff2?|eot(\?\S*)?$/,
           loader: 'url-loader',
           query: {
             limit: limit,
-            name: path.join(userConfig.assetsPath || 'static', '[name].[hash:7].[ext]')
+            name: path.join(assetsPath, '[name].[hash:7].[ext]')
+          }
+        },
+        svg: {
+          test: /\.svg(\?\S*)?$/,
+          loader: 'url-loader',
+          query: {
+            limit: limit,
+            name: path.join(assetsPath, '[name].[hash:7].[ext]')
+          }
+        },
+        image: {
+          test: /\.(gif|png|jpe?g)(\?\S*)?$/,
+          loader: 'url-loader',
+          query: {
+            limit: limit,
+            name: path.join(assetsPath, '[name].[hash:7].[ext]')
           }
         }
       }

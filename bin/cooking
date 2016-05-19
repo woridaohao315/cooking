@@ -5,6 +5,7 @@ var program = require('commander')
 var PATH = require('../util/path')
 var check = require('../util/check')
 var config = require('../util/config')
+var logger = require('../util/logger')
 
 // prevent sudo
 if (process.argv.indexOf('--allow-root') < 0) {

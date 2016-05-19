@@ -16,6 +16,10 @@
   "xo": {
     "semicolon": false,
     "space": 2,
+    "rules": {
+      "xo/no-process-exit": 0,
+      "xo/filename-case": 0
+    },
     "ignores": [
       "example/**"
     ]
@@ -52,7 +56,7 @@
     "ava": "^0.14.0",
     "coveralls": "^2.11.9",
     "nyc": "^6.4.2",
-    "xo": "^0.14.0"
+    "xo": "^0.15.0"
   },
   "dependencies": {
     "babel-core": "^6.0.0",
@@ -78,9 +82,10 @@
     "shelljs": "^0.7.0",
     "slush": "^1.1.1",
     "style-loader": "^0.13.1",
-    "update-notifier": "^0.6.3",
+    "update-notifier": "^0.7.0",
     "url-loader": "^0.5.7",
-    "webpack": "~1.12.14",
-    "webpack-dev-server": "~1.14.1"
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "~1.14.1",
+    "webpack-hud": "0.0.4"
   }
 }
