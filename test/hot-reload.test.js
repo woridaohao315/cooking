@@ -3,14 +3,16 @@ import hotReload from '../util/hot-reload'
 
 test('load hotreload', t => {
   const entry = 'entry.js'
-  const host = 'http://localhost:8080'
-
-  const config = hotReload(entry, host, true)
+  const devServer = {
+    host: 'http://localhost:8080',
+    enable: true
+  }
+  const config = hotReload(entry, devServer)
 
   t.deepEqual(config, {
     app: [
-      'webpack/hot/dev-server',
       'webpack-dev-server/client?http://localhost:8080/',
+      'webpack/hot/dev-server',
       'entry.js'
     ]
   })
@@ -21,18 +23,24 @@ test('multiple enty', t => {
     pageA: 'pageA.js',
     pageB: 'pageB.js'
   }
-  const host = 'http://localhost:8080'
-  const config = hotReload(entry, host, true)
+  const devServer = {
+    host: 'http://localhost:8080',
+    enable: true,
+    log: true
+  }
+  const config = hotReload(entry, devServer)
 
   t.deepEqual(config, {
     pageA: [
-      'webpack/hot/dev-server',
       'webpack-dev-server/client?http://localhost:8080/',
+      'webpack/hot/dev-server',
+      'webpack-hud',
       'pageA.js'
     ],
     pageB: [
-      'webpack/hot/dev-server',
       'webpack-dev-server/client?http://localhost:8080/',
+      'webpack/hot/dev-server',
+      'webpack-hud',
       'pageB.js'
     ]
   })
@@ -40,8 +48,11 @@ test('multiple enty', t => {
 
 test('disabled hotreload', t => {
   const entry = 'entry.js'
-  const host = 'http://localhost:8080'
-  const config = hotReload(entry, host, false)
+  const devServer = {
+    host: 'http://localhost:8080',
+    enable: false
+  }
+  const config = hotReload(entry, devServer)
 
   t.deepEqual(config, {
     app: ['entry.js']
@@ -50,8 +61,12 @@ test('disabled hotreload', t => {
 
 test('no entry', t => {
   process.env.NODE_ENV = 'testing'
+  const devServer = {
+    host: 'http://localhost:8080',
+    enable: false
+  }
 
   t.throws(function () {
-    hotReload('', 'http://localhost:8080', false)
+    hotReload('', devServer)
   }, 'exit')
 })

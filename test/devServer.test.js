@@ -4,6 +4,7 @@ const defaultServer = {
   publicPath: '/',
   port: 8080,
   hot: true,
+  log: true,
   enable: true,
   historyApiFallback: true,
   lazy: false,
