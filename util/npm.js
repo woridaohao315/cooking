@@ -1,8 +1,8 @@
+var shelljs = require('shelljs')
 var exec = require('./exec')
 var PLUGIN_PATH = require('./path').PLUGIN_PATH
 var checkRegistry = require('./check').registry
 var config = require('./config')
-var shelljs = require('shelljs')
 
 var npm = function (options, registry) {
   registry = registry || config.get('registry')
