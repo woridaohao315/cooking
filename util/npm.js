@@ -2,6 +2,7 @@ var exec = require('./exec')
 var PLUGIN_PATH = require('./path').PLUGIN_PATH
 var checkRegistry = require('./check').registry
 var config = require('./config')
+var shelljs = require('shelljs')
 
 var npm = function (options, registry) {
   registry = registry || config.get('registry')
@@ -10,8 +11,12 @@ var npm = function (options, registry) {
     options.push(checkRegistry(registry))
   }
 
-  options = options.concat(['--prefix', PLUGIN_PATH, '--save', '--silent'])
+  var pwd = shelljs.pwd().stdout
+
+  shelljs.cd(PLUGIN_PATH)
+  options = options.concat(['--save', '--silent'])
   exec('npm', options, {stdio: 'inherit'})
+  shelljs.cd(pwd)
 }
 
 exports.install = function (name, registry) {

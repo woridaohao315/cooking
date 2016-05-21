@@ -21,7 +21,7 @@ if (config.get('updateCheck')) {
 
 // hack
 // https://gist.github.com/branneman/8048520#6-the-hack
-process.env['NODE_PATH'] += [
+process.env['NODE_PATH'] = (process.env['NODE_PATH'] || '') + [
     '',
     path.join(PATH.CWD_PATH, 'node_modules'),
     path.join(PATH.ROOT_PATH, 'node_modules'),

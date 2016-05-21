@@ -1,4 +1,4 @@
-var spawnSync = require('child_process').spawnSync
+var spawnSync = require('cross-spawn').sync
 var logger = require('./logger')
 
 module.exports = function exec(cmd, args, opts) {
