@@ -1,7 +1,7 @@
 # Changelog
 
 ## [v0.4.4] 2016.5.21
-- 修复 windows 下正常无法使用 [#30](https://github.com/ElemeFE/cooking/issues/30)
+- 修复 windows 下无法正常使用 [#30](https://github.com/ElemeFE/cooking/issues/30)
 - 修复 锁定 webpack 版本为 0.13.0
 
 ## [v0.4.3] 2016.5.19
