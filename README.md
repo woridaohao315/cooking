@@ -16,9 +16,12 @@ http://cookingjs.github.io
 - 完全兼容已有 webpack 的配置文件，除了未提供的依赖需要自己安装，其它情况下使用一致
 - 内置脚手架工具
 
-
 ## 安装
-**只能使用 NPM 3 及其以上版本安装**
+
+运行环境
+- Node.js 4+
+- npm 3+
+- Python 2.7.x
 
 ```shell
 npm i cooking -g
