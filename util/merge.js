@@ -6,19 +6,19 @@ var loadTemplate = require('./load-template')
 var CWD_PATH = require('./path').CWD_PATH
 var logger = require('./logger')
 
-var extractCSS = function (extractcss, config) {
+var extractCSS = function (extractcss, config, hash) {
   if (!extractcss) {
     return
   }
+  var filename = extractcss
 
   config.extractCSS = true
 
+  if (extractcss === true) {
+    filename = hash ? '[name].[contenthash:7].css' : '[name].css'
+  }
   // import plugin
-  config.plugins.ExtractText = new ExtractTextPlugin(
-    extractcss === true ?
-    '[name].[contenthash:7].css' :
-    extractcss
-  )
+  config.plugins.ExtractText = new ExtractTextPlugin(filename)
 
   // update css loader
   config.module.loaders.css = {
@@ -60,7 +60,7 @@ module.exports = function (userConfig, baseConfig) {
 
     // extractCSS
     if (userConfig.devServer) {
-      extractCSS(userConfig.devServer.extractCSS, config)
+      extractCSS(userConfig.devServer.extractCSS, config, false)
     }
 
     // devtool
@@ -104,7 +104,7 @@ module.exports = function (userConfig, baseConfig) {
       output: {comments: false}
     })
 
-    extractCSS(userConfig.extractCSS, config)
+    extractCSS(userConfig.extractCSS, config, userConfig.hash)
   }
 
   // clean

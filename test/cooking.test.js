@@ -143,6 +143,14 @@ test('cooking set extractCSS', t => {
   })
 
   t.truthy(cooking.config.plugins.ExtractText)
+  t.is(cooking.config.plugins.ExtractText.filename, '[name].css')
+
+  cooking.set({
+    extractCSS: true,
+    hash: true
+  })
+
+  t.truthy(cooking.config.plugins.ExtractText)
   t.is(cooking.config.plugins.ExtractText.filename, '[name].[contenthash:7].css')
 
   cooking.set({
@@ -162,6 +170,43 @@ test('cooking set extractCSS', t => {
     extractCSS: '[name].abc.css'
   })
   t.falsy(cooking.config.plugins.ExtractText)
+})
+
+test('cooking set extractCSS in development', t => {
+  process.env.NODE_ENV = 'development'
+
+  cooking.set({
+    devServer: {
+      extractCSS: true
+    }
+  })
+
+  t.truthy(cooking.config.plugins.ExtractText)
+  t.is(cooking.config.plugins.ExtractText.filename, '[name].css')
+
+  cooking.set({
+    devServer: {
+      extractCSS: true
+    },
+    hash: true
+  })
+
+  t.truthy(cooking.config.plugins.ExtractText)
+  t.is(cooking.config.plugins.ExtractText.filename, '[name].css')
+
+  cooking.set({
+    extractCSS: false
+  })
+
+  t.falsy(cooking.config.plugins.ExtractText)
+
+  cooking.set({
+    devServer: {
+      extractCSS: '[name].abc.css'
+    }
+  })
+
+  t.is(cooking.config.plugins.ExtractText.filename, '[name].abc.css')
 })
 
 test('cooking clean', t => {
