@@ -1,6 +1,5 @@
 var isObject = require('./is').object
 var defaultServer = {
-  publicPath: '/',
   port: 8080,
   hot: true,
   log: true,

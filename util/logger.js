@@ -28,6 +28,7 @@ exports.fatal = function (message) {
   if (process.env.NODE_ENV === 'testing') {
     throw new Error('exit')
   } else {
+    /* istanbul ignore next */
     process.exit(1)
   }
 }
