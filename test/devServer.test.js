@@ -1,7 +1,6 @@
 import test from 'ava'
 import devServer from '../util/load-server'
 const defaultServer = {
-  publicPath: '/',
   port: 8080,
   hot: true,
   log: true,

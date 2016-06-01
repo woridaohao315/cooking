@@ -1,6 +1,7 @@
 var spawnSync = require('cross-spawn').sync
 var logger = require('./logger')
 
+/* istanbul ignore next */
 module.exports = function exec(cmd, args, opts) {
   opts = opts || {}
 

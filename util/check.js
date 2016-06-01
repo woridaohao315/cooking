@@ -14,6 +14,7 @@ exports.registry = function (registry) {
   return '--registry=' + registry
 }
 
+/* istanbul ignore next */
 exports.initPluginPackage = function () {
   if (!fs.existsSync(PLUGIN_PATH)) {
     fs.mkdirSync(PLUGIN_PATH)
@@ -26,6 +27,7 @@ exports.initPluginPackage = function () {
   }
 }
 
+/* istanbul ignore next */
 exports.checkVersion = function () {
   var notifier = updateNotifier({pkg: pkg})
 
@@ -35,10 +37,12 @@ exports.checkVersion = function () {
   }
 }
 
+/* istanbul ignore next */
 exports.pluginExists = function (name) {
   return fs.existsSync(path.join(PLUGIN_PATH, 'node_modules', name))
 }
 
+/* istanbul ignore next */
 exports.preventSudo = function () {
   if (isRoot()) {
     console.log()

@@ -123,7 +123,9 @@ module.exports = function (userConfig, baseConfig) {
   } else {
     for (var name in userConfig.chunk) {
       if ({}.hasOwnProperty.call(userConfig.chunk, name)) {
-        userConfig.chunk[name].name = userConfig.chunk[name].name || name
+        if (!userConfig.chunk[name].names) {
+          userConfig.chunk[name].name = userConfig.chunk[name].name || name
+        }
         userConfig.chunk[name].filename = userConfig.chunk[name].filename || (name + hashContent + '.js')
 
         config.plugins[name + '-chunk'] = new webpack.optimize.CommonsChunkPlugin(userConfig.chunk[name])

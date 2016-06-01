@@ -18,6 +18,7 @@ test('cooking set template', t => {
   let templateCount
   let templateCount2
   let templateCount3
+  let templateCount4
 
   cooking.set({template: './src/abc.html'})
   templateCount = Object.keys(cooking.config.plugins).length
@@ -40,6 +41,20 @@ test('cooking set template', t => {
   })
   templateCount3 = Object.keys(cooking.config.plugins).length
   t.is(templateCount3 - templateCount, 1)
+
+  cooking.set({
+    template: {
+      'index.html': {
+        template: './src/aaa.html'
+      },
+      'page.html': {
+        name: 'haha',
+        template: './src/bbb.html'
+      }
+    }
+  })
+  templateCount4 = Object.keys(cooking.config.plugins).length
+  t.is(templateCount4 - templateCount, 1)
 })
 
 test('cooking set hash', t => {

@@ -50,6 +50,7 @@ program
   })
   .option('-p --progress', 'Display progress')
   .option('--no-color', 'Disable colors to display the statistics')
+  .option('--output-public-path <publicPath>', 'Replace output.publicPath.')
   .parse(process.argv)
 
 console.log()
@@ -65,6 +66,7 @@ var configs = []
 for (var i = 0; i < program.config.length; i++) {
   var config = loadConfig(program.config[i])
 
+  config.output.publicPath = program.outputPublicPath;
   configs.push(config)
 }
 
