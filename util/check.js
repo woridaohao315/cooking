@@ -1,9 +1,8 @@
 var path = require('path')
 var fs = require('fs')
-var isRoot = require('is-root')
 var updateNotifier = require('update-notifier')
+var shelljs = require('shelljs')
 var pkg = require('../package.json')
-var logger = require('../util/logger')
 var PLUGIN_PATH = require('./path').PLUGIN_PATH
 
 exports.registry = function (registry) {
@@ -28,6 +27,14 @@ exports.initPluginPackage = function () {
 }
 
 /* istanbul ignore next */
+exports.checkPermission = function () {
+  var tmpFile = path.join(PLUGIN_PATH, 'tmp')
+
+  fs.writeFileSync(path.join(PLUGIN_PATH, 'tmp'))
+  shelljs.rm(tmpFile)
+}
+
+/* istanbul ignore next */
 exports.checkVersion = function () {
   var notifier = updateNotifier({pkg: pkg})
 
@@ -42,10 +49,3 @@ exports.pluginExists = function (name) {
   return fs.existsSync(path.join(PLUGIN_PATH, 'node_modules', name))
 }
 
-/* istanbul ignore next */
-exports.preventSudo = function () {
-  if (isRoot()) {
-    console.log()
-    logger.fatal('禁止使用 sudo 执行\n')
-  }
-}

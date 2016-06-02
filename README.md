@@ -39,20 +39,5 @@ Step 2. 开始开发
 > cooking watch
 ```
 
-## 常见问题
-
-### Cannot find module 'xxx'
-
-确保使用 NPM 3.0 及其以上版本
-
-### permission denied
-
-不推荐使用 root 权限安装及执行 cooking，如果强制使用请在每次执行是带上 `--allow-root` 参数，或者推荐做法是将 node_modules 目录的权限改成当前用户。
-
-```shell
-# 找到自己的全局 node_modules 的路径
-sudo chown -R 用户名 /usr/local/lib/node_modules
-```
-
 # License
 [MIT](https://github.com/ElemeFE/cooking/LICENSE)
