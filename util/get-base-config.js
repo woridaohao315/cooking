@@ -24,7 +24,7 @@ module.exports = function (userConfig) {
     },
 
     resolve: {
-      extensions: ['', '.js']
+      extensions: ['', '.js', '.json']
     },
 
     resolveLoader: {},
