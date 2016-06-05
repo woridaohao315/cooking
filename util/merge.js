@@ -50,6 +50,23 @@ module.exports = function (userConfig, baseConfig) {
     Object.assign(config.plugins, loadTemplate(userConfig.template || config.template))
   }
 
+  // format
+  if (userConfig.format === 'cjs') {
+    config.output.libraryTarget = 'commonjs2'
+  } else {
+    config.output.libraryTarget = userConfig.format
+  }
+
+  // moduleName
+  if (userConfig.format === 'umd' || userConfig.format === 'amd') {
+    if (userConfig.moduleName) {
+      config.output.library = userConfig.moduleName
+      config.output.umdNamedDefine = true
+    } else {
+      logger.fatal('请配置 moduleName')
+    }
+  }
+
   // development
   if (process.env.NODE_ENV === 'development') {
     config.devtool = '#eval-source-map'
@@ -76,23 +93,6 @@ module.exports = function (userConfig, baseConfig) {
       config.output.chunkFilename = '[id].[chunkhash:7].js'
     }
 
-    // format
-    if (userConfig.format === 'cjs') {
-      config.output.libraryTarget = 'commonjs2'
-    } else {
-      config.output.libraryTarget = userConfig.format
-    }
-
-    // moduleName
-    if (userConfig.format === 'umd' || userConfig.format === 'amd') {
-      if (userConfig.moduleName) {
-        config.output.library = userConfig.moduleName
-        config.output.umdNamedDefine = true
-      } else {
-        logger.fatal('请配置 moduleName')
-      }
-    }
-
     // plugin
     config.plugins.Define = new webpack.DefinePlugin({
       'process.env': {
@@ -115,19 +115,14 @@ module.exports = function (userConfig, baseConfig) {
   }
 
   // chunk
-  var hashContent = userConfig.hash === true && process.env.NODE_ENV === 'production' ? '.[hash:7]' : ''
   if (is.string(userConfig.chunk)) {
-    var vendorName = userConfig.chunk + hashContent + '.js'
-
-    config.plugins['commons-chunk'] = new webpack.optimize.CommonsChunkPlugin(userConfig.chunk, vendorName)
+    config.plugins['commons-chunk'] = new webpack.optimize.CommonsChunkPlugin(userConfig.chunk)
   } else {
     for (var name in userConfig.chunk) {
       if ({}.hasOwnProperty.call(userConfig.chunk, name)) {
         if (!userConfig.chunk[name].names) {
           userConfig.chunk[name].name = userConfig.chunk[name].name || name
         }
-        userConfig.chunk[name].filename = userConfig.chunk[name].filename || (name + hashContent + '.js')
-
         config.plugins[name + '-chunk'] = new webpack.optimize.CommonsChunkPlugin(userConfig.chunk[name])
       }
     }
