@@ -15,10 +15,13 @@ test('cooking set path', t => {
 })
 
 test('cooking set template', t => {
+  process.env.NODE_ENV = 'testing'
+
   let templateCount
   let templateCount2
   let templateCount3
   let templateCount4
+  let templateCount5
 
   cooking.set({template: './src/abc.html'})
   templateCount = Object.keys(cooking.config.plugins).length
@@ -55,6 +58,40 @@ test('cooking set template', t => {
   })
   templateCount4 = Object.keys(cooking.config.plugins).length
   t.is(templateCount4 - templateCount, 1)
+
+  cooking.set({
+    template: [
+      {
+        filename: 'index.html',
+        template: './src/aaa.html'
+      },
+      {
+        filename: 'index2.html',
+        template: './src/aaa.html'
+      },
+      {
+        filename: 'index3.html',
+        template: './src/aaa.html'
+      }
+    ]
+  })
+
+  templateCount5 = Object.keys(cooking.config.plugins).length
+  t.is(templateCount5 - templateCount, 2)
+
+  t.throws(function () {
+    cooking.set({
+      template: [
+        {
+          template: 'no-filename.html'
+        },
+        {
+          filename: 'filename',
+          template: 'aaaa.html'
+        }
+      ]
+    })
+  }, 'exit')
 })
 
 test('cooking set hash', t => {

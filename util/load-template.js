@@ -2,6 +2,7 @@ var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var CWD_PATH = require('./path').CWD_PATH
 var is = require('./is')
+var logger = require('./logger')
 
 module.exports = function (template) {
   var templates = {}
@@ -27,6 +28,13 @@ module.exports = function (template) {
         }
       }
     }
+  } else if (is.array(template)) {
+    template.forEach(function (item) {
+      if (!item.filename) {
+        logger.fatal('template filename is required.')
+      }
+      templates[item.filename] = new HtmlWebpackPlugin(item)
+    })
   }
 
   return templates
