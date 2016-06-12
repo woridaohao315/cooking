@@ -1,4 +1,4 @@
-var cooking = require('cooking');
+const cooking = require('cooking');
 
 cooking.set({
   use: 'vue',

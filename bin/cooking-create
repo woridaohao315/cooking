@@ -1,16 +1,13 @@
 #!/usr/bin/env node
-var shelljs = require('shelljs')
-var program = require('commander').parse(process.argv)
-var logger = require('../util/logger')
-var exec = require('../util/exec')
+'use strict'
 
-var projectName = program.args[0]
-var template = program.args[1] || ''
+const shelljs = require('shelljs')
+const program = require('commander').parse(process.argv)
+const logger = require('../util/logger')
+const exec = require('../util/exec')
 
-console.log()
-process.on('exit', function () {
-  console.log()
-})
+const projectName = program.args[0]
+const template = program.args[1] || ''
 
 if (!projectName) {
   logger.fatal('project-name is required.')

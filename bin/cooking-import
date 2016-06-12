@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+'use strict'
 
-var program = require('commander')
-var logger = require('../util/logger')
-var npm = require('../util/npm')
+const program = require('commander')
+const logger = require('../util/logger')
+const npm = require('../util/npm')
 
 program
   .option('-r --registry [registry-url]', '指定镜像, 默认选用 taobao 镜像')
@@ -10,26 +11,21 @@ program
   .option('-p --package', '安装依赖包')
   .parse(process.argv)
 
-console.log()
-process.on('exit', function () {
-  console.log()
-})
-
-var name = program.args[0]
+let name = program.args[0]
 
 if (!name) {
   logger.fatal('请指定插件名称')
 }
 
 if (program.template) {
-  logger.log('安装脚手架: ' + name)
-  name = 'slush-cooking-' + name
+  logger.log(`安装脚手架: ${name}`)
+  name = `slush-cooking-${name}`
 } else if (program.package) {
-  logger.log('安装依赖包: ' + name)
-  name = 'cooking-package-' + name
+  logger.log(`安装依赖包: ${name}`)
+  name = `cooking-package-${name}`
 } else {
-  logger.log('安装插件: ' + name)
-  name = 'cooking-' + name
+  logger.log(`安装插件: ${name}`)
+  name = `cooking-${name}`
 }
 
 npm.install(name, program.registry)

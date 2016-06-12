@@ -1,9 +1,11 @@
-module.exports = function (name) {
+'use strict'
+
+module.exports = name => {
   try {
     require.resolve(name)
 
     return true
-  } catch (e) {
+  } catch (_) {
     return false
   }
 }

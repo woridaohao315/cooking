@@ -1,13 +1,16 @@
-var path = require('path')
-var webpack = require('webpack')
-var PATH = require('./path')
+'use strict'
 
-module.exports = function (userConfig) {
-  var limit = 1
+const path = require('path')
+const webpack = require('webpack')
+const PATH = require('./path')
+
+module.exports = userConfig => {
+  let limit = 1
+
   if (userConfig.urlLoaderLimit !== false) {
     limit = userConfig.urlLoaderLimit || 10000
   }
-  var assetsPath = userConfig.assetsPath || 'static'
+  const assetsPath = userConfig.assetsPath || 'static'
 
   return {
     output: {

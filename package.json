@@ -27,13 +27,7 @@
   "ava": {
     "files": [
       "test/*.js"
-    ],
-    "babel": {
-      "presets": [
-        "es2015",
-        "stage-0"
-      ]
-    }
+    ]
   },
   "repository": {
     "type": "git",
@@ -41,6 +35,7 @@
   },
   "keywords": [
     "vue",
+    "react",
     "webpack",
     "cli",
     "build",
@@ -52,6 +47,10 @@
     "url": "https://github.com/ElemeFE/cooking/issues"
   },
   "homepage": "https://github.com/ElemeFE/cooking#readme",
+  "engines": {
+    "node": ">=4.0.0",
+    "npm": ">=3.0.0"
+  },
   "devDependencies": {
     "ava": "^0.15.1",
     "coveralls": "^2.11.9",

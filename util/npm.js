@@ -1,17 +1,19 @@
-var shelljs = require('shelljs')
-var exec = require('./exec')
-var PLUGIN_PATH = require('./path').PLUGIN_PATH
-var checkRegistry = require('./check').registry
-var config = require('./config')
+'use strict'
 
-var npm = function (options, registry) {
+const shelljs = require('shelljs')
+const exec = require('./exec')
+const PLUGIN_PATH = require('./path').PLUGIN_PATH
+const checkRegistry = require('./check').registry
+const config = require('./config')
+
+const npm = (options, registry) => {
   registry = registry || config.get('registry')
 
   if (registry) {
     options.push(checkRegistry(registry))
   }
 
-  var pwd = shelljs.pwd().stdout
+  const pwd = shelljs.pwd().stdout
 
   shelljs.cd(PLUGIN_PATH)
   options = options.concat(['--save', '--silent'])
@@ -19,18 +21,7 @@ var npm = function (options, registry) {
   shelljs.cd(pwd)
 }
 
-exports.install = function (name, registry) {
-  npm(['install', name], registry)
-}
-
-exports.update = function (name, registry) {
-  npm(['update', name], registry)
-}
-
-exports.uninstall = function (name) {
-  npm(['uninstall', name])
-}
-
-exports.list = function () {
-  npm(['list', '--depth=0'])
-}
+exports.install = (name, registry) => npm(['install', name], registry)
+exports.update = (name, registry) => npm(['update', name], registry)
+exports.uninstall = name => npm(['uninstall', name])
+exports.list = () => npm(['list', '--depth=0'])

@@ -9,8 +9,6 @@
 <a target="_blank" href='https://coveralls.io/github/ElemeFE/cooking?branch=master'><img src='https://coveralls.io/repos/github/ElemeFE/cooking/badge.svg?branch=master' alt='Coverage Status' /></a>
 <a target="_blank" href="https://www.npmjs.com/package/cooking"><img src="https://img.shields.io/npm/dm/cooking.svg?maxAge=2592000" alt="npm"></a>
 <a target="_blank" href="https://www.npmjs.com/package/cooking"><img src="https://img.shields.io/npm/v/cooking.svg?maxAge=6000" alt="npm"></a>
-<a target="_blank" href="https://david-dm.org/elemefe/cooking" title="Dependency status"><img src="https://david-dm.org/elemefe/cooking.svg"/></a>
-<a target="_blank" href="https://david-dm.org/elemefe/cooking#info=devDependencies" title="devDependency status"><img src="https://david-dm.org/elemefe/cooking/dev-status.svg"/></a>
 <a target="_blank" href="https://gitter.im/QingWei-Li/cooking?utm_source=share-link&utm_medium=link&utm_campaign=share-link"><img src="https://img.shields.io/gitter/room/QingWei-Li/cooking.svg?maxAge=2592000" alt="Gitter"></a>
 </p>
 

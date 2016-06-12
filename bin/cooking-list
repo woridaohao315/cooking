@@ -1,26 +1,19 @@
 #!/usr/bin/env node
+'use strict'
 
-var program = require('commander')
-var logger = require('../util/logger')
-var PLUGIN_PATH = require('../util/path').PLUGIN_PATH
-var path = require('path')
-var json = require('format-json')
+const logger = require('../util/logger')
+const PLUGIN_PATH = require('../util/path').PLUGIN_PATH
+const path = require('path')
+const json = require('format-json')
 
-console.log()
-process.on('exit', function () {
-  console.log()
-})
+const info = require(path.join(PLUGIN_PATH, 'package.json'))
+const dependencies = info.dependencies
+const generatorPkg = {}
+const pluginPkg = {}
+const commandPkg = {}
+const dependencyPkg = {}
 
-var pkg = path.join(PLUGIN_PATH, 'package.json')
-var info = require(pkg)
-
-var dependencies = info.dependencies
-var generatorPkg = {}
-var pluginPkg = {}
-var commandPkg = {}
-var dependencyPkg = {}
-
-for (var name in dependencies) {
+for (const name in dependencies) {
   if (/^slush-cooking-/.test(name)) {
     generatorPkg[name.replace(/^slush-cooking-/, '')] = dependencies[name]
   } else if (/^cooking-(\S+)-cli$/.test(name)) {

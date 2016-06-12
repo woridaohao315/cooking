@@ -1,12 +1,14 @@
-var spawnSync = require('cross-spawn').sync
-var logger = require('./logger')
+'use strict'
+
+const spawnSync = require('cross-spawn').sync
+const logger = require('./logger')
 
 /* istanbul ignore next */
-module.exports = function exec(cmd, args, opts) {
+module.exports = (cmd, args, opts) => {
   opts = opts || {}
 
-  var errMessage = opts.errorMessage
-  var command = spawnSync(cmd, args || [], opts)
+  const errMessage = opts.errorMessage
+  const command = spawnSync(cmd, args || [], opts)
 
   if (command.status === 1) {
     if (command.stderr) {

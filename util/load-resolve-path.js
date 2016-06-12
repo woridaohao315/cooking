@@ -1,15 +1,17 @@
-var path = require('path')
-var PATH = require('./path')
+'use strict'
 
-var rootPath = [
+const path = require('path')
+const PATH = require('./path')
+
+const rootPath = [
   path.join(PATH.CWD_PATH, 'node_modules'),
   path.join(PATH.PLUGIN_PATH, 'node_modules')
 ]
-var fallback = [
+const fallback = [
   path.join(PATH.ROOT_PATH, 'node_modules')
 ]
 
-module.exports = function (config) {
+module.exports = config => {
   config.resolve = config.resolve || {}
   config.resolveLoader = config.resolveLoader || {}
 

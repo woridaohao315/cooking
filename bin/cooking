@@ -1,12 +1,16 @@
 #!/usr/bin/env node
+'use strict'
 
-var path = require('path')
-var program = require('commander')
-var PATH = require('../util/path')
-var check = require('../util/check')
-var config = require('../util/config')
-var logger = require('../util/logger')
-var chalk = require('chalk')
+const path = require('path')
+const program = require('commander')
+const PATH = require('../util/path')
+const check = require('../util/check')
+const config = require('../util/config')
+const logger = require('../util/logger')
+const chalk = require('chalk')
+
+console.log()
+process.on('exit', () => console.log())
 
 check.initPluginPackage()
 config.init()
@@ -14,11 +18,11 @@ config.init()
 try {
   check.checkPermission()
 } catch(_) {
-  logger.fatal(
-    chalk.yellow('permission denied') +
-    '\n尝试使用 ' + chalk.cyan('sudo') + ' 或者修改访问权限，执行\n\n' +
-    chalk.cyan('sudo chown -R $USER:$(id -gn $USER) ' + PATH.PLUGIN_PATH) +
-    '\n')
+  logger.fatal(`chalk.yellow('permission denied')
+    尝试使用 ${chalk.cyan('sudo')} 或者执行下面指令修改访问权限
+
+    ${chalk.cyan('sudo chown -R $USER:$(id -gn $USER) ' + PATH.PLUGIN_PATH)}
+    `)
 }
 
 if (config.get('updateCheck')) {

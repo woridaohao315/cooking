@@ -1,5 +1,7 @@
-var isObject = require('./is').object
-var defaultServer = {
+'use strict'
+
+const isObject = require('./is').object
+const defaultServer = {
   port: 8080,
   hot: true,
   log: true,
@@ -11,7 +13,7 @@ var defaultServer = {
   hostname: 'localhost'
 }
 
-module.exports = function (server) {
+module.exports = server => {
   // null, undefined, false
   if (!server || server === false) {
     return {

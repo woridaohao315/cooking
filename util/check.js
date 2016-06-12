@@ -1,11 +1,13 @@
-var path = require('path')
-var fs = require('fs')
-var updateNotifier = require('update-notifier')
-var shelljs = require('shelljs')
-var pkg = require('../package.json')
-var PLUGIN_PATH = require('./path').PLUGIN_PATH
+'use strict'
 
-exports.registry = function (registry) {
+const path = require('path')
+const fs = require('fs')
+const updateNotifier = require('update-notifier')
+const shelljs = require('shelljs')
+const pkg = require('../package.json')
+const PLUGIN_PATH = require('./path').PLUGIN_PATH
+
+exports.registry = registry => {
   if (!registry) {
     return ''
   }
@@ -14,7 +16,7 @@ exports.registry = function (registry) {
 }
 
 /* istanbul ignore next */
-exports.initPluginPackage = function () {
+exports.initPluginPackage = () => {
   if (!fs.existsSync(PLUGIN_PATH)) {
     fs.mkdirSync(PLUGIN_PATH)
   }
@@ -27,16 +29,16 @@ exports.initPluginPackage = function () {
 }
 
 /* istanbul ignore next */
-exports.checkPermission = function () {
-  var tmpFile = path.join(PLUGIN_PATH, 'tmp')
+exports.checkPermission = () => {
+  const tmpFile = path.join(PLUGIN_PATH, 'tmp')
 
   fs.writeFileSync(path.join(PLUGIN_PATH, 'tmp'))
   shelljs.rm(tmpFile)
 }
 
 /* istanbul ignore next */
-exports.checkVersion = function () {
-  var notifier = updateNotifier({pkg: pkg})
+exports.checkVersion = () => {
+  var notifier = updateNotifier({pkg})
 
   notifier.notify()
   if (notifier.update) {
@@ -45,7 +47,6 @@ exports.checkVersion = function () {
 }
 
 /* istanbul ignore next */
-exports.pluginExists = function (name) {
+exports.pluginExists = name => {
   return fs.existsSync(path.join(PLUGIN_PATH, 'node_modules', name))
 }
-

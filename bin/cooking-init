@@ -1,38 +1,34 @@
 #!/usr/bin/env node
+'use strict'
 
-var path = require('path')
-var program = require('commander')
-var slush = require.resolve('slush/bin/slush')
-var exec = require('../util/exec')
-var logger = require('../util/logger')
-var isInstalled = require('../util/is-installed')
-var npm = require('../util/npm')
-var config = require('../util/config')
+const path = require('path')
+const program = require('commander')
+const slush = require.resolve('slush/bin/slush')
+const exec = require('../util/exec')
+const logger = require('../util/logger')
+const isInstalled = require('../util/is-installed')
+const npm = require('../util/npm')
+const config = require('../util/config')
 
 program
   .option('-r --registry <registry-url>', '指定镜像')
   .parse(process.argv)
 
-var option = program.args[0] || config.get('template')
+const option = program.args[0] || config.get('template')
 
 if (!option) {
   logger.fatal('请指定脚手架')
 }
 
-var name = 'cooking-' + option
-var template = 'slush-' + name
-
-console.log()
-process.on('exit', function () {
-  console.log()
-})
+const name = 'cooking-' + option
+const template = 'slush-' + name
 
 /**
  * download template
  * @param  {string} template template name
  */
-var installTemplate = function (template) {
-  logger.log('downloading \'' + template + '\'')
+const installTemplate = template => {
+  logger.log(`downloading '${template}'`)
   npm.install(template, program.registry)
   logger.success('脚手架安装成功\n')
 }
@@ -41,7 +37,7 @@ var installTemplate = function (template) {
  * run slush
  * @param  {string} name slush template name
  */
-var generator = function (name) {
+const generator = function (name) {
   logger.log('generator project')
   exec(slush, [ name ], {
     stdio: 'inherit',

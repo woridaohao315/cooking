@@ -1,6 +1,8 @@
-var path = require('path')
-var homeDir = require('os').homedir()
-var ROOT_PATH = path.join(__dirname, '..')
+'use strict'
+
+const path = require('path')
+const homeDir = require('os').homedir()
+const ROOT_PATH = path.join(__dirname, '..')
 
 exports.CWD_PATH = process.cwd()
 exports.ROOT_PATH = ROOT_PATH

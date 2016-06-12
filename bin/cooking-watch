@@ -1,26 +1,27 @@
 #!/usr/bin/env node
+'use strict'
 
 // set env
 process.env.NODE_ENV = 'development'
 
-var path = require('path')
-var CWD_PATH = require('../util/path').CWD_PATH
-var program = require('commander')
-var logger = require('../util/logger')
-var webpack = require('webpack')
-var DevServer = require('webpack-dev-server')
-var ProgressBarPlugin = require('progress-bar-webpack-plugin')
-var chalk = require('chalk')
-var shelljs = require('shelljs')
+const path = require('path')
+const CWD_PATH = require('../util/path').CWD_PATH
+const program = require('commander')
+const logger = require('../util/logger')
+const webpack = require('webpack')
+const DevServer = require('webpack-dev-server')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const chalk = require('chalk')
+const shelljs = require('shelljs')
 
 /**
  * 装配配置文件
  * @param  {string} filename   文件名
  * @return {object}            配置内容
  */
-var loadConfig = function (filename) {
-  var configPath = path.join(CWD_PATH, filename)
-  var config
+const loadConfig = filename => {
+  const configPath = path.join(CWD_PATH, filename)
+  let config
 
   // load config
   try {
@@ -57,34 +58,26 @@ var loadConfig = function (filename) {
 }
 
 program
-  .option('-c --config [configfile]', 'config file', function (val) {
-    return val.split(',')
-  })
+  .option('-c --config [configfile]', 'config file', val => val.split(','))
   .parse(process.argv)
-
-console.log()
-process.on('exit', function () {
-  console.log()
-})
 
 program.config = program.config || ['cooking.conf.js']
 
-var configs = []
+let configs = []
 
 // 加载配置
-for (var i = 0; i < program.config.length; i++) {
-  var config = loadConfig(program.config[i])
-
+program.config.forEach(config => {
+  config = loadConfig(config)
   configs.push(config)
   configs.devServer = config.devServer
-}
+})
 
 // run watch
 if (!configs.devServer.enable) {
-  var compiler = webpack(configs)
+  const compiler = webpack(configs)
 
   logger.log('启动中...')
-  compiler.watch({}, function (err, stats) {
+  compiler.watch({}, (err, stats) => {
     if (err) {
       return logger.error(err)
     }
@@ -94,15 +87,12 @@ if (!configs.devServer.enable) {
 } else {
   // webpack dev server
   logger.log('server 启动中...')
+  configs.map(config => config.plugins.push(new webpack.HotModuleReplacementPlugin()))
 
-  for (var i = 0; i < configs.length; i++) {
-    configs[i].plugins.push(new webpack.HotModuleReplacementPlugin())
-  }
-
-  var devServer = configs.devServer
+  const devServer = configs.devServer
 
   new DevServer(webpack(configs), devServer)
-    .listen(devServer.port, devServer.hostname, function () {
-      logger.success('Listening at ' + devServer.host)
-    })
+    .listen(devServer.port, devServer.hostname, () =>
+      logger.success(`Listening at ${devServer.host}`)
+    )
 }

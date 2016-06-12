@@ -1,12 +1,14 @@
+'use strict'
+
 var _toArray = require('lodash.toarray')
 
-module.exports = function (config) {
+module.exports = config => {
   // parse loader
   [
     'loaders',
     'preLoaders',
     'postLoaders'
-  ].forEach(function (key) {
+  ].forEach(key => {
     config.module[key] = _toArray(config.module[key])
   })
   // parse plugin

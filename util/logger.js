@@ -1,11 +1,13 @@
-var format = require('util').format
-var chalk = require('chalk')
+'use strict'
+
+const format = require('util').format
+const chalk = require('chalk')
 
 /**
  * Prefix.
  */
-var prefix = '[cooking]'
-var sep = chalk.gray('-')
+const prefix = '[cooking]'
+const sep = chalk.gray('-')
 
 /**
  * Log a `message` to the console.
@@ -13,7 +15,7 @@ var sep = chalk.gray('-')
  * @param {String} message
  */
 exports.log = function () {
-  var msg = format.apply(format, arguments)
+  const msg = format.apply(format, arguments)
   console.log(chalk.cyan(prefix), sep, msg)
 }
 
@@ -43,13 +45,12 @@ exports.error = function (message) {
     message = message.message.trim()
   }
 
-  var msg = format.apply(format, arguments)
-
+  const msg = format.apply(format, arguments)
   console.error(chalk.red(prefix), sep, msg)
 }
 
 exports.warn = function () {
-  var msg = format.apply(format, arguments)
+  const msg = format.apply(format, arguments)
   console.log(chalk.yellow(prefix), sep, msg)
 }
 
@@ -59,6 +60,6 @@ exports.warn = function () {
  * @param {String} message
  */
 exports.success = function () {
-  var msg = format.apply(format, arguments)
+  const msg = format.apply(format, arguments)
   console.log(chalk.green(prefix), sep, msg)
 }
