@@ -1,11 +1,13 @@
-var path = require('path')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var CWD_PATH = require('./path').CWD_PATH
-var is = require('./is')
-var logger = require('./logger')
+'use strict'
 
-module.exports = function (template) {
-  var templates = {}
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CWD_PATH = require('./path').CWD_PATH
+const is = require('./is')
+const logger = require('./logger')
+
+module.exports = template => {
+  let templates = {}
 
   if (template === true) {
     templates['index.html'] = new HtmlWebpackPlugin()
@@ -29,7 +31,7 @@ module.exports = function (template) {
       }
     }
   } else if (is.array(template)) {
-    template.forEach(function (item) {
+    template.forEach(item => {
       if (!item.filename) {
         logger.fatal('template filename is required.')
       }

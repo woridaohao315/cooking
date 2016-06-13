@@ -1,16 +1,18 @@
-var path = require('path')
-var webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var is = require('./is')
-var loadTemplate = require('./load-template')
-var CWD_PATH = require('./path').CWD_PATH
-var logger = require('./logger')
+'use strict'
 
-var extractCSS = function (extractcss, config, hash) {
+const path = require('path')
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const is = require('./is')
+const loadTemplate = require('./load-template')
+const CWD_PATH = require('./path').CWD_PATH
+const logger = require('./logger')
+
+const extractCSS = (extractcss, config, hash) => {
   if (!extractcss) {
     return
   }
-  var filename = extractcss
+  let filename = extractcss
 
   config.extractCSS = true
 
@@ -33,8 +35,8 @@ var extractCSS = function (extractcss, config, hash) {
  * @param  {object} baseConfig
  * @return {object} webpack config
  */
-module.exports = function (userConfig, baseConfig) {
-  var config = baseConfig
+module.exports = (userConfig, baseConfig) => {
+  let config = baseConfig
 
   // entry
   config.entry = userConfig.entry
@@ -115,15 +117,17 @@ module.exports = function (userConfig, baseConfig) {
   }
 
   // chunk
+  const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin
+
   if (is.string(userConfig.chunk)) {
-    config.plugins['commons-chunk'] = new webpack.optimize.CommonsChunkPlugin(userConfig.chunk)
+    config.plugins['commons-chunk'] = new CommonsChunkPlugin(userConfig.chunk)
   } else {
-    for (var name in userConfig.chunk) {
+    for (const name in userConfig.chunk) {
       if ({}.hasOwnProperty.call(userConfig.chunk, name)) {
         if (!userConfig.chunk[name].names) {
           userConfig.chunk[name].name = userConfig.chunk[name].name || name
         }
-        config.plugins[name + '-chunk'] = new webpack.optimize.CommonsChunkPlugin(userConfig.chunk[name])
+        config.plugins[`${name}-chunk`] = new CommonsChunkPlugin(userConfig.chunk[name])
       }
     }
   }

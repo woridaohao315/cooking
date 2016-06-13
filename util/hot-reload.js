@@ -1,8 +1,10 @@
-var isString = require('./is').string
-var logger = require('./logger')
+'use strict'
 
-module.exports = function (entry, devServer) {
-  var result = {}
+const isString = require('./is').string
+const logger = require('./logger')
+
+module.exports = (entry, devServer) => {
+  const result = {}
 
   if (!entry) {
     logger.fatal('请配置 entry')
@@ -11,13 +13,13 @@ module.exports = function (entry, devServer) {
   if (isString(entry)) {
     result.app = [].concat(entry)
   } else {
-    Object.keys(entry || {}).forEach(function (name) {
+    Object.keys(entry || {}).forEach(name => {
       result[name] = [].concat(entry[name])
     })
   }
 
   if (devServer.enable) {
-    var data = [
+    const data = [
       'webpack-dev-server/client?' + devServer.host + '/',
       'webpack/hot/dev-server'
     ]
@@ -26,7 +28,7 @@ module.exports = function (entry, devServer) {
       data.push('webpack-hud')
     }
 
-    Object.keys(result).forEach(function (name) {
+    Object.keys(result).forEach(name => {
       result[name] = data.concat(result[name])
     })
   }

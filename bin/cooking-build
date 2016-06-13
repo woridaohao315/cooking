@@ -1,20 +1,21 @@
 #!/usr/bin/env node
+'use strict'
 
 // set env
 process.env.NODE_ENV = 'production'
 
-var path = require('path')
-var CWD_PATH = require('../util/path').CWD_PATH
-var program = require('commander')
-var logger = require('../util/logger')
-var webpack = require('webpack')
-var shelljs = require('shelljs')
-var ProgressBarPlugin = require('progress-bar-webpack-plugin')
-var chalk = require('chalk')
+const path = require('path')
+const CWD_PATH = require('../util/path').CWD_PATH
+const program = require('commander')
+const logger = require('../util/logger')
+const webpack = require('webpack')
+const shelljs = require('shelljs')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const chalk = require('chalk')
 
-var loadConfig = function (filename) {
-  var configPath = path.join(CWD_PATH, filename)
-  var config
+const loadConfig = filename => {
+  const configPath = path.join(CWD_PATH, filename)
+  let config
 
   // load config
   try {
@@ -45,42 +46,34 @@ var loadConfig = function (filename) {
 }
 
 program
-  .option('-c --config <configfile>', 'config file', function (val) {
-    return val.split(',')
-  })
+  .option('-c --config <configfile>', 'config file', val => val.split(','))
   .option('-p --progress', 'Display progress')
   .option('--no-color', 'Disable colors to display the statistics')
   .option('--output-public-path <publicPath>', 'Replace output.publicPath.')
   .parse(process.argv)
 
-console.log()
-process.on('exit', function () {
-  console.log()
-})
-
 program.config = program.config || ['cooking.conf.js']
 
-var configs = []
+const configs = []
 
 // 加载配置
-for (var i = 0; i < program.config.length; i++) {
-  var config = loadConfig(program.config[i])
-
+program.config.forEach(config => {
+  config = loadConfig(config)
   config.output.publicPath = program.outputPublicPath;
   configs.push(config)
-}
+})
 
 // production
-var compiler = webpack(configs)
+const compiler = webpack(configs)
 
 // Hack: remove extract-text-webpack-plugin log
-compiler.plugin('done', function(stats) {
-  stats.stats.forEach(function(stat) {
-    stat.compilation.children = stat.compilation.children.filter(function(child) {
-      return !/extract-text-webpack-plugin|html-webpack-plugin/.test(child.name)
-    })
-  })
-})
+compiler.plugin('done', stats =>
+  stats.stats.forEach(stat =>
+    stat.compilation.children = stat.compilation.children.filter(child =>
+      !/extract-text-webpack-plugin|html-webpack-plugin/.test(child.name)
+      )
+    )
+  )
 
 compiler.run(function (err, stats) {
   if (err) {

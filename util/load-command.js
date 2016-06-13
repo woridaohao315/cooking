@@ -1,19 +1,17 @@
-var path = require('path')
-var PLUGIN_PATH = require('../util/path').PLUGIN_PATH
-var info = require(path.join(PLUGIN_PATH, 'package.json'))
-var dependencies = info.dependencies
+'use strict'
+
+const path = require('path')
+const PLUGIN_PATH = require('../util/path').PLUGIN_PATH
+const info = require(path.join(PLUGIN_PATH, 'package.json'))
+const dependencies = info.dependencies
 
 module.exports = function (program) {
   for (var name in dependencies) {
     if (/^cooking-(\S+)-cli$/.test(name)) {
-      var commandName = name.replace(/^cooking-(\S+)-cli$/, '$1')
-      var description = require(path.join(name, 'package.json')).description
-      var action = (function (_name) {
-        return function () {
-          require(_name)(program)
-        }
-      })(name)
-      var command = program.command(commandName)
+      const commandName = name.replace(/^cooking-(\S+)-cli$/, '$1')
+      const description = require(path.join(name, 'package.json')).description
+      const action = (_name => () => require(_name)(program))(name)
+      const command = program.command(commandName)
 
       command.description(description)
       try {

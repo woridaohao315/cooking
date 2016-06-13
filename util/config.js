@@ -1,11 +1,13 @@
-var path = require('path')
-var fs = require('fs')
-var PLUGIN_PATH = require('./path').PLUGIN_PATH
+'use strict'
 
-var filename = 'config.json'
-var filePath = path.join(PLUGIN_PATH, filename)
+const path = require('path')
+const fs = require('fs')
+const PLUGIN_PATH = require('./path').PLUGIN_PATH
 
-var formatBoolean = function (value) {
+const filename = 'config.json'
+const filePath = path.join(PLUGIN_PATH, filename)
+
+const formatBoolean = value => {
   if (value === 'true') {
     return true
   } else if (value === 'false') {
@@ -14,13 +16,13 @@ var formatBoolean = function (value) {
 
   return value
 }
-var requireFile = function () {
+const requireFile = () => {
   return require(filePath)
 }
 
-exports.init = function () {
+exports.init = () => {
   if (!fs.existsSync(filePath)) {
-    var config = {
+    const config = {
       template: 'vue',
       registry: '',
       updateCheck: true,
@@ -32,7 +34,7 @@ exports.init = function () {
   }
 }
 
-exports.get = function (option) {
+exports.get = option => {
   if (!option) {
     return requireFile()
   }
@@ -40,8 +42,8 @@ exports.get = function (option) {
   return requireFile()[option]
 }
 
-exports.set = function (option, value) {
-  var config = requireFile()
+exports.set = (option, value) => {
+  const config = requireFile()
 
   if (config[option] !== undefined) {
     config[option] = formatBoolean(value)

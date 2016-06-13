@@ -1,18 +1,20 @@
-var pluginExists = require('./check').pluginExists
-var logger = require('./logger')
-var isArray = require('./is').array
-var isString = require('./is').string
-var exec = require('./exec')
+'use strict'
+
+const pluginExists = require('./check').pluginExists
+const logger = require('./logger')
+const isArray = require('./is').array
+const isString = require('./is').string
+const exec = require('./exec')
 
 /* istanbul ignore next */
-var installExtend = function (name) {
-  logger.warn('依赖包不存在，自动下载依赖包: ' + name)
+const installExtend = name => {
+  logger.warn(`依赖包不存在，自动下载依赖包: ${name}`)
   exec('cooking', ['import', name, '-p'], {
     stdio: 'inherit'
   })
 }
 
-module.exports = function (pkg) {
+module.exports = pkg => {
   if (!pkg) {
     return
   }
@@ -28,8 +30,8 @@ module.exports = function (pkg) {
   }
 
   /* istanbul ignore next */
-  pkg.forEach(function (name) {
-    if (!pluginExists('cooking-package-' + name)) {
+  pkg.forEach(name => {
+    if (!pluginExists(`cooking-package-${name}`)) {
       installExtend(name)
     }
   })
