@@ -147,7 +147,7 @@ test('cooking set chunk', t => {
     chunk: 'vendor'
   })
 
-  const chunk = new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor')
+  const chunk = new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
 
   t.truthy(cooking.config.plugins['commons-chunk'])
   t.is(cooking.config.plugins['commons-chunk'].chunkNames, chunk.chunkNames)

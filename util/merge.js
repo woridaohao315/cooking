@@ -90,6 +90,7 @@ module.exports = (userConfig, baseConfig) => {
     config.devtool = userConfig.sourceMap ? '#source-map' : false
 
     // hash
+    userConfig.hash = Boolean(userConfig.hash)
     if (userConfig.hash) {
       config.output.filename = '[name].[chunkhash:7].js'
       config.output.chunkFilename = '[id].[chunkhash:7].js'
@@ -120,7 +121,11 @@ module.exports = (userConfig, baseConfig) => {
   const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin
 
   if (is.string(userConfig.chunk)) {
-    config.plugins['commons-chunk'] = new CommonsChunkPlugin(userConfig.chunk)
+    const ext = (process.env.NODE_ENV === 'production' && userConfig.hash) ?
+      '.[chunkhash:7].js' :
+      '.js'
+
+    config.plugins['commons-chunk'] = new CommonsChunkPlugin(userConfig.chunk, userConfig.chunk + ext)
   } else {
     for (const name in userConfig.chunk) {
       if ({}.hasOwnProperty.call(userConfig.chunk, name)) {
