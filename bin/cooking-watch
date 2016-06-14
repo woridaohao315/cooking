@@ -82,7 +82,7 @@ if (!configs.devServer.enable) {
       return logger.error(err)
     }
 
-    logger.log('webpack info \n' + stats.toString(config.devServer.stats))
+    logger.log('webpack info \n' + stats.toString(configs.devServer.stats))
   })
 } else {
   // webpack dev server
