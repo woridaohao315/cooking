@@ -59,7 +59,7 @@ const configs = []
 // 加载配置
 program.config.forEach(config => {
   config = loadConfig(config)
-  config.output.publicPath = program.outputPublicPath;
+  config.output.publicPath = config.output.publicPath || program.outputPublicPath;
   configs.push(config)
 })
 
