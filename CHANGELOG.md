@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [v0.5.4] 2016.6.14
+- 继续修复 publicPath 的问题
+
 ## [v0.5.3] 2016.6.14
 - 修复 build 时 publicPath 未生效
 
