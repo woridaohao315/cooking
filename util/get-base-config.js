@@ -57,7 +57,7 @@ module.exports = userConfig => {
           loader: 'url-loader',
           query: {
             limit: limit,
-            name: path.join(assetsPath, '[name].[hash:7].[ext]')
+            name: path.posix.join(assetsPath, '[name].[hash:7].[ext]')
           }
         },
         svg: {
@@ -65,7 +65,7 @@ module.exports = userConfig => {
           loader: 'url-loader',
           query: {
             limit: limit,
-            name: path.join(assetsPath, '[name].[hash:7].[ext]')
+            name: path.posix.join(assetsPath, '[name].[hash:7].[ext]')
           }
         },
         image: {
@@ -73,7 +73,7 @@ module.exports = userConfig => {
           loader: 'url-loader',
           query: {
             limit: limit,
-            name: path.join(assetsPath, '[name].[hash:7].[ext]')
+            name: path.posix.join(assetsPath, '[name].[hash:7].[ext]')
           }
         }
       }
