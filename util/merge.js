@@ -29,6 +29,15 @@ const extractCSS = (extractcss, config, hash) => {
   }
 }
 
+const calcSourceMap = sourceMap => {
+  if (sourceMap === true) {
+    return '#source-map'
+  } else if (sourceMap === false) {
+    return false
+  }
+  return sourceMap
+}
+
 /**
  * merge
  * @param  {object} userConfig
@@ -83,11 +92,13 @@ module.exports = (userConfig, baseConfig) => {
     }
 
     // devtool
-    if (!userConfig.devServer || !userConfig.devServer.enable) {
-      config.devtool = userConfig.sourceMap ? '#source-map' : false
+    if (!config.devServer ||
+        (is.object(config.devServer) &&
+        config.devServer.enable === false)) {
+      config.devtool = calcSourceMap(userConfig.sourceMap)
     }
   } else {
-    config.devtool = userConfig.sourceMap ? '#source-map' : false
+    config.devtool = calcSourceMap(userConfig.sourceMap)
 
     // hash
     userConfig.hash = Boolean(userConfig.hash)

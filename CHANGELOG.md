@@ -1,4 +1,7 @@
 # CHANGELOG
+## [v0.5.6] 2016.7.01
+- 新增 sourceMap 支持 boolean 和 string 填 true 将使用 `#source-map`，开发模式下默认还是 `#eval-source-map`
+- 修复 build 情况下出现 `a dependency to an entry point is not allowed` 的错误
 
 ## [v0.5.5] 2016.6.29
 - 修复 Windows 下打包的资源路径

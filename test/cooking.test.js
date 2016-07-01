@@ -308,3 +308,54 @@ test('resolve mothod', t => {
   t.true(Array.isArray(config.module.loaders))
   t.true(Array.isArray(config.plugins))
 })
+
+test('sourceMap', t => {
+  process.env.NODE_ENV = 'development'
+
+  const config1 = cooking.set({
+    devServer: true,
+    sourceMap: true
+  }).resolve()
+  const config2 = cooking.set({
+    sourceMap: false
+  }).resolve()
+  const config3 = cooking.set({
+    devServer: true,
+    sourceMap: false
+  }).resolve()
+  const config4 = cooking.set({
+    devServer: {},
+    sourceMap: true
+  }).resolve()
+  const config5 = cooking.set({
+    devServer: {
+      enable: false
+    },
+    sourceMap: true
+  }).resolve()
+  const config6 = cooking.set({
+    devServer: {},
+    sourceMap: '#eval'
+  }).resolve()
+
+  t.is(config1.devtool, '#eval-source-map')
+  t.is(config2.devtool, false)
+  t.is(config3.devtool, '#eval-source-map')
+  t.is(config4.devtool, '#eval-source-map')
+  t.is(config5.devtool, '#source-map')
+  t.is(config6.devtool, '#eval-source-map')
+
+  process.env.NODE_ENV = 'production'
+
+  const config7 = cooking.set({
+    devServer: {},
+    sourceMap: true
+  }).resolve()
+  const config8 = cooking.set({
+    devServer: {},
+    sourceMap: '#eval'
+  }).resolve()
+
+  t.is(config7.devtool, '#source-map')
+  t.is(config8.devtool, '#eval')
+})
