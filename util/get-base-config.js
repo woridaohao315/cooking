@@ -22,12 +22,10 @@ module.exports = userConfig => {
 
     template: true,
 
-    plugins: {
-      occurenceorder: new webpack.optimize.OccurenceOrderPlugin()
-    },
+    plugins: {},
 
     resolve: {
-      extensions: ['', '.js', '.json']
+      extensions: ['.js', '.json']
     },
 
     resolveLoader: {},

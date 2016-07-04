@@ -10,7 +10,6 @@ const program = require('commander')
 const logger = require('../util/logger')
 const webpack = require('webpack')
 const DevServer = require('webpack-dev-server')
-const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const chalk = require('chalk')
 const shelljs = require('shelljs')
 
