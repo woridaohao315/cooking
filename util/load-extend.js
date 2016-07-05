@@ -2,6 +2,7 @@
 
 const logger = require('./logger')
 const isObject = require('./is').object
+const isArray = require('./is').array
 const exec = require('./exec')
 const pluginExists = require('./check').pluginExists
 
@@ -29,8 +30,14 @@ module.exports = (_extends, cooking) => {
   const isObj = isObject(_extends)
 
   Object.keys(_extends || {}).forEach(key => {
-    const extend = isObj ? key : _extends[key]
-    const options = isObj ? _extends[key] : {}
+    let extend = isObj ? key : _extends[key]
+    let options = isObj ? _extends[key] : {}
+
+    if (isArray(extend)) {
+      options = extend[1]
+      extend = extend[0]
+    }
+
     const extendName = extend.split('@')[0]
 
     if (!pluginExists(`cooking-${extendName}`)) {

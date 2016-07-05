@@ -1,4 +1,11 @@
 # CHANGELOG
+
+## [v1.0.0-beta] 2016.7.05
+- 使用 webpack 2.1-beta
+- 新增 postcss 及 postcss 选项设置
+- 优化 extend 选项，支持 `['plugin', ['plugin', options]]` 的方式传入参数
+- 修复 css 的 sourceMap
+
 ## [v0.5.6] 2016.7.01
 - 新增 sourceMap 支持 boolean 和 string 填 true 将使用 `#source-map`，开发模式下默认还是 `#eval-source-map`
 - 修复 build 情况下出现 `a dependency to an entry point is not allowed` 的错误

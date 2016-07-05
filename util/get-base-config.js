@@ -1,7 +1,6 @@
 'use strict'
 
 const path = require('path')
-const webpack = require('webpack')
 const PATH = require('./path')
 
 module.exports = userConfig => {
@@ -44,7 +43,7 @@ module.exports = userConfig => {
         },
         css: {
           test: /\.css$/,
-          loaders: ['style-loader', 'css-loader']
+          loaders: ['style-loader', 'css-loader', 'postcss-loader']
         },
         html: {
           test: /\.html$/,

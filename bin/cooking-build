@@ -38,6 +38,9 @@ const loadConfig = filename => {
     config.plugins.push(new webpack.ProgressPlugin())
   }
 
+  // postcss
+  config.postcss = require('../util/load-postcss')(config.postcss)
+
   config.entry = require('../util/hot-reload')(config.entry, false)
 
   return config

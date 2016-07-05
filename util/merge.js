@@ -6,7 +6,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const is = require('./is')
 const loadTemplate = require('./load-template')
 const CWD_PATH = require('./path').CWD_PATH
-const logger = require('./logger')
 
 const extractCSS = (extractcss, config, hash) => {
   if (!extractcss) {
@@ -23,9 +22,12 @@ const extractCSS = (extractcss, config, hash) => {
   config.plugins.ExtractText = new ExtractTextPlugin(filename)
 
   // update css loader
+  const sourceMap = config.sourceMap ? '?sourceMap' : ''
+  const cssLoader = `css-loader${sourceMap}!postcss-loader${sourceMap}`
+
   config.module.loaders.css = {
     test: /\.css$/,
-    loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+    loader: ExtractTextPlugin.extract('style-loader', cssLoader)
   }
 }
 
@@ -69,13 +71,9 @@ module.exports = (userConfig, baseConfig) => {
   }
 
   // moduleName
+  config.output.library = userConfig.moduleName
   if (userConfig.format === 'umd' || userConfig.format === 'amd') {
-    if (userConfig.moduleName) {
-      config.output.library = userConfig.moduleName
-      config.output.umdNamedDefine = true
-    } else {
-      logger.fatal('请配置 moduleName')
-    }
+    config.output.umdNamedDefine = true
   }
 
   // development
@@ -113,10 +111,31 @@ module.exports = (userConfig, baseConfig) => {
         NODE_ENV: '"production"'
       }
     })
-    config.plugins.UglifyJs = new webpack.optimize.UglifyJsPlugin({
+
+    const minimize = userConfig.minimize
+    const UglifyJs = new webpack.optimize.UglifyJsPlugin({
       compress: {warnings: false},
-      output: {comments: false}
+      output: {comments: false},
+      sourceMap: Boolean(userConfig.sourceMap)
     })
+    const UglifyCss = new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+
+    if (is.boolean(minimize)) {
+      if (minimize) {
+        config.plugins.UglifyJs = UglifyJs
+        config.plugins.LoaderOptions = UglifyCss
+      }
+    } else if (is.object(minimize)) {
+      if (minimize.js) {
+        config.plugins.UglifyJs = UglifyJs
+      }
+
+      if (minimize.css) {
+        config.plugins.LoaderOptions = UglifyCss
+      }
+    }
 
     extractCSS(userConfig.extractCSS, config, userConfig.hash)
   }
@@ -130,22 +149,14 @@ module.exports = (userConfig, baseConfig) => {
 
   // chunk
   const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin
+  const chunks = userConfig.chunk
 
-  if (is.string(userConfig.chunk)) {
-    const ext = (process.env.NODE_ENV === 'production' && userConfig.hash) ?
-      '.[chunkhash:7].js' :
-      '.js'
-
-    config.plugins['commons-chunk'] = new CommonsChunkPlugin(userConfig.chunk, userConfig.chunk + ext)
-  } else {
-    for (const name in userConfig.chunk) {
-      if ({}.hasOwnProperty.call(userConfig.chunk, name)) {
-        if (!userConfig.chunk[name].names) {
-          userConfig.chunk[name].name = userConfig.chunk[name].name || name
-        }
-        config.plugins[`${name}-chunk`] = new CommonsChunkPlugin(userConfig.chunk[name])
-      }
-    }
+  if (is.string(chunks)) {
+    config.plugins['commons-chunk'] = new CommonsChunkPlugin(chunks)
+  } else if (chunks) {
+    Object.keys(chunks).forEach(name => {
+      config.plugins[`${name}-chunk`] = new CommonsChunkPlugin(chunks[name])
+    })
   }
 
   return config
