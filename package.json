@@ -1,6 +1,6 @@
 {
   "name": "cooking",
-  "version": "0.5.6",
+  "version": "1.0.0-beta",
   "description": "A modular build tool based on webpack.",
   "preferGlobal": true,
   "bin": {

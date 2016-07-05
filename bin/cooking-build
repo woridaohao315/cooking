@@ -39,7 +39,7 @@ const loadConfig = filename => {
   }
 
   // postcss
-  config.postcss = require('../util/load-postcss')(config.postcss)
+  require('../util/load-postcss')(config)
 
   config.entry = require('../util/hot-reload')(config.entry, false)
 

@@ -29,7 +29,7 @@ const installExtend = name => {
 module.exports = (_extends, cooking) => {
   const isObj = isObject(_extends)
 
-  Object.keys(_extends || {}).forEach(key => {
+  Object.keys(_extends || {}).reverse().forEach(key => {
     let extend = isObj ? key : _extends[key]
     let options = isObj ? _extends[key] : {}
 

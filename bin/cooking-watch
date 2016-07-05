@@ -54,7 +54,7 @@ const loadConfig = filename => {
   config.output.publicPath = config.devServer.publicPath || config.output.publicPath || '/'
 
   // postcss
-  config.postcss = require('../util/load-postcss')(config.postcss)
+  require('../util/load-postcss')(config)
 
   config.plugins.push(new webpack.ProgressPlugin())
 
