@@ -135,6 +135,9 @@ module.exports = (userConfig, baseConfig) => {
       if (minimize.css) {
         config.plugins.LoaderOptions = UglifyCss
       }
+    } else {
+      config.plugins.UglifyJs = UglifyJs
+      config.plugins.LoaderOptions = UglifyCss
     }
 
     extractCSS(userConfig.extractCSS, config, userConfig.hash)

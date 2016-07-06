@@ -95,7 +95,7 @@ if (!configs.devServer.enable) {
 
   const devServer = configs.devServer
 
-logger.success(`Listening at ${devServer.host}`)
+  logger.success(`Listening at ${devServer.host}`)
   new DevServer(webpack(configs), devServer)
     .listen(devServer.port, devServer.hostname)
 }
