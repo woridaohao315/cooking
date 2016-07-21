@@ -9,9 +9,7 @@
   "main": "lib/cooking.js",
   "scripts": {
     "test": "xo && nyc ava",
-    "watch:test": "ava -wv",
-    "report": "nyc report --reporter=html",
-    "prepublish": "npm test"
+    "watch:test": "ava -wv"
   },
   "xo": {
     "semicolon": false,
