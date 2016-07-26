@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [v1.0.0-beta.1] 2016.7.26
+- 修复 postcss 选项
+
 ## [v1.0.0-beta] 2016.7.05
 - 使用 webpack 2.1-beta
 - 新增 postcss 及 postcss 选项设置
