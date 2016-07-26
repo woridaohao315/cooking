@@ -357,3 +357,36 @@ test('sourceMap', t => {
   t.is(config7.devtool, '#source-map')
   t.is(config8.devtool, '#eval')
 })
+
+test('minimize', t => {
+  const config = cooking.set({
+    minimize: true
+  })
+
+  t.truthy(config.config.plugins.LoaderOptions)
+  t.truthy(config.config.plugins.UglifyJs)
+})
+
+test('minimize css', t => {
+  const config = cooking.set({
+    minimize: {
+      js: false,
+      css: true
+    }
+  })
+
+  t.truthy(config.config.plugins.LoaderOptions)
+  t.falsy(config.config.plugins.UglifyJs)
+})
+
+test('minimize js', t => {
+  const config = cooking.set({
+    minimize: {
+      js: true,
+      css: false
+    }
+  })
+
+  t.falsy(config.config.plugins.LoaderOptions)
+  t.truthy(config.config.plugins.UglifyJs)
+})
