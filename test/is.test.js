@@ -21,3 +21,8 @@ test('is boolean', t => {
   t.true(is.boolean(false))
   t.false(is.boolean({}))
 })
+
+test('is function', t => {
+  t.true(is.function(function () {}))
+  t.false(is.function('🌚'))
+})
