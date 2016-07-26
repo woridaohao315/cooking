@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [v0.5.8] 2016.7.26
+- 无更新，纯属为了修复手贱错发了 beta
+
 ## [v0.5.7] 2016.7.21
 - 升级 webpack-hud，修复了 devServer.log 开启时部分 Android 访问页面空白
 
