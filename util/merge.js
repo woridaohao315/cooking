@@ -27,7 +27,10 @@ const extractCSS = (extractcss, config, hash) => {
 
   config.module.loaders.css = {
     test: /\.css$/,
-    loader: ExtractTextPlugin.extract('style-loader', cssLoader)
+    loader: ExtractTextPlugin.extract({
+      fallbackLoader: 'style-loader',
+      loader: cssLoader
+    })
   }
 }
 
