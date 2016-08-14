@@ -13,6 +13,7 @@ module.exports = function (program) {
       const action = (_name => () => require(_name)(program))(name)
       const command = program.command(commandName)
 
+      command.allowUnknownOption()
       command.description(description)
       try {
         require(path.join(name, 'options'))(command)

@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [v0.6.0] 2016.8.14
+- 新增 测试功能 [文档](http://cookingjs.github.io/test.html)
+
 ## [v0.5.8] 2016.7.26
 - 无更新，纯属为了修复手贱错发了 beta
 
