@@ -107,7 +107,7 @@ test('cooking set hash', t => {
   process.env.NODE_ENV = 'development'
 
   let devHasHash = cooking.set({hash: true}).config.output.filename
-  let devNoHash = cooking.set().config.output.filename
+  let devNoHash = cooking.set({}).config.output.filename
   let devNoHash2 = cooking.set({hash: false}).config.output.filename
 
   t.is(devHasHash, devNoHash)
@@ -285,7 +285,7 @@ test('add method', t => {
     loaders: ['ahhhh']
   }
 
-  cooking.set()
+  cooking.set({})
   cooking.add('loader.mp4', loaderMP4Config)
   cooking.add('loader.json', loaderJSONConfig)
 
@@ -294,14 +294,16 @@ test('add method', t => {
 })
 
 test('remove method', t => {
-  cooking.set()
+  cooking.set({})
   cooking.remove('loader.js')
 
   t.falsy(cooking.config.module.loaders.js)
 })
 
 test('resolve mothod', t => {
-  cooking.set()
+  cooking.set({
+    entry: {}
+  })
 
   const config = cooking.resolve()
 
@@ -313,27 +315,33 @@ test('sourceMap', t => {
   process.env.NODE_ENV = 'development'
 
   const config1 = cooking.set({
+    entry: {},
     devServer: true,
     sourceMap: true
   }).resolve()
   const config2 = cooking.set({
+    entry: {},
     sourceMap: false
   }).resolve()
   const config3 = cooking.set({
+    entry: {},
     devServer: true,
     sourceMap: false
   }).resolve()
   const config4 = cooking.set({
+    entry: {},
     devServer: {},
     sourceMap: true
   }).resolve()
   const config5 = cooking.set({
+    entry: {},
     devServer: {
       enable: false
     },
     sourceMap: true
   }).resolve()
   const config6 = cooking.set({
+    entry: {},
     devServer: {},
     sourceMap: '#eval'
   }).resolve()
@@ -348,10 +356,12 @@ test('sourceMap', t => {
   process.env.NODE_ENV = 'production'
 
   const config7 = cooking.set({
+    entry: {},
     devServer: {},
     sourceMap: true
   }).resolve()
   const config8 = cooking.set({
+    entry: {},
     devServer: {},
     sourceMap: '#eval'
   }).resolve()
