@@ -8,7 +8,7 @@ const npm = require('../util/npm')
 program
   .option('-t --template', '卸载脚手架')
   .option('-p --package', '卸载依赖包')
-  .option('-c --commands', '卸载指令')
+  .option('-c --cmd', '卸载指令')
   .parse(process.argv)
 
 let name = program.args[0]
@@ -23,7 +23,7 @@ if (program.template) {
 } else if (program.package) {
   logger.log(`卸载依赖包: ${name}`)
   name = `cooking-package-${name}`
-} else if(program.commands) {
+} else if(program.cmd) {
   logger.log(`卸载指令: ${name}`)
   name = `cooking-${name}-command`
 } else {
