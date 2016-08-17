@@ -165,5 +165,10 @@ module.exports = (userConfig, baseConfig) => {
     })
   }
 
+  // postcss
+  if (userConfig.postcss) {
+    config.postcss = require('./load-postcss')(userConfig.postcss)
+  }
+
   return config
 }

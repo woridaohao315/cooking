@@ -29,9 +29,6 @@ module.exports = config => {
     config.output.publicPath = config.devServer.publicPath || config.output.publicPath || '/'
   }
 
-  // postcss
-  require('../util/load-postcss')(config)
-
   // load hot loader
   config.entry = require('./hot-reload')(
     config.entry,

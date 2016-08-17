@@ -292,14 +292,16 @@ test('add method', t => {
 })
 
 test('remove method', t => {
-  cooking.set()
+  cooking.set({})
   cooking.remove('loader.js')
 
   t.falsy(cooking.config.module.loaders.js)
 })
 
 test('resolve mothod', t => {
-  cooking.set()
+  cooking.set({
+    entry: {}
+  })
 
   const config = cooking.resolve()
 
@@ -311,27 +313,33 @@ test('sourceMap', t => {
   process.env.NODE_ENV = 'development'
 
   const config1 = cooking.set({
+    entry: {},
     devServer: true,
     sourceMap: true
   }).resolve()
   const config2 = cooking.set({
+    entry: {},
     sourceMap: false
   }).resolve()
   const config3 = cooking.set({
+    entry: {},
     devServer: true,
     sourceMap: false
   }).resolve()
   const config4 = cooking.set({
+    entry: {},
     devServer: {},
     sourceMap: true
   }).resolve()
   const config5 = cooking.set({
+    entry: {},
     devServer: {
       enable: false
     },
     sourceMap: true
   }).resolve()
   const config6 = cooking.set({
+    entry: {},
     devServer: {},
     sourceMap: '#eval'
   }).resolve()
@@ -346,10 +354,12 @@ test('sourceMap', t => {
   process.env.NODE_ENV = 'production'
 
   const config7 = cooking.set({
+    entry: {},
     devServer: {},
     sourceMap: true
   }).resolve()
   const config8 = cooking.set({
+    entry: {},
     devServer: {},
     sourceMap: '#eval'
   }).resolve()
@@ -389,4 +399,17 @@ test('minimize js', t => {
 
   t.falsy(config.config.plugins.LoaderOptions)
   t.truthy(config.config.plugins.UglifyJs)
+})
+
+test('postcss', t => {
+  const config = cooking.set({
+    entry: {},
+    postcss: [
+      function () {},
+      'xxx'
+    ]
+  }).resolve()
+
+  t.is(typeof config.postcss, 'function')
+  t.deepEqual(config.postcss(), [undefined, 'xxx'])
 })
