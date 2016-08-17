@@ -16,8 +16,8 @@ const dependencyPkg = {}
 for (const name in dependencies) {
   if (/^slush-cooking-/.test(name)) {
     generatorPkg[name.replace(/^slush-cooking-/, '')] = dependencies[name]
-  } else if (/^cooking-(\S+)-cli$/.test(name)) {
-    commandPkg[name.replace(/^cooking-(\S+)-cli$/, '$1')] = dependencies[name]
+  } else if (/^cooking-(\S+)-command$/.test(name)) {
+    commandPkg[name.replace(/^cooking-(\S+)-command$/, '$1')] = dependencies[name]
   } else if (/^cooking-package-/.test(name)) {
     dependencyPkg[name.replace(/^cooking-package-/, '')] = dependencies[name]
   } else if (/^cooking-/.test(name)) {

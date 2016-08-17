@@ -9,6 +9,7 @@ program
   .option('-r --registry [registry-url]', '指定镜像, 默认选用 taobao 镜像')
   .option('-t --template', '更新脚手架')
   .option('-p --package', '更新依赖包')
+  .option('-c --cmd', '更新指令')
   .parse(process.argv)
 
 let name = program.args[0]
@@ -23,6 +24,9 @@ if (program.template) {
 } else if (program.package) {
   logger.log(`更新依赖包: ${name}`)
   name = `cooking-package-${name}`
+} else if(program.cmd) {
+  logger.log(`更新指令: ${name}`)
+  name = `cooking-${name}-command`
 } else {
   logger.log(`更新插件: ${name}`)
   name = `cooking-${name}`

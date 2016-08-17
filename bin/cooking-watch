@@ -11,7 +11,6 @@ const logger = require('../util/logger')
 const webpack = require('webpack')
 const DevServer = require('webpack-dev-server')
 const chalk = require('chalk')
-const shelljs = require('shelljs')
 
 /**
  * 装配配置文件
@@ -31,31 +30,6 @@ const loadConfig = filename => {
   }
 
   config.name = filename
-
-  // clean
-  if (config.__COOKING_CLEAN__) {
-    shelljs.rm('-rf', config.output.path)
-  }
-
-  // install resolve path
-  require('../util/load-resolve-path')(config)
-
-  // install dev server
-  config.devServer = require('../util/load-server')(config.devServer)
-
-  if (config.devServer.enable) {
-    config.devServer.host = config.devServer.protocol + '//' + config.devServer.hostname + ':' + config.devServer.port
-  }
-
-  // load hot loader
-  config.entry = require('../util/hot-reload')(config.entry, config.devServer)
-
-  // update path
-  config.output.publicPath = config.devServer.publicPath || config.output.publicPath || '/'
-
-  // postcss
-  require('../util/load-postcss')(config)
-
   config.plugins.push(new webpack.ProgressPlugin())
 
   return config

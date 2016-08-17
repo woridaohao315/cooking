@@ -7,12 +7,13 @@ const dependencies = info.dependencies
 
 module.exports = function (program) {
   for (var name in dependencies) {
-    if (/^cooking-(\S+)-cli$/.test(name)) {
-      const commandName = name.replace(/^cooking-(\S+)-cli$/, '$1')
+    if (/^cooking-(\S+)-command$/.test(name)) {
+      const commandName = name.replace(/^cooking-(\S+)-command$/, '$1')
       const description = require(path.join(name, 'package.json')).description
       const action = (_name => () => require(_name)(program))(name)
       const command = program.command(commandName)
 
+      command.allowUnknownOption()
       command.description(description)
       try {
         require(path.join(name, 'options'))(command)
