@@ -1,6 +1,6 @@
 {
   "name": "cooking-cli",
-  "version": "1.0.0",
+  "version": "1.0.0-rc.1",
   "description": "cooking cli.",
   "preferGlobal": true,
   "bin": {
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/ElemeFE/cooking#readme",
   "dependencies": {
-    "cooking": "^1.0.0",
+    "cooking": "^1.0.0-rc.1",
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
     "babel-plugin-transform-runtime": "^6.0.0",
