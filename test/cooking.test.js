@@ -1,6 +1,6 @@
 import test from 'ava'
 import webpack from 'webpack'
-import cooking from '../packages/cooking/lib/cooking'
+import cooking from '../packages/cooking-cli/lib/cooking'
 
 test('cooking set path', t => {
   cooking.set({publicPath: '/'})
@@ -373,7 +373,6 @@ test('minimize', t => {
     minimize: true
   })
 
-  t.truthy(config.config.plugins.LoaderOptions)
   t.truthy(config.config.plugins.UglifyJs)
 })
 
@@ -385,7 +384,6 @@ test('minimize css', t => {
     }
   })
 
-  t.truthy(config.config.plugins.LoaderOptions)
   t.falsy(config.config.plugins.UglifyJs)
 })
 
@@ -397,7 +395,6 @@ test('minimize js', t => {
     }
   })
 
-  t.falsy(config.config.plugins.LoaderOptions)
   t.truthy(config.config.plugins.UglifyJs)
 })
 

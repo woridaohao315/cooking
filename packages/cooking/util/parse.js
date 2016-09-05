@@ -1,6 +1,6 @@
 'use strict'
 
-const _toArray = require('lodash/toarray')
+const _toArray = require('lodash.toarray')
 const shelljs = require('shelljs')
 
 module.exports = function (config) {
