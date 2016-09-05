@@ -1,6 +1,6 @@
 {
   "name": "cooking",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "description": "A modular build tool based on webpack.",
   "main": "lib/cooking.js",
   "preferGlobal": false,
