@@ -5,7 +5,7 @@
     "lint": "xo",
     "watch:test": "ava -wv",
     "report": "nyc report --reporter=html",
-    "postinstall": "lerna bootstrap",
+    "postinstall": "make bootstrap",
     "pub": "lerna publish"
   },
   "xo": {
