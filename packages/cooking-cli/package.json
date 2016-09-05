@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/ElemeFE/cooking#readme",
   "dependencies": {
-    "cooking": "file:///Users/liqingwei/Documents/projects/cookingjs/cooking-next/packages/cooking",
+    "cooking": "^1.0.0",
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
     "babel-plugin-transform-runtime": "^6.0.0",

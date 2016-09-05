@@ -5,7 +5,8 @@
     "lint": "xo",
     "watch:test": "ava -wv",
     "report": "nyc report --reporter=html",
-    "prepublish": "npm test"
+    "prepublish": "npm test",
+    "pub": "lerna publish"
   },
   "xo": {
     "semicolon": false,
@@ -40,7 +41,9 @@
   "devDependencies": {
     "ava": "^0.15.1",
     "coveralls": "^2.11.9",
+    "lerna": "^2.0.0-beta.26",
     "nyc": "^6.4.2",
+    "webpack": "^2.1.0-beta.21",
     "xo": "^0.15.0"
   },
   "dependencies": {}
