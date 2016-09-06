@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v1.0.0-rc.3] 2016.09.06
+- 修复 cooking-cli 的依赖
+- update/import/remove 支持传入多个参数
+
 ## [v1.0.0-rc.2] 2016.09.05
 - 将 cooking 拆分成 `cooking-cli` 和 `cooking`(runtime) 两个部分，以后可以全局或者本地安装 cooking
 - 新增 alias、externals 配置项
