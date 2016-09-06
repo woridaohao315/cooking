@@ -21,7 +21,7 @@ const npm = (options, registry) => {
   shelljs.cd(pwd)
 }
 
-exports.install = (name, registry) => npm(['install', name], registry)
-exports.update = (name, registry) => npm(['update', name], registry)
-exports.uninstall = name => npm(['uninstall', name])
+exports.install = (name, registry) => npm(['install'].concat(name), registry)
+exports.update = (name, registry) => npm(['update'].concat(name), registry)
+exports.uninstall = name => npm(['uninstall'].concat(name))
 exports.list = () => npm(['list', '--depth=0'])

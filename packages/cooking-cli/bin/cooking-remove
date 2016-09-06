@@ -10,7 +10,7 @@ program
   .option('-c --cmd', '卸载指令')
   .parse(process.argv)
 
-let name = program.args[0]
+let name = program.args
 
 if (!name) {
   logger.fatal('请指定插件/脚手架名称')
@@ -18,13 +18,13 @@ if (!name) {
 
 if (program.template) {
   logger.log(`卸载脚手架: ${name}`)
-  name = `slush-cooking-${name}`
+  name = name.map(item => `slush-cooking-${item}`)
 } else if(program.cmd) {
   logger.log(`卸载指令: ${name}`)
-  name = `cooking-${name}-command`
+  name = name.map(item => `cooking-${item}-command`)
 } else {
   logger.log(`卸载插件: ${name}`)
-  name = `cooking-${name}`
+  name = name.map(item => `cooking-${item}`)
 }
 
 npm.uninstall(name, program.registry)
