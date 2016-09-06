@@ -8,3 +8,4 @@ etc
 coverage
 .nyc_output
 .coveralls.yml
+lerna-debug.log

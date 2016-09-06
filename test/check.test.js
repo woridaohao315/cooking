@@ -1,8 +1,8 @@
 import path from 'path'
 import fs from 'fs'
 import test from 'ava'
-import check from '../util/check'
-import PATH from '../util/path'
+import check from '../packages/cooking-cli/util/check'
+import PATH from '../packages/cooking-cli/util/path'
 
 test('check registry', t => {
   const result = check.registry('abc')

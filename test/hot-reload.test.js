@@ -1,5 +1,5 @@
 import test from 'ava'
-import hotReload from '../util/hot-reload'
+import hotReload from '../packages/cooking/util/hot-reload'
 
 test('load hotreload', t => {
   const entry = 'entry.js'

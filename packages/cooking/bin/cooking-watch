@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+'use strict'
+
+// set env
+process.env.NODE_ENV = 'development'
+
+const path = require('path')
+const program = require('commander')
+const logger = require('../util/logger')
+const loadConfig = require('../util/load-config')
+const webpack = require('webpack')
+const DevServer = require('webpack-dev-server')
+const configs = []
+
+program
+  .option('-c --config [configfile]', 'config file', val => val.split(','))
+  .parse(process.argv)
+
+program.config = program.config || ['cooking.conf.js']
+
+// 加载配置
+program.config.forEach(config => {
+  config = loadConfig(config, program)
+  configs.push(config)
+  configs.devServer = config.devServer
+})
+
+// run watch
+if (!configs.devServer.enable) {
+  const compiler = webpack(configs)
+
+  logger.log('启动中...')
+  compiler.watch({}, (err, stats) => {
+    if (err) {
+      return logger.error(err)
+    }
+
+    logger.log('webpack info \n' + stats.toString(configs.devServer.stats))
+  })
+} else {
+  // webpack dev server
+  logger.log('server 启动中...')
+  configs.map(config => config.plugins.push(new webpack.HotModuleReplacementPlugin()))
+
+  const devServer = configs.devServer
+
+  logger.success(`Listening at ${devServer.host}`)
+  new DevServer(webpack(configs), devServer)
+    .listen(devServer.port, devServer.hostname)
+}

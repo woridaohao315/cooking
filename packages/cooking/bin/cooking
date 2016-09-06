@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+'use strict'
+
+const path = require('path')
+const program = require('commander')
+
+console.log()
+process.on('exit', function () {
+  console.log()
+})
+
+program
+  .usage('<command> [options]')
+  .version(require('../package.json').version)
+  .command('watch', '开发模式 development')
+  .command('build', '生产模式 production')
+  .parse(process.argv)
+
+if (!process.argv.slice(2).length) {
+  program.outputHelp()
+}

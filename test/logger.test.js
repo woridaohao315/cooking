@@ -1,5 +1,5 @@
 import test from 'ava'
-import logger from '../util/logger'
+import logger from '../packages/cooking/util/logger'
 
 test('logger warn', t => {
   t.notThrows(function () {

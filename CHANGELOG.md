@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## [v1.0.0-rc.3] 2016.09.06
+- 修复 cooking-cli 的依赖
+- update/import/remove 支持传入多个参数
+
+## [v1.0.0-rc.2] 2016.09.05
+- 将 cooking 拆分成 `cooking-cli` 和 `cooking`(runtime) 两个部分，以后可以全局或者本地安装 cooking
+- 新增 alias、externals 配置项
+
+## [v1.0.0-beta.1] 2016.7.26
+- 修复 postcss 选项
+
+## [v1.0.0-beta] 2016.7.05
+- 使用 webpack 2.1-beta
+- 新增 postcss 及 postcss 选项设置
+- 优化 extend 选项，支持 `['plugin', ['plugin', options]]` 的方式传入参数
+- 修复 css 的 sourceMap
+
 ## [v0.6.1] 2016.8.15
 - 修复 安装测试指令失败的问题
 - 修复 读取配置文件内容不正确

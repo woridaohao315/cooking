@@ -1,6 +1,6 @@
 import test from 'ava'
 import webpack from 'webpack'
-import cooking from '../lib/cooking'
+import cooking from '../packages/cooking-cli/lib/cooking'
 
 test('cooking set path', t => {
   cooking.set({publicPath: '/'})
@@ -132,59 +132,57 @@ test('cooking set format', t => {
   t.is(cooking.config.output.library, 'ABC')
 })
 
-test('cooking set format no moduleName', t => {
-  process.env.NODE_ENV = 'testing'
-
-  t.throws(function () {
-    cooking.set({
-      format: 'umd'
-    })
-  }, 'exit')
-})
-
 test('cooking set chunk', t => {
   cooking.set({
     chunk: 'vendor'
   })
 
-  const chunk = new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
+  const chunk = new webpack.optimize.CommonsChunkPlugin('vendor')
 
   t.truthy(cooking.config.plugins['commons-chunk'])
   t.is(cooking.config.plugins['commons-chunk'].chunkNames, chunk.chunkNames)
-  t.is(cooking.config.plugins['commons-chunk'].filenameTemplate, chunk.filenameTemplate)
 
   cooking.set({
-    chunk: {
-      chunkA: {
+    chunk: [
+      {
         name: 'commonsA',
         filename: 'commonsA.js'
       },
-      chunkB: {
+      {
         name: 'commonsB'
       },
-      chunkC: {
+      {
         chunks: ['vendor', 'pageA']
       }
-    }
+    ]
   })
 
-  const chunkA = new webpack.optimize.CommonsChunkPlugin({
-    name: 'commonsA',
-    filename: 'commonsA.js'
+  const chunkB = new webpack.optimize.CommonsChunkPlugin({
+    name: 'commonsB',
+    filename: 'commonsB.js'
   })
   const chunkC = new webpack.optimize.CommonsChunkPlugin({
     chunks: ['vendor', 'pageA']
   })
 
   // 插件存在
-  t.truthy(cooking.config.plugins['chunkB-chunk'])
+  t.truthy(cooking.config.plugins['0-chunk'])
 
   // 设置参数
-  t.is(cooking.config.plugins['chunkA-chunk'].chunkNames, chunkA.chunkNames)
-  t.is(cooking.config.plugins['chunkA-chunk'].filenameTemplate, chunkA.filenameTemplate)
+  t.is(cooking.config.plugins['1-chunk'].chunkNames, chunkB.chunkNames)
 
   // 设置 chunks
-  t.deepEqual(cooking.config.plugins['chunkC-chunk'].selectedChunks, chunkC.selectedChunks)
+  t.deepEqual(cooking.config.plugins['2-chunk'].selectedChunks, chunkC.selectedChunks)
+
+  cooking.set({
+    chunk: {
+      chunkA: {
+        name: 'name'
+      }
+    }
+  })
+
+  t.truthy(cooking.config.plugins['chunkA-chunk'])
 })
 
 test('cooking set extractCSS', t => {
@@ -368,4 +366,47 @@ test('sourceMap', t => {
 
   t.is(config7.devtool, '#source-map')
   t.is(config8.devtool, '#eval')
+})
+
+test('minimize', t => {
+  const config = cooking.set({
+    minimize: true
+  })
+
+  t.truthy(config.config.plugins.UglifyJs)
+})
+
+test('minimize css', t => {
+  const config = cooking.set({
+    minimize: {
+      js: false,
+      css: true
+    }
+  })
+
+  t.falsy(config.config.plugins.UglifyJs)
+})
+
+test('minimize js', t => {
+  const config = cooking.set({
+    minimize: {
+      js: true,
+      css: false
+    }
+  })
+
+  t.truthy(config.config.plugins.UglifyJs)
+})
+
+test('postcss', t => {
+  const config = cooking.set({
+    entry: {},
+    postcss: [
+      function () {},
+      'xxx'
+    ]
+  }).resolve()
+
+  t.is(typeof config.postcss, 'function')
+  t.deepEqual(config.postcss(), [undefined, 'xxx'])
 })

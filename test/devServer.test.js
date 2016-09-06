@@ -1,5 +1,5 @@
 import test from 'ava'
-import devServer from '../util/load-server'
+import devServer from '../packages/cooking/util/load-server'
 const defaultServer = {
   port: 8080,
   hot: true,

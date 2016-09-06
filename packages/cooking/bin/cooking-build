@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+'use strict'
+
+// set env
+process.env.NODE_ENV = 'production'
+
+const path = require('path')
+const program = require('commander')
+const logger = require('../util/logger')
+const loadConfig = require('../util/load-config')
+const webpack = require('webpack')
+const configs = []
+let compiler
+
+// TODO: 补充选项
+program
+  .option('-c --config <configfile>', 'config file', val => val.split(','))
+  .option('-p --progress', 'Display progress')
+  .option('--no-color', 'Disable colors to display the statistics')
+  .option('--output-public-path <publicPath>', 'Replace output.publicPath.')
+  .parse(process.argv)
+
+program.config = program.config || ['cooking.conf.js']
+
+// 加载配置
+program.config.forEach(config => {
+  config = loadConfig(config, program)
+  config.output.publicPath = program.outputPublicPath || config.output.publicPath
+  configs.push(config)
+})
+
+// production
+compiler = webpack(configs)
+
+// Hack: remove extract-text-webpack-plugin log
+compiler.plugin('done', stats =>
+  stats.stats.forEach(stat =>
+    stat.compilation.children = stat.compilation.children.filter(child =>
+      !/extract-text-webpack-plugin|html-webpack-plugin/.test(child.name)
+      )
+    )
+  )
+
+compiler.run(function (err, stats) {
+  if (err) {
+    logger.err(err)
+    return
+  }
+
+  logger.success('info\n' + stats.toString({
+    colors: program.color,
+    chunks: false,
+    hash: false,
+    version: false
+  }))
+})
