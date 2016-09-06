@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v1.0.0-rc.2] 2016.09.05
+- 将 cooking 拆分成 `cooking-cli` 和 `cooking`(runtime) 两个部分，以后可以全局或者本地安装 cooking
+- 新增 alias、externals 配置项
+
 ## [v1.0.0-beta.1] 2016.7.26
 - 修复 postcss 选项
 
@@ -8,6 +12,9 @@
 - 新增 postcss 及 postcss 选项设置
 - 优化 extend 选项，支持 `['plugin', ['plugin', options]]` 的方式传入参数
 - 修复 css 的 sourceMap
+
+## [v0.5.7] 2016.7.21
+- 升级 webpack-hud，修复了 devServer.log 开启时部分 Android 访问页面空白
 
 ## [v0.5.6] 2016.7.01
 - 新增 sourceMap 支持 boolean 和 string 填 true 将使用 `#source-map`，开发模式下默认还是 `#eval-source-map`
