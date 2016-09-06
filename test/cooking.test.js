@@ -107,7 +107,7 @@ test('cooking set hash', t => {
   process.env.NODE_ENV = 'development'
 
   let devHasHash = cooking.set({hash: true}).config.output.filename
-  let devNoHash = cooking.set().config.output.filename
+  let devNoHash = cooking.set({}).config.output.filename
   let devNoHash2 = cooking.set({hash: false}).config.output.filename
 
   t.is(devHasHash, devNoHash)
@@ -283,7 +283,7 @@ test('add method', t => {
     loaders: ['ahhhh']
   }
 
-  cooking.set()
+  cooking.set({})
   cooking.add('loader.mp4', loaderMP4Config)
   cooking.add('loader.json', loaderJSONConfig)
 

@@ -17,6 +17,16 @@
 - 优化 extend 选项，支持 `['plugin', ['plugin', options]]` 的方式传入参数
 - 修复 css 的 sourceMap
 
+## [v0.6.1] 2016.8.15
+- 修复 安装测试指令失败的问题
+- 修复 读取配置文件内容不正确
+
+## [v0.6.0] 2016.8.14
+- 新增 测试功能 [文档](http://cookingjs.github.io/test.html)
+
+## [v0.5.8] 2016.7.26
+- 无更新，纯属为了修复手贱错发了 beta
+
 ## [v0.5.7] 2016.7.21
 - 升级 webpack-hud，修复了 devServer.log 开启时部分 Android 访问页面空白
 
