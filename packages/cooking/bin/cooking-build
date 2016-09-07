@@ -43,7 +43,7 @@ compiler.plugin('done', stats =>
 
 compiler.run(function (err, stats) {
   if (err) {
-    logger.err(err)
+    logger.error(err)
     return
   }
 
