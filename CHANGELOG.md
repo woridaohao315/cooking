@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v1.0.0] 2016.09.11
+- 修复 postcss 选项配置出错的问题
+- 修复 clear 在开发模式也会执行的问题
+
 ## [v1.0.0-rc.3] 2016.09.06
 - 修复 cooking-cli 的依赖
 - update/import/remove 支持传入多个参数
