@@ -14,6 +14,7 @@ const configs = []
 
 program
   .option('-c --config [configfile]', 'config file', val => val.split(','))
+  .option('-p --progress', 'Display progress')
   .parse(process.argv)
 
 program.config = program.config || ['cooking.conf.js']

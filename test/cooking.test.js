@@ -408,5 +408,4 @@ test('postcss', t => {
   }).resolve()
 
   t.is(typeof config.postcss, 'function')
-  t.deepEqual(config.postcss(), [undefined, 'xxx'])
 })
