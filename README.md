@@ -1,4 +1,4 @@
-<p align="center"><a href="http://elemefe.github.io/cooking/" target="_blank"><img src="https://cdn.rawgit.com/ElemeFE/cooking/master/example/landingpage/src/assets/logo.svg"></a></p>
+<p align="center"><a href="http://elemefe.github.io/cooking/" target="_blank"><img src="https://cdn.rawgit.com/ElemeFE/cooking/gh-pages/static/logo.f3eae12.svg"></a></p>
 <h3 align="center">cooking</h3>
 <p align="center">
   更易上手的前端构建工具
@@ -12,8 +12,10 @@
 <a target="_blank" href="https://gitter.im/QingWei-Li/cooking?utm_source=share-link&utm_medium=link&utm_campaign=share-link"><img src="https://img.shields.io/gitter/room/QingWei-Li/cooking.svg?maxAge=2592000" alt="Gitter"></a>
 </p>
 
-## 文档
-http://cookingjs.github.io
+## 链接
+- [文档](http://cookingjs.github.io)
+- [例子](https://github.com/cooking-demo)
+- [教程: 用 cooking 搭建一个简单又优雅的 Vue 项目开发环境 (入门篇)](https://zhuanlan.zhihu.com/p/22387692)
 
 ## 讨论
 使用上遇到的问题请到 [Gitter 聊天室](https://gitter.im/QingWei-Li/cooking?utm_source=share-link&utm_medium=link&utm_campaign=share-link), issue 仅仅用来处理 bug 和 feature 等的问题。
