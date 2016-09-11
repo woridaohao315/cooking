@@ -95,6 +95,13 @@ module.exports = function (userConfig, baseConfig) {
     // extractCSS
     if (userConfig.devServer) {
       extractCSS(userConfig.devServer.extractCSS, config, false)
+
+      // clean
+      if (is.Boolean(userConfig.devServer.clean)) {
+        config.__COOKING_CLEAN__ = userConfig.devServer.clean
+      } else {
+        config.__COOKING_CLEAN__ = true
+      }
     }
 
     // devtool
@@ -158,6 +165,13 @@ module.exports = function (userConfig, baseConfig) {
       }
     }
 
+    // clean
+    if (is.Boolean(userConfig.clean)) {
+      config.__COOKING_CLEAN__ = userConfig.clean
+    } else {
+      config.__COOKING_CLEAN__ = true
+    }
+
     extractCSS(userConfig.extractCSS, config, userConfig.hash)
   }
 
@@ -174,13 +188,6 @@ module.exports = function (userConfig, baseConfig) {
   // postcss
   if (userConfig.postcss) {
     config.postcss = require('./load-postcss')(userConfig.postcss)
-  }
-
-  // clean
-  if (is.Boolean(userConfig.clean)) {
-    config.__COOKING_CLEAN__ = userConfig.clean
-  } else {
-    config.__COOKING_CLEAN__ = true
   }
 
   // chunk
