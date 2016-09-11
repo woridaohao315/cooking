@@ -35,7 +35,7 @@ module.exports = function (config) {
     process.env.NODE_ENV === 'development' ? config.devServer : false
   )
 
-  if (config.__COOKING_CLEAN__) {
+  if (config.__COOKING_CLEAN__ && process.env.NODE_ENV === 'production') {
     shelljs.rm('-rf', config.output.path)
   }
 
