@@ -260,6 +260,7 @@ test('cooking set extractCSS in development', t => {
 })
 
 test('cooking clean', t => {
+  process.env.NODE_ENV = 'production'
   cooking.set({
     clean: true
   })
