@@ -20,7 +20,7 @@ const replacePath = function (_path) {
   }
 
   if (/^(plugin)s?/g.test(_path)) {
-    return _path.replace(/^(plugin)s?/g, 'module.$1s')
+    return _path.replace(/^(plugin)s?/g, '$1s')
   }
 
   return _path

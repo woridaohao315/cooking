@@ -287,9 +287,11 @@ test('add method', t => {
   cooking.set({})
   cooking.add('loader.mp4', loaderMP4Config)
   cooking.add('loader.json', loaderJSONConfig)
+  cooking.add('plugins.abc', 1)
 
   t.deepEqual(cooking.config.module.loaders.mp4, loaderMP4Config)
   t.deepEqual(cooking.config.module.loaders.json, loaderJSONConfig)
+  t.deepEqual(cooking.config.plugins.abc, 1)
 })
 
 test('remove method', t => {
