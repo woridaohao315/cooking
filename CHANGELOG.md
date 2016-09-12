@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [v1.0.4] 2016.09.12
+- cooking-cli: windows 下无法使用
+
 ## [v1.0.3] 2016.09.12
 - cooking: 全局安装提示改成只提示不抛异常
 
