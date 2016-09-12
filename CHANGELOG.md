@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [v1.0.3] 2016.09.12
+- cooking: 全局安装提示改成只提示不抛异常
+
 ## [v1.0.2] 2016.09.12
 - 新增 chunk 为 true 的选项，会设置打包所有引用到的 package 到 vendor 文件中，并打包一份 manifest。[例子](https://github.com/vuejs-templates/webpack/blob/dist/template/build/webpack.prod.conf.js#L62-L81)
 - cooking: 新增阻止全局安装的警告提示

@@ -13,7 +13,7 @@ process.on('exit', function () {
 })
 
 if (isGlobal()) {
-logger.fatal(`cooking is local module. You should use ${chalk.cyan('cooking-cli')}
+logger.error(`cooking is local module. You should use ${chalk.cyan('cooking-cli')}
 
             ${chalk.cyan('npm i cooking-cli -g')}`)
 }
