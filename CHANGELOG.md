@@ -2,6 +2,7 @@
 
 ## [v1.0.2] 待定
 - 新增 chunk 为 true 的选项，会设置打包所有引用到的 package 到 vendor 文件中，并打包一份 manifest。[例子](https://github.com/vuejs-templates/webpack/blob/dist/template/build/webpack.prod.conf.js#L62-L81)
+- cooking: 新增阻止全局安装的警告提示
 
 ## [v1.0.1] 2016.09.11
 - 修复 plugin 无法设置的问题
