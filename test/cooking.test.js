@@ -183,6 +183,13 @@ test('cooking set chunk', t => {
   })
 
   t.truthy(cooking.config.plugins['chunkA-chunk'])
+
+  cooking.set({
+    chunk: true
+  })
+
+  t.truthy(cooking.config.plugins['0-chunk'])
+  t.truthy(cooking.config.plugins['1-chunk'])
 })
 
 test('cooking set extractCSS', t => {

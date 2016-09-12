@@ -192,7 +192,23 @@ module.exports = function (userConfig, baseConfig) {
 
   // chunk
   const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin
-  const chunks = userConfig.chunk
+  let chunks = userConfig.chunk
+
+  if (chunks === true) {
+    chunks = [
+      {
+        name: 'vendor',
+        minChunks: function (module) {
+          return (
+            module.resource &&
+            /\.js$/.test(module.resource) &&
+            module.resource.indexOf(path.join(__dirname, 'node_modules')) === 0
+          )
+        }
+      },
+      {name: 'manifest', chunks: ['vendor']}
+    ]
+  }
 
   if (is.String(chunks)) {
     config.plugins['commons-chunk'] = new CommonsChunkPlugin(chunks)
