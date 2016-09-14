@@ -1,7 +1,12 @@
 # CHANGELOG
 
-## [v1.0.4] 2016.09.12
-- cooking-cli: windows 下无法使用
+## 2016.09.14
+- cooking-cli [v1.0.5]
+  - 修复 watch/build 无法传参数
+
+## 2016.09.12
+- cooking-cli[v1.0.4]
+  - 修复 windows 下无法使用
 
 ## [v1.0.3] 2016.09.12
 - cooking: 全局安装提示改成只提示不抛异常

@@ -16,7 +16,7 @@
 - [中文版 README](https://github.com/ElemeFE/cooking/blob/master/README_zh-cn.md)
 - [Documentation](http://cookingjs.github.io)
 - [Demo](https://github.com/cooking-demo)
-- [Tutorial: Build a simple and elegant Vue-based development environment with cooking (introduction)](https://zhuanlan.zhihu.com/p/22387692)
+- [教程: 用 cooking 搭建一个简单又优雅的 Vue 项目开发环境 (入门篇)](https://zhuanlan.zhihu.com/p/22387692)
 
 ## Discussion
 Hit [Gitter](https://gitter.im/QingWei-Li/cooking?utm_source=share-link&utm_medium=link&utm_campaign=share-link) if you come across any problem while using cooking. Issues are only for bug reports and feature requests.
