@@ -1,6 +1,6 @@
 {
   "name": "cooking-cli",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "cooking cli.",
   "preferGlobal": true,
   "bin": {
