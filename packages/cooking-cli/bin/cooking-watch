@@ -8,13 +8,13 @@ const exec = require('../util/exec')
 if (localCooking) {
   exec(
     require('path').resolve(process.cwd(), 'node_modules/cooking/bin/cooking-watch'),
-    process.argv.splice[1],
+    process.argv.slice(2),
     {stdio: 'inherit'}
   )
 } else {
   exec(
     require('path').resolve(__dirname, '../node_modules/cooking/bin/cooking-watch'),
-    process.argv.splice[1],
+    process.argv.slice(2),
     {stdio: 'inherit'}
   )
 }

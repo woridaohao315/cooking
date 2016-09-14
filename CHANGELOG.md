@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v1.0.7] 2016.09.14
+- cooking-cli
+  - 修复 watch 无法传参数
+
 ## [v1.0.6] 2016.09.14
 - cooking
   - 修复 chunk 为 true 时指定的路径
