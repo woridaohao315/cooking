@@ -1,11 +1,15 @@
 # CHANGELOG
 
-## 2016.09.14
-- cooking-cli [v1.0.5]
+## [v1.0.6] 2016.09.14
+- cooking
+  - 修复 chunk 为 true 时指定的路径
+
+## [v1.0.5] 2016.09.14
+- cooking-cli
   - 修复 watch/build 无法传参数
 
-## 2016.09.12
-- cooking-cli[v1.0.4]
+## [v1.0.4] 2016.09.12
+- cooking-cli
   - 修复 windows 下无法使用
 
 ## [v1.0.3] 2016.09.12
