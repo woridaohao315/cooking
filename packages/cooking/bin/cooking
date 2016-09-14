@@ -3,7 +3,7 @@
 
 const path = require('path')
 const program = require('commander')
-const isGlobal = require('is-global')
+const isGlobal = require('is-global-exec')
 const logger = require('../util/logger')
 const chalk = require('chalk')
 
@@ -13,7 +13,7 @@ process.on('exit', function () {
 })
 
 if (isGlobal()) {
-logger.error(`cooking is local module. You should use ${chalk.cyan('cooking-cli')}
+logger.fatal(`cooking is local module. You should use ${chalk.cyan('cooking-cli')}
 
             ${chalk.cyan('npm i cooking-cli -g')}`)
 }

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v1.0.8] 2016.09.15
+- cooking
+  - 修复 全局安装的提示不正确，替换用 is-global-exec 检测是否是当做全局命令行工具使用
+
 ## [v1.0.7] 2016.09.14
 - cooking-cli
   - 修复 watch 无法传参数
