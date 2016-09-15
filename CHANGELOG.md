@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v1.0.9] 2016.09.16
+ - cooking
+  - 升级 `is-global-exec`
+
 ## [v1.0.8] 2016.09.15
 - cooking
   - 修复 全局安装的提示不正确，替换用 is-global-exec 检测是否是当做全局命令行工具使用
