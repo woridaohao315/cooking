@@ -49,7 +49,8 @@ exports.checkVersion = function () {
 
 /* istanbul ignore next */
 exports.pluginExists = function (name) {
-  return fs.existsSync(path.join(PLUGIN_PATH, 'node_modules', name))
+  return fs.existsSync(path.join(PLUGIN_PATH, 'node_modules', name)) ||
+    exports.localExists(name)
 }
 
 /* istanbul ignore next */
