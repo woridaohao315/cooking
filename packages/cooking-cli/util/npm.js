@@ -16,7 +16,7 @@ const npm = (options, registry) => {
   const pwd = shelljs.pwd().stdout
 
   shelljs.cd(PLUGIN_PATH)
-  options = options.concat(['--save', '--silent'])
+  options = options.concat(['--save', '--silent', '--save-prefix=>='])
   exec('npm', options, {stdio: 'inherit'})
   shelljs.cd(pwd)
 }
