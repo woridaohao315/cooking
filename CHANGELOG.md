@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 未发布
+- cooking-cli: 修复 NODE_PATH 匹配顺序，用户配置放在最后
+
 ## [v1.0.11] 2016.09.18
  - cooking-cli: 修复 update 指令，能直接更新到最新版本
  - cooking: 只有一个配置文件时当做单配置处理（之前都是传入数组配置）
