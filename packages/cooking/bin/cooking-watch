@@ -32,7 +32,7 @@ configs = configs.length === 1 ? configs[0] : configs
 if (!configs.devServer.enable) {
   const compiler = webpack(configs)
 
-  logger.log('启动中...')
+  logger.log('Loading...')
   compiler.watch({}, (err, stats) => {
     if (err) {
       return logger.error(err)
@@ -42,7 +42,7 @@ if (!configs.devServer.enable) {
   })
 } else {
   // webpack dev server
-  logger.log('server 启动中...')
+  logger.log('Loading server...')
   var hostPlugin = new webpack.HotModuleReplacementPlugin()
   if (Array.isArray(configs)) {
     configs.map(config => config.plugins.push(hostPlugin))

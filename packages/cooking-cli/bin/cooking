@@ -19,7 +19,7 @@ try {
   check.checkPermission()
 } catch(_) {
   logger.fatal(`chalk.yellow('permission denied')
-    尝试使用 ${chalk.cyan('sudo')} 或者执行下面指令修改访问权限
+    Try running with ${chalk.cyan('sudo')}  or get access
 
     ${chalk.cyan('sudo chown -R $USER:$(id -gn $USER) ' + PATH.PLUGIN_PATH)}
   `)
@@ -52,15 +52,15 @@ process.env.COOKING_PATH = [
 program
   .usage('<command> [options]')
   .version(require('../package.json').version)
-  .command('config <option>', '查看当前项目的配置信息')
-  .command('init <template>', '初始化一个空项目，例如 vue')
-  .command('create <project-name> <template>', '创建一个空项目文件夹并初始化')
-  .command('import <plugin>', '安装插件/脚手架')
-  .command('update <plugin>', '更新插件/脚手架')
-  .command('remove <plugin>', '卸载插件/脚手架')
-  .command('list', '查看已安装的插件/脚手架')
-  .command('watch', '开发模式 development')
-  .command('build', '生产模式 production')
+  .command('config <option>', 'List configuration info')
+  .command('init <template>', 'Create a project through template')
+  .command('create <project-name> <template>', 'Create new directory and run init command')
+  .command('import <plugin>', 'Install plugin')
+  .command('update <plugin>', 'Update plugin')
+  .command('remove <plugin>', 'Remove plugin')
+  .command('list', 'List of installed plugins')
+  .command('watch', 'Development mode')
+  .command('build', 'Production mode')
 
 // 加载动态指令
 require('../util/load-command')(program)

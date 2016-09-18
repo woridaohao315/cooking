@@ -7,7 +7,7 @@ const pluginExists = require('./check').pluginExists
 /* istanbul ignore next */
 const importExtend = function (extend, cooking, options) {
   require(`cooking-${extend}`)(cooking, options)
-  logger.success(`插件加载成功: ${extend}`)
+  logger.success(`Loaded success: ${extend}`)
 }
 
 /* istanbul ignore next */
@@ -26,7 +26,7 @@ module.exports = function (_extends, cooking) {
     const packageName = `cooking-${extendName}`
 
     if (!pluginExists(packageName)) {
-      logger.fatal(`请安装 ${packageName}, 执行 'npm i ${packageName} -D'`)
+      logger.fatal(`Please install ${packageName}, run 'npm i ${packageName} -D'`)
     }
 
     importExtend(extendName, cooking, options)

@@ -21,8 +21,8 @@ logger.fatal(`cooking is local module. You should use ${chalk.cyan('cooking-cli'
 program
   .usage('<command> [options]')
   .version(require('../package.json').version)
-  .command('watch', '开发模式 development')
-  .command('build', '生产模式 production')
+  .command('watch', 'Development mode')
+  .command('build', 'Production mode')
   .parse(process.argv)
 
 if (!process.argv.slice(2).length) {

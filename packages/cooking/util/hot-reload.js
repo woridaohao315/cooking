@@ -7,7 +7,7 @@ module.exports = function (entry, devServer) {
   const result = {}
 
   if (!entry) {
-    logger.fatal('请配置 entry')
+    logger.fatal('Please set entry')
   }
 
   if (isString(entry)) {

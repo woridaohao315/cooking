@@ -9,12 +9,12 @@ const pluginExists = require('./check').pluginExists
 /* istanbul ignore next */
 const importExtend = (extend, cooking, options) => {
   require(`cooking-${extend}`)(cooking, options)
-  logger.success(`插件加载成功: ${extend}`)
+  logger.success(`Loaded success: ${extend}`)
 }
 
 /* istanbul ignore next */
 const installExtend = name => {
-  logger.warn(`插件不存在，自动下载插件: ${name}`)
+  logger.warn(`Auto install plugin: ${name}`)
   exec('cooking', ['import', name], {
     stdio: 'inherit'
   })
