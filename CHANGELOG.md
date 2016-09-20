@@ -1,7 +1,10 @@
 # CHANGELOG
 
-## [v1.1.1] 未发布
-- cooking: 修复 postcss 传函数时无法获取 `webpack` 参数
+## [v1.1.1] 2016.09.20
+- cooking:
+  - 修复 postcss 传函数时无法获取 `webpack` 参数
+- cooking-cli
+  - 锁定 webpack 版本号 beta22
 
 ## [v1.1.0] 2016.09.19
 - cooking-cli: 修复 NODE_PATH 匹配顺序，用户配置放在最后
