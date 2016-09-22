@@ -11,18 +11,12 @@ We are excited that you are interested in contributing to cooking. Before submit
 
 - Before submitting an issue, please check if similar problems have already been issued.
 
-- Please specify which version of cooking you are using, and provide OS and browser information. [JSFiddle](https://jsfiddle.net/) is recommended to build a live demo so that your issue can be reproduced clearly.
-
 ## Pull Request Guidelines
 - Fork this repository to your own account. Do not create branches here.
-
-- **DO NOT** include files inside `lib` directory.
 
 - Rebase before creating a PR to keep commit history clear.
 
 - If you are fixing a bug, please include detailed description of the bug in the PR.
-
-- Merging a PR takes two maintainers: one approves the changes after reviewing, and then the other reviews and merges.
 
 ## Code Style
 Just comply with the [ESLint](https://github.com/ElemeFE/eslint-config-elemefe) configuration of [ElemeFE](https://github.com/elemefe).
