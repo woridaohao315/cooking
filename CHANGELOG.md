@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 未发布
+- cooking:
+  - watch 时增加 NamedModulesPlugin
+
 ## [v1.1.1] 2016.09.20
 - cooking:
   - 修复 postcss 传函数时无法获取 `webpack` 参数

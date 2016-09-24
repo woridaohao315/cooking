@@ -43,11 +43,13 @@ if (!configs.devServer.enable) {
 } else {
   // webpack dev server
   logger.log('Loading server...')
-  var hostPlugin = new webpack.HotModuleReplacementPlugin()
+  var hostPlugin = webpack.HotModuleReplacementPlugin || function() {}
+  var namedModules = webpack.NamedModulesPlugin || function() {}
+
   if (Array.isArray(configs)) {
-    configs.map(config => config.plugins.push(hostPlugin))
+    configs.map(config => config.plugins.push(new hostPlugin(), new namedModules()))
   } else {
-    configs.plugins.push(hostPlugin)
+    configs.plugins.push(new hostPlugin(), new namedModules())
   }
 
   const devServer = configs.devServer
