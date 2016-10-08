@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## [v1.1.3] 2016.10.02
+## [v1.1.3] 2016.10.08
 - cooking:
   - 锁定 webpack beta.22 版本
 
