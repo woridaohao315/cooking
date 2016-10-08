@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v1.1.3] 2016.10.02
+- cooking:
+  - 锁定 webpack beta.22 版本
+
 ## [v1.1.2] 2016.10.02
 - cooking:
   - watch 时增加 NamedModulesPlugin
