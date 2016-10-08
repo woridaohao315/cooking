@@ -16,6 +16,7 @@
 - [文档](http://cookingjs.github.io)
 - [例子](https://github.com/cooking-demo)
 - [教程: 用 cooking 搭建一个简单又优雅的 Vue 项目开发环境 (入门篇)](https://zhuanlan.zhihu.com/p/22387692)
+- [教程: 用 cooking 搭建一个多页面易配置的 Vue 2 项目（进阶篇）](https://zhuanlan.zhihu.com/p/22610408)
 
 ## 讨论
 使用上遇到的问题请到 [Gitter 聊天室](https://gitter.im/QingWei-Li/cooking?utm_source=share-link&utm_medium=link&utm_campaign=share-link), issue 仅仅用来处理 bug 和 feature 等的问题。
