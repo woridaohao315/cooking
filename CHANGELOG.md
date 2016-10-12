@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [v1.1.4] 2016.10.13
+- cooking:
+  - 去掉全局安装 cooking 的提示
+  - 去掉重复依赖
+
 ## [v1.1.3] 2016.10.08
 - cooking:
   - 锁定 webpack beta.22 版本
