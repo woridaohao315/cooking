@@ -1,10 +1,10 @@
 # CHANGELOG
 
-## [v1.2.0] 未发布
+## [v1.2.0] 2016.11.13
 - cooking-cli:
   - 支持 yarn，通过 `cooking config pm yarn` 将包管理设置成 yarn 即可
   - 支持 webpack 2 新版配置规则
-  - postcss 升级到 ^1.0.0，推荐使用 `postcss` [配置文件进行配置](https://github.com/postcss/postcss-loader#usage)，原先的 postcss 仍然有效。
+  - postcss 升级到 ^1.0.0，推荐使用 `postcss` [配置文件进行配置](https://github.com/postcss/postcss-loader#usage)，原先的 postcss 仍然有效
 
 ## [v1.1.4] 2016.10.13
 - cooking:
