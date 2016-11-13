@@ -1,9 +1,11 @@
 const _set = require('lodash/set')
 const _unset = require('lodash/unset')
+const to2 = require('2webpack2')
 const getBaseConfig = require('../util/get-base-config')
 const merge = require('../util/merge')
 const parse = require('../util/parse')
 const loadExtend = require('../util/load-extend')
+const isNextWebpack = require('../util/check').isNextWebpack
 
 // cooking version
 exports.version = require('../package.json').version
@@ -75,5 +77,20 @@ exports.add = function (_path, value) {
  * return webpack config
  */
 exports.resolve = function () {
-  return parse(this.config)
+  var v = exports.webpackVersion
+  var needParse = false
+
+  // webpack: 2
+  if (isNextWebpack) {
+    // <=2.1.0-beta.25
+    if (/beta/.test(v) && v.split('.').pop() < 25) {
+      needParse = false
+    } else {
+      needParse = true
+    }
+  }
+
+  return needParse ?
+    to2(parse(this.config), {quiet: true, context: true}) :
+    parse(this.config)
 }
