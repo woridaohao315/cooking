@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [v1.2.1] 2016.11.19
+- cooking
+  - 修复 publicPath 无法设置空字符串的问题
+- cooking-cli
+  - 修复 yarn 全局安装时提示指令不存在的问题
+
 ## [v1.2.0] 2016.11.13
 - cooking-cli:
   - 支持 yarn，通过 `cooking config pm yarn` 将包管理设置成 yarn 即可

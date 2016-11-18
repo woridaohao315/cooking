@@ -4,7 +4,16 @@
   "description": "cooking cli.",
   "preferGlobal": true,
   "bin": {
-    "cooking": "bin/cooking"
+    "cooking": "bin/cooking",
+    "cooking-build": "bin/cooking-build",
+    "cooking-config": "bin/cooking-config",
+    "cooking-create": "bin/cooking-create",
+    "cooking-import": "bin/cooking-import",
+    "cooking-init": "bin/cooking-init",
+    "cooking-list": "bin/cooking-list",
+    "cooking-remove": "bin/cooking-remove",
+    "cooking-update": "bin/cooking-update",
+    "cooking-watch": "bin/cooking-watch"
   },
   "repository": {
     "type": "git",

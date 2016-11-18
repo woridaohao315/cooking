@@ -5,7 +5,9 @@
   "main": "lib/cooking.js",
   "preferGlobal": false,
   "bin": {
-    "cooking": "bin/cooking"
+    "cooking": "bin/cooking",
+    "cooking-build": "bin/cooking-build",
+    "cooking-watch": "bin/cooking-watch"
   },
   "repository": {
     "type": "git",
