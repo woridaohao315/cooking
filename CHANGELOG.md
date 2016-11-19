@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [v1.2.2] 2016.11.20
+- cooking-cli
+  - 修复 Yarn 全局安装时无法正确执行, #108
+
+
 ## [v1.2.1] 2016.11.19
 - cooking
   - 修复 publicPath 无法设置空字符串的问题

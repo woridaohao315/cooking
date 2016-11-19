@@ -57,4 +57,3 @@ exports.pluginExists = function (name) {
 exports.localExists = function (name) {
   return fs.existsSync(path.join(CWD_PATH, 'node_modules', name))
 }
-
