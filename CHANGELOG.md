@@ -1,10 +1,16 @@
 # CHANGELOG
 
+## [v1.2.2] 2016.11.21
+- cooking-cli
+  - 修复 Yarn 全局安装后 watch/build 无法使用, #108
+
 ## [v1.2.2] 2016.11.20
 - cooking-cli
   - 修复 Yarn 全局安装时无法正确执行, #108
+  - 新增 license 文件
 - cooking
   - 全局安装提示错误(万年坑)
+  - 新增 license 文件
 
 
 ## [v1.2.1] 2016.11.19

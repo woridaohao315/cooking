@@ -7,6 +7,7 @@ const shelljs = require('shelljs')
 const pkg = require('../package.json')
 const PLUGIN_PATH = require('./path').PLUGIN_PATH
 const CWD_PATH = require('./path').CWD_PATH
+const ROOT_PATH = require('./path').ROOT_PATH
 
 exports.registry = function (registry) {
   if (!registry) {
@@ -56,4 +57,9 @@ exports.pluginExists = function (name) {
 /* istanbul ignore next */
 exports.localExists = function (name) {
   return fs.existsSync(path.join(CWD_PATH, 'node_modules', name))
+}
+
+/* istanbul ignore next */
+exports.isYarn = function () {
+  return ROOT_PATH.indexOf('yarn') > -1
 }
