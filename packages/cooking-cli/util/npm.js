@@ -6,11 +6,8 @@ const PLUGIN_PATH = require('./path').PLUGIN_PATH
 const checkRegistry = require('./check').registry
 const config = require('./config')
 const commands = require('./npm-commands.json')
-const pm = commands[require('./config').get('pm')]
+const pm = commands[require('./config').get('pm')] || commands.npm
 const logger = require('./logger')
-if (!pm) {
-  logger.fatal('Only supports ' + Object.keys(commands).join(', '))
-}
 
 const npm = (options, registry) => {
   registry = registry || config.get('registry')
