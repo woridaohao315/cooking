@@ -7,7 +7,6 @@ const checkRegistry = require('./check').registry
 const config = require('./config')
 const commands = require('./npm-commands.json')
 const pm = commands[require('./config').get('pm')] || commands.npm
-const logger = require('./logger')
 
 const npm = (options, registry) => {
   registry = registry || config.get('registry')
