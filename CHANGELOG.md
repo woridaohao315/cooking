@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 未发布
+## [v1.2.4] 2016.11.24
 - cooking-cli
   - 修复 remove/update 从旧版升级后无法使用，提示 `Only supports npm, yarn`
 - cooking
