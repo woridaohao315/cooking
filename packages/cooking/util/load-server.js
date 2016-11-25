@@ -9,7 +9,8 @@ const defaultServer = {
   historyApiFallback: true,
   lazy: false,
   stats: 'errors-only',
-  host: 'localhost'
+  host: 'localhost',
+  __host__: 'http://localhost:8080'
 }
 
 module.exports = server => {
@@ -23,7 +24,13 @@ module.exports = server => {
 
   // object
   if (isObject(server)) {
-    return Object.assign(defaultServer, server)
+    const config = Object.assign(defaultServer, server)
+
+    config.host = config.hostname || config.host || defaultServer.host
+    config.__host__ = `${config.https ? 'https' : 'http'}://${config.host}:${config.port}`
+    delete config.hostname
+
+    return config
   }
 
   // array, string, true, number .etc
