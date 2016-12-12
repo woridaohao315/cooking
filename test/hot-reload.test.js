@@ -5,14 +5,14 @@ import loadServer from '../packages/cooking/util/load-server'
 test('load hotreload', t => {
   const entry = 'entry.js'
   const devServer = {
-    host: 'localhost',
+    host: '0.0.0.0',
     enable: true
   }
   const config = hotReload(entry, loadServer(devServer))
 
   t.deepEqual(config, {
     app: [
-      'webpack-dev-server/client?http://localhost:8080/',
+      'webpack-dev-server/client?http://0.0.0.0:8080/',
       'webpack/hot/dev-server',
       'webpack-hud',
       'entry.js'
@@ -26,7 +26,7 @@ test('multiple enty', t => {
     pageB: 'pageB.js'
   }
   const devServer = {
-    host: 'localhost',
+    host: '0.0.0.0',
     enable: true,
     log: true
   }
@@ -34,13 +34,13 @@ test('multiple enty', t => {
 
   t.deepEqual(config, {
     pageA: [
-      'webpack-dev-server/client?http://localhost:8080/',
+      'webpack-dev-server/client?http://0.0.0.0:8080/',
       'webpack/hot/dev-server',
       'webpack-hud',
       'pageA.js'
     ],
     pageB: [
-      'webpack-dev-server/client?http://localhost:8080/',
+      'webpack-dev-server/client?http://0.0.0.0:8080/',
       'webpack/hot/dev-server',
       'webpack-hud',
       'pageB.js'
@@ -51,7 +51,7 @@ test('multiple enty', t => {
 test('disabled hotreload', t => {
   const entry = 'entry.js'
   const devServer = {
-    host: 'localhost',
+    host: '0.0.0.0',
     enable: false
   }
   const config = hotReload(entry, loadServer(devServer))
@@ -64,7 +64,7 @@ test('disabled hotreload', t => {
 test('no entry', t => {
   process.env.NODE_ENV = 'testing'
   const devServer = {
-    host: 'localhost',
+    host: '0.0.0.0',
     enable: false
   }
 

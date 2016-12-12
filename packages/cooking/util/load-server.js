@@ -9,8 +9,8 @@ const defaultServer = {
   historyApiFallback: true,
   lazy: false,
   stats: 'errors-only',
-  host: 'localhost',
-  __host__: 'http://localhost:8080'
+  host: '0.0.0.0',
+  __host__: 'http://0.0.0.0:8080'
 }
 
 module.exports = server => {

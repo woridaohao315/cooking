@@ -11,7 +11,8 @@ exports.set = function (config) {
     add: this.add,
     remove: this.remove,
     config: this.config,
-    _userConfig: config
+    _userConfig: config,
+    version: cooking.version
   })
 
   return this

@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [v1.2.6] 2016.12.12
+- cooking
+  - 修复插件无法读取 cooking 版本号
+  - 更改默认 host 为 `0.0.0.0`
+- cooking-cli
+  - 修复插件无法读取 cooking 版本号
+
 ## [v1.2.5] 2016.11.25
 - cooking
   - 修复 dev server 默认配置
