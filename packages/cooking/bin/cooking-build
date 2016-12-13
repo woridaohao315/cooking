@@ -50,7 +50,7 @@ compiler.plugin('done', stats => {
 
 compiler.run(function (err, stats) {
   if (err) {
-    logger.error(err)
+    logger.fatal(err)
     return
   }
 
