@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [v1.2.8] 2016.12.14
+- cooking-cli: 升级到 webpack beta28
+
 ## [v1.2.7] 2016.12.13
 - cooking: 出错状态为 1
 

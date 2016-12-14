@@ -10,8 +10,11 @@ module.exports = function (userConfig) {
     limit = userConfig.urlLoaderLimit || 10000
   }
   const assetsPath = userConfig.assetsPath || 'static'
-
   return {
+    performance: {
+      hints: process.env.NODE_ENV === 'production'
+    },
+
     output: {
       path: path.resolve(process.cwd(), 'dist'),
       publicPath: '/dist/',
