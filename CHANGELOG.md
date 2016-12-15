@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [v1.2.9] 2016.12.15
+- cooking-cli: 升级到 webpack rc
+
 ## [v1.2.8] 2016.12.14
 - cooking-cli: 升级到 webpack beta28
 
