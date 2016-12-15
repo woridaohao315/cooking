@@ -54,12 +54,17 @@ $ cooking watch
 
 ### Using cooking core
 ```shell
-npm i cooking -S
+npm i cooking -D
 
 # install webpack dependencies (take webpack 1 for example)
 npm i babel-core babel-loader css-loader file-loader postcss postcss-loader\
  html-loader html-webpack-plugin json-loader style-loader url-loader\
  webpack@1 webpack-dev-server@1 extract-text-webpack-plugin@1 -D
+
+# or install webpack dependencies (take webpack 2)
+npm i babel-core babel-loader css-loader file-loader postcss postcss-loader\
+ html-loader html-webpack-plugin json-loader style-loader url-loader\
+ webpack@beta webpack-dev-server@beta extract-text-webpack-plugin@beta -D
 
 # start developing
 node_modules/.bin/cooking watch # or webpack --config cooking.conf.js
