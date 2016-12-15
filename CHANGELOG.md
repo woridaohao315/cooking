@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [v1.2.10] 2016.12.15
+- cooking: 修复 hints 配置错误
+
 ## [v1.2.9] 2016.12.15
 - cooking-cli: 升级到 webpack rc
 
