@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [v1.2.11] 2016.12.16
+- cooking: 修复开发模式下无法自定义 sourceMap
+
 ## [v1.2.10] 2016.12.15
 - cooking: 修复 hints 配置错误
 

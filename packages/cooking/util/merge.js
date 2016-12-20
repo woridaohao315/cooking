@@ -103,7 +103,7 @@ module.exports = function (userConfig, baseConfig) {
 
   // development
   if (process.env.NODE_ENV === 'development') {
-    config.devtool = '#eval-source-map'
+    config.devtool = userConfig.sourceMap === true ? '#eval-source-map' : userConfig.sourceMap
     config.devServer = userConfig.devServer
 
     // plugin
