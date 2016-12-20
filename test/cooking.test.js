@@ -356,10 +356,10 @@ test('sourceMap', t => {
 
   t.is(config1.devtool, '#eval-source-map')
   t.is(config2.devtool, false)
-  t.is(config3.devtool, '#eval-source-map')
+  t.is(config3.devtool, false)
   t.is(config4.devtool, '#eval-source-map')
   t.is(config5.devtool, '#source-map')
-  t.is(config6.devtool, '#eval-source-map')
+  t.is(config6.devtool, '#eval')
 
   process.env.NODE_ENV = 'production'
 
