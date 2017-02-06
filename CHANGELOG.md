@@ -1,4 +1,6 @@
 # CHANGELOG
+## [v1.4.1] 2017.2.6
+- 锁定 extract-text-webpack-plugin 的版本为 beta4
 
 ## [v1.4.0] 2017.1.19
 - 升级到 webpack 2.2.0
