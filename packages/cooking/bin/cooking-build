@@ -25,7 +25,9 @@ program.config = program.config || ['cooking.conf.js']
 // 加载配置
 program.config.forEach(config => {
   config = loadConfig(config, program)
-  config.output.publicPath = program.outputPublicPath || config.output.publicPath
+  ;[].concat(config).forEach(function (c) {
+    c.output.publicPath = program.outputPublicPath || c.output.publicPath
+  })
   configs.push(config)
 })
 
