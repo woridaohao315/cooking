@@ -1,11 +1,12 @@
 'use strict'
+const cp = require('child_process')
 
 module.exports = name => {
   try {
-    require.resolve(name)
+    cp.execSync('node -e require.resolve("' + name + '")', {stdio: 'ignore'})
 
     return true
-  } catch (_) {
+  } catch (err) {
     return false
   }
 }
