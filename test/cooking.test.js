@@ -140,7 +140,7 @@ test('cooking set chunk', t => {
   const chunk = new webpack.optimize.CommonsChunkPlugin('vendor')
 
   t.truthy(cooking.config.plugins['commons-chunk'])
-  t.is(cooking.config.plugins['commons-chunk'].chunkNames, chunk.chunkNames)
+  t.deepEqual(cooking.config.plugins['commons-chunk'].chunkNames, chunk.chunkNames)
 
   cooking.set({
     chunk: [
@@ -169,7 +169,7 @@ test('cooking set chunk', t => {
   t.truthy(cooking.config.plugins['0-chunk'])
 
   // 设置参数
-  t.is(cooking.config.plugins['1-chunk'].chunkNames, chunkB.chunkNames)
+  t.deepEqual(cooking.config.plugins['1-chunk'].chunkNames, chunkB.chunkNames)
 
   // 设置 chunks
   t.deepEqual(cooking.config.plugins['2-chunk'].selectedChunks, chunkC.selectedChunks)
