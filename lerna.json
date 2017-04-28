@@ -1,6 +1,6 @@
 {
   "lerna": "2.0.0-beta.26",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "bootstrapConfig": {
     "ignore": "cooking-cli"
   }
