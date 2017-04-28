@@ -1,4 +1,7 @@
 # CHANGELOG
+## [v1.5.1] 2017.4.28
+- cooking: fix is_installed.js
+
 ## [v1.5.0] 2017.2.9
 - cooking: 配置文件支持传入数组
 ```js
