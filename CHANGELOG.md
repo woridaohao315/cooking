@@ -1,4 +1,10 @@
 # CHANGELOG
+## [v1.5.3] 2017.5.23
+- cooking: fix is_installed.js
+
+## [v1.5.2] 2017.5.8
+- cooking: disable host check
+
 ## [v1.5.1] 2017.4.28
 - cooking: fix is_installed.js
 
