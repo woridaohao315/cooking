@@ -43,9 +43,6 @@ exports.checkVersion = function () {
   var notifier = updateNotifier({pkg})
 
   notifier.notify()
-  if (notifier.update) {
-    console.log(notifier.update)
-  }
 }
 
 /* istanbul ignore next */
