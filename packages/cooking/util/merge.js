@@ -30,8 +30,8 @@ const extractCSS = function (extractcss, config, hash) {
     test: /\.css$/,
     loader: isNextWebpack ?
       ExtractTextPlugin.extract({
-        fallbackLoader: 'style-loader',
-        loader: cssLoader
+        fallback: 'style-loader',
+        use: cssLoader
       }) :
       ExtractTextPlugin.extract('style-loader', cssLoader)
   }
